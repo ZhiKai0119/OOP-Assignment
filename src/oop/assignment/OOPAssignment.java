@@ -19,6 +19,7 @@ public class OOPAssignment {
         System.out.println("Testing");
         System.out.println("Hi Yf here");
         System.out.println("Hiii, I'm ZhiXuan");
+        System.out.println("I am XT");
     }
     
 }
