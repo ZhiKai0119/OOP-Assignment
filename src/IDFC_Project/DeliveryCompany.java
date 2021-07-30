@@ -20,7 +20,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
 
     String s;
     private static final String username = "root";
-    private static final String password = "Kai20010119";
+    private static final String password = "mysql@123";
     private static final String url = "jdbc:mysql://localhost:3306/idfc";
     
     Connection sqlConn = null;
