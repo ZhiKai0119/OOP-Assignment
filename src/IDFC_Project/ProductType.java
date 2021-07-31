@@ -4,13 +4,21 @@
  * and open the template in the editor.
  */
 package IDFC_Project;
-
+import java.sql.*;
+import javax.swing.*;
 /**
  *
  * @author User
  */
 public class ProductType extends javax.swing.JFrame {
 
+    private static final String username = "root";
+    private static final String password = "010221";
+    private static final String url = "jdbc:mysql://localhost:3306/idfc";
+    
+    Connection sqlConn = null;
+    PreparedStatement pst = null;
+    
     /**
      * Creates new form ProductType
      */
@@ -53,6 +61,9 @@ public class ProductType extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            Connection conn = DriverManager.getConnection(url, username, password);
+            
+            System.out.println("Connected to the database");
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -67,8 +78,11 @@ public class ProductType extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ProductType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ProductType.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
         }
         //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
