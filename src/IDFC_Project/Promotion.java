@@ -4,13 +4,18 @@
  * and open the template in the editor.
  */
 package IDFC_Project;
-
+import java.sql.*;
+import javax.swing.*;
 /**
  *
  * @author User
  */
 public class Promotion extends javax.swing.JFrame {
 
+      private static final String user = "root";
+    private static final String pwd = "1234";
+    private static final String url = "jdbc:mysql://localhost:3306/idfc";
+    
     /**
      * Creates new form Promotion
      */
@@ -53,6 +58,16 @@ public class Promotion extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+                Connection conn = DriverManager.getConnection(url, user, pwd);
+            
+            System.out.println("Connected to the database");
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -67,6 +82,8 @@ public class Promotion extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Promotion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Promotion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }  catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
         }
         //</editor-fold>
 
