@@ -253,7 +253,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
         } catch(SQLException ex){
             JOptionPane.showMessageDialog(null, ex);
         }
-        //</editor-fold>
+        //</editor-fold> 
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

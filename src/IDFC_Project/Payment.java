@@ -5,12 +5,21 @@
  */
 package IDFC_Project;
 
+import java.sql.*;
+import javax.swing.*;
 /**
  *
  * @author PC01
  */
 public class Payment extends javax.swing.JFrame {
 
+    private static final String user = "root";
+    private static final String pwd = "mysql@123";
+    private static final String url = "jdbc:mysql://localhost:3306/idfc";
+    
+    Connection sqlConn = null;
+    PreparedStatement pst = null;
+    
     /**
      * Creates new form Payment
      */
@@ -53,6 +62,10 @@ public class Payment extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            Connection conn = DriverManager.getConnection(url, user, pwd);
+            
+            System.out.println("Connected to the database");
+            
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -67,6 +80,8 @@ public class Payment extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Payment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex);
         }
         //</editor-fold>
 
