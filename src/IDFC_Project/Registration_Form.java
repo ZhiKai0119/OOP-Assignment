@@ -376,7 +376,7 @@ public class Registration_Form extends javax.swing.JFrame {
             Pattern p_CN = Pattern.compile(c_expression);
             Matcher m_CN = p_CN.matcher(jTextField_CN.getText());
             //Password Validation
-            //boolean validPassword = isValidPassword(password);
+            boolean validPassword = isValidPassword(password);
             if (!textFieldsValid()) {
                 JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
             }
