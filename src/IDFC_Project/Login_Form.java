@@ -5,6 +5,9 @@
  */
 package IDFC_Project;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JFrame;
 
 /**
@@ -12,12 +15,19 @@ import javax.swing.JFrame;
  * @author wongx
  */
 public class Login_Form extends javax.swing.JFrame {
+    static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
+    static final String USER = "root";
+    static final String PASS = "Yizhimae_98";
+    Connection sqlCon = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form Login_Form
      */
     public Login_Form() {
         initComponents();
+        this.setLocationRelativeTo(null);//Center Form 
     }
 
     /**
