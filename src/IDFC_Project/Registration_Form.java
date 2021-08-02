@@ -75,7 +75,6 @@ public class Registration_Form extends javax.swing.JFrame {
         jPasswordField_ConPass = new javax.swing.JPasswordField();
         jComboBox_Roles = new javax.swing.JComboBox<>();
         jComboBox_Ques = new javax.swing.JComboBox<>();
-        jProgressBar_PASS = new javax.swing.JProgressBar();
         jTextField_Ans = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,6 +82,7 @@ public class Registration_Form extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(26, 26, 26));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Logo_Portrait.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(203, 178, 106));
@@ -247,8 +247,7 @@ public class Registration_Form extends javax.swing.JFrame {
                     .addComponent(jPasswordField_Pass)
                     .addComponent(jPasswordField_ConPass)
                     .addComponent(jComboBox_Roles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox_Ques, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBar_PASS, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jComboBox_Ques, 0, 166, Short.MAX_VALUE)
                     .addComponent(jTextField_Ans, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(0, 64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -290,23 +289,20 @@ public class Registration_Form extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addComponent(jTextField_CN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField_ConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel24))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton_M)
-                            .addComponent(jRadioButton_F)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel25)
-                            .addComponent(jComboBox_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel8))
-                    .addComponent(jProgressBar_PASS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField_ConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel24))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton_M)
+                    .addComponent(jRadioButton_F)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel25)
+                    .addComponent(jComboBox_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel8)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -541,7 +537,6 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField_ConPass;
     private javax.swing.JPasswordField jPasswordField_Pass;
-    private javax.swing.JProgressBar jProgressBar_PASS;
     private javax.swing.JRadioButton jRadioButton_F;
     private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
