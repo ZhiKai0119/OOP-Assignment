@@ -6,6 +6,7 @@
  */
 package IDFC_Project;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Registration_Form extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
     static final String USER = "root";
     static final String PASS = "Yizhimae_98";
+    private static int startID = 10001;
     Connection sqlCon = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -75,14 +78,15 @@ public class Registration_Form extends javax.swing.JFrame {
         jPasswordField_ConPass = new javax.swing.JPasswordField();
         jComboBox_Roles = new javax.swing.JComboBox<>();
         jComboBox_Ques = new javax.swing.JComboBox<>();
-        jProgressBar_PASS = new javax.swing.JProgressBar();
         jTextField_Ans = new javax.swing.JTextField();
+        jXDatePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(26, 26, 26));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Logo_Portrait.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(203, 178, 106));
@@ -190,6 +194,16 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel25.setText("Role:");
 
         jPasswordField_Pass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        jPasswordField_Pass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPasswordField_PassMouseExited(evt);
+            }
+        });
+        jPasswordField_Pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPasswordField_PassKeyReleased(evt);
+            }
+        });
 
         jPasswordField_ConPass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
@@ -222,34 +236,36 @@ public class Registration_Form extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jRadioButton_M)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                                    .addComponent(jRadioButton_F))
-                                .addComponent(jTextField_CN, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField_Email)
-                                .addComponent(jTextField_FN, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField_LN))
-                            .addGap(11, 11, 11)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel24)
-                                .addComponent(jLabel25)))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField_Pass)
-                    .addComponent(jPasswordField_ConPass)
-                    .addComponent(jComboBox_Roles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox_Ques, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBar_PASS, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                    .addComponent(jTextField_Ans, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jRadioButton_M)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                        .addComponent(jRadioButton_F))
+                                    .addComponent(jTextField_CN, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextField_Email)
+                                    .addComponent(jTextField_FN, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jTextField_LN))
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel24)
+                                    .addComponent(jLabel25)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField_Pass)
+                            .addComponent(jPasswordField_ConPass)
+                            .addComponent(jComboBox_Roles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox_Ques, 0, 166, Short.MAX_VALUE)
+                            .addComponent(jTextField_Ans, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
                 .addGap(0, 64, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -290,24 +306,23 @@ public class Registration_Form extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addComponent(jTextField_CN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField_ConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel24))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton_M)
-                            .addComponent(jRadioButton_F)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel25)
-                            .addComponent(jComboBox_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel8))
-                    .addComponent(jProgressBar_PASS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField_ConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel24))
                 .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton_M)
+                    .addComponent(jRadioButton_F)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel25)
+                    .addComponent(jComboBox_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
@@ -337,7 +352,7 @@ public class Registration_Form extends javax.swing.JFrame {
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         try
         {
-            String userID = "21WMR04845";
+            String userID = "21WMR12346";
             String firstName = jTextField_FN.getText();
             String lastName = jTextField_LN.getText();
             String contactNo = jTextField_CN.getText();
@@ -348,51 +363,62 @@ public class Registration_Form extends javax.swing.JFrame {
             String password = String.valueOf(jPasswordField_Pass.getPassword());
             String conPass = String.valueOf(jPasswordField_ConPass.getPassword());
             String role=jComboBox_Roles.getSelectedItem().toString();
-            String gender = null;
+            String gender = "";
             String dateOfBirth=null;
-
-            Class.forName("com.mysql.jdbc.Driver");
-            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-            ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setString(1, userID);
-            ps.setString(2, firstName);
-            ps.setString(3, lastName);
-            ps.setString(4, email);
-            ps.setString(5, gender);
-            ps.setString(6, contactNo);
-            ps.setString(7, dateOfBirth);
-            ps.setString(8, address);
-            ps.setString(9, securityQuestion);
-            ps.setString(10, securityAnswer);
-            ps.setString(11, password);
-            ps.setString(12, role);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Insert Successfully.");
-
+            
+            
             //Email Validation
             String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
             Pattern p_email = Pattern.compile(e_expression);
             Matcher m_email = p_email.matcher(jTextField_Email.getText());
-            if(!m_email.matches()){
-                JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
-            }
-
-            //ContactNo Validation
+             //ContactNo Validation
             String c_expression = "\\d{3}-\\d{8}";
             Pattern p_CN = Pattern.compile(c_expression);
             Matcher m_CN = p_CN.matcher(jTextField_CN.getText());
-            if (!m_CN.matches()) {
+            //Password Validation
+            //boolean validPassword = isValidPassword(password);
+            if (!textFieldsValid()) {
+                JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
+            }
+            else if(radioButtonValid()){
+                if(jRadioButton_M.isSelected()){
+                    gender = "M";
+                }
+                else if(jRadioButton_F.isSelected()){
+                    gender = "F";
+                }
+            }
+            else if(!radioButtonValid()){
+                JOptionPane.showMessageDialog(null, "Please select your gender.");
+            }
+            else if(!m_email.matches()){
+                JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
+            }
+            else if (!m_CN.matches()) {
                 JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
             }
-
-            //Password Validation
-            boolean validPassword = isValidPassword(password);
-
-            //Password & Confirm Password Validation
-            if (!((password)).equals(conPass)){
+            else if (!((password)).equals(conPass)){
                 JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.");
             }
-
+            else{
+                 Class.forName("com.mysql.jdbc.Driver");
+                 sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                 ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                 ps.setString(1, userID);
+                 ps.setString(2, firstName);
+                 ps.setString(3, lastName);
+                 ps.setString(4, email);
+                 ps.setString(5, gender);
+                 ps.setString(6, contactNo);
+                 ps.setString(7, dateOfBirth);
+                 ps.setString(8, address);
+                 ps.setString(9, securityQuestion);
+                 ps.setString(10, securityAnswer);
+                 ps.setString(11, password);
+                 ps.setString(12, role);
+                 ps.executeUpdate();
+                 JOptionPane.showMessageDialog(null, "Insert Successfully.");
+            }           
         }
         catch(Exception e)
         {
@@ -413,14 +439,75 @@ public class Registration_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_EmailActionPerformed
 
     private void jTextField_AnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AnsActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextField_AnsActionPerformed
 
-     private void groupButton( ) {
-        
+    private void jPasswordField_PassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField_PassMouseExited
+
+    }//GEN-LAST:event_jPasswordField_PassMouseExited
+
+    private void jPasswordField_PassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField_PassKeyReleased
+
+    }//GEN-LAST:event_jPasswordField_PassKeyReleased
+
+     private void groupButton( ) {       
         ButtonGroup bg1 = new ButtonGroup( );
         bg1.add(jRadioButton_M);
         bg1.add(jRadioButton_F);
+    }
+     
+     private boolean radioButtonValid(){
+         boolean validRadioButton = true;
+         
+          if(jRadioButton_M.isSelected()){
+              validRadioButton = true;
+          }
+          else if(jRadioButton_F.isSelected()){
+              validRadioButton = true;
+          }
+          else{
+              validRadioButton = false;
+          }
+          return validRadioButton;
+     }
+     
+    private boolean textFieldsValid() {
+        boolean validTextFields = true;
+        
+        if (jTextField_FN.getText().isEmpty()) {
+            validTextFields = false;
+            jTextField_FN.setBorder(new LineBorder(Color.RED));
+        }
+        
+        if (jTextField_LN.getText().isEmpty()) {
+            validTextFields = false;
+            jTextField_LN.setBorder(new LineBorder(Color.RED));
+        }
+        
+        if (jTextField_Email.getText().isEmpty()) {
+            validTextFields = false;
+            jTextField_Email.setBorder(new LineBorder(Color.RED));
+        }
+                
+        if (jTextField_CN.getText().isEmpty()) {
+            validTextFields = false;
+            jTextField_CN.setBorder(new LineBorder(Color.RED));
+        }
+        
+        if (jTextArea_Address.getText().isEmpty()) {
+            validTextFields = false;
+            jTextArea_Address.setBorder(new LineBorder(Color.RED));
+        }
+        
+        if (jTextField_Ans.getText().isEmpty()) {
+            validTextFields = false;
+            jTextField_Ans.setBorder(new LineBorder(Color.RED));
+        }        
+        else{
+            validTextFields = true;
+            jTextField_Ans.setBorder(new LineBorder(Color.BLACK));
+        }
+        return validTextFields;
     }
     
      public boolean checkEmail(String email)
@@ -483,13 +570,12 @@ public class Registration_Form extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
+      
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);        
-            System.out.println("Connected to the database");
             
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -505,9 +591,6 @@ public class Registration_Form extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Registration_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Registration_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex);
         }
         //</editor-fold>
 
@@ -541,7 +624,6 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField_ConPass;
     private javax.swing.JPasswordField jPasswordField_Pass;
-    private javax.swing.JProgressBar jProgressBar_PASS;
     private javax.swing.JRadioButton jRadioButton_F;
     private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
@@ -551,5 +633,6 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Email;
     private javax.swing.JTextField jTextField_FN;
     private javax.swing.JTextField jTextField_LN;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker_DOB;
     // End of variables declaration//GEN-END:variables
 }
