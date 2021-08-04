@@ -5,11 +5,13 @@
  */
 package IDFC_Project;
 
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkMediumIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
+import connection.DatabaseConnection;
 import java.sql.*;
 import java.awt.Image;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 /**
@@ -19,11 +21,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class DeliveryCompany extends javax.swing.JFrame {
 
     String s;
-    private static final String username = "root";
-    private static final String password = "mysql@123";
-    private static final String url = "jdbc:mysql://localhost:3306/idfc";
+//    private static final String username = "root";
+//    private static final String password = "mysql@123";
+//    private static final String url = "jdbc:mysql://localhost:3306/idfc";
     
-    Connection sqlConn = null;
+//    Connection sqlConn = null;
     PreparedStatement pst = null;
     //ResultSet rs = null;
     /**
@@ -31,6 +33,15 @@ public class DeliveryCompany extends javax.swing.JFrame {
      */
     public DeliveryCompany() {
         initComponents();
+        init();
+    }
+    
+    private void init() {
+        try {
+            DatabaseConnection.getInstance().connectToDatabase();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -53,7 +64,9 @@ public class DeliveryCompany extends javax.swing.JFrame {
         txtManager = new java.awt.TextField();
         lblLogo = new javax.swing.JLabel();
         btnAdd = new java.awt.Button();
-        btnBroese = new java.awt.Button();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtContactNo = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,16 +85,27 @@ public class DeliveryCompany extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel5.setText("Company Logo:");
 
+        txtComID.setBackground(new java.awt.Color(0, 0, 0));
         txtComID.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
 
+        txtComName.setBackground(new java.awt.Color(0, 0, 0));
         txtComName.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
 
+        txtAddress.setBackground(new java.awt.Color(0, 0, 0));
         txtAddress.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
 
+        txtManager.setBackground(new java.awt.Color(0, 0, 0));
         txtManager.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
 
-        lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoMouseClicked(evt);
+            }
+        });
 
+        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         btnAdd.setLabel("Add");
@@ -91,87 +115,90 @@ public class DeliveryCompany extends javax.swing.JFrame {
             }
         });
 
-        btnBroese.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBroese.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-        btnBroese.setLabel("Browse");
-        btnBroese.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBroeseActionPerformed(evt);
-            }
-        });
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Logo_Landscape.png"))); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        jLabel7.setText("Contact No.:");
+
+        txtContactNo.setBackground(new java.awt.Color(0, 0, 0));
+        txtContactNo.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(btnBroese, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(68, 68, 68)
+                                    .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(117, 117, 117)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(509, 509, 509)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(68, 68, 68)
-                                .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(34, 34, 34)
-                                .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(117, 117, 117)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(109, 109, 109)
-                                .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(330, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel5))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(420, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBroese, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel4))
+                    .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(81, 81, 81)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -185,8 +212,31 @@ public class DeliveryCompany extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
-    //Insert Image into label
-    private void btnBroeseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBroeseActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        try{
+//            Class.forName("com.mysql.jdbc.Driver");
+//            sqlConn = DriverManager.getConnection(url, username, password);
+            //System.out.println("Connected to the database");
+//            pst = sqlConn.prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, Logo) values(?,?,?,?,?)");
+
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, Status) values(?,?,?,?,?,?,?)");
+            InputStream is = new FileInputStream(new File(s));
+            pst.setString(1, txtComID.getText());
+            pst.setString(2, txtComName.getText());
+            pst.setString(3, txtAddress.getText());
+            pst.setString(4, txtManager.getText());
+            pst.setString(5, txtContactNo.getText());
+            pst.setBlob(6, is);
+            pst.setInt(7, 0);
+            pst.executeUpdate();
+            DatabaseConnection.getInstance().getConnection().close();
+            JOptionPane.showMessageDialog(null, "Data Inserted");
+        } catch(Exception ex){
+            System.out.println("Error Message: " + ex);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
@@ -200,26 +250,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
         }else if(result == JFileChooser.CANCEL_OPTION){
             System.out.println("No File Selected");
         }
-    }//GEN-LAST:event_btnBroeseActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            sqlConn = DriverManager.getConnection(url, username, password);
-            //System.out.println("Connected to the database");
-            pst = sqlConn.prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, Logo) values(?,?,?,?,?)");
-            InputStream is = new FileInputStream(new File(s));
-            pst.setString(1, txtComID.getText());
-            pst.setString(2, txtComName.getText());
-            pst.setString(3, txtAddress.getText());
-            pst.setString(4, txtManager.getText());
-            pst.setBlob(5, is);
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data Inserted");
-        } catch(Exception ex){
-            System.out.println("Error Message: " + ex);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_lblLogoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -230,31 +261,39 @@ public class DeliveryCompany extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-            
-            System.out.println("Connected to the database");
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        //} catch (IllegacompanyIDeption ex) {
-            //java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(DeliveryCompany.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex);
-        }
+//        try {
+//            Connection conn = DriverManager.getConnection(url, username, password);
+//            
+//            System.out.println("Connected to the database");
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        //} catch (IllegacompanyIDeption ex) {
+//            //java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DeliveryCompany.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            Logger.getLogger(DeliveryCompany.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch(SQLException ex){
+//            JOptionPane.showMessageDialog(null, ex);
+//        }
         //</editor-fold> 
-
+        
+        try {
+//            FlatGruvboxDarkMediumIJTheme.setup();
+            FlatAtomOneDarkContrastIJTheme.setup();
+//            FlatArcDarkContrastIJTheme.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -265,16 +304,18 @@ public class DeliveryCompany extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button btnAdd;
-    private java.awt.Button btnBroese;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblLogo;
     private java.awt.TextField txtAddress;
     private java.awt.TextField txtComID;
     private java.awt.TextField txtComName;
+    private java.awt.TextField txtContactNo;
     private java.awt.TextField txtManager;
     // End of variables declaration//GEN-END:variables
 
