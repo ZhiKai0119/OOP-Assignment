@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package IDFC_Project;
-
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import java.sql.*;
 import javax.swing.*;

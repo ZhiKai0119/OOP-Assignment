@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package IDFC_Project;
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import java.sql.*;
 import javax.swing.*;
 /**
@@ -12,7 +13,7 @@ import javax.swing.*;
  */
 public class Promotion extends javax.swing.JFrame {
 
-      private static final String user = "root";
+    private static final String user = "root";
     private static final String pwd = "1234";
     private static final String url = "jdbc:mysql://localhost:3306/idfc";
     
@@ -86,7 +87,12 @@ public class Promotion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
         //</editor-fold>
-
+       try {
+      FlatGruvboxDarkHardIJTheme.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+         }
+       
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
