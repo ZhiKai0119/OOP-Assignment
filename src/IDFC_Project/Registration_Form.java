@@ -6,6 +6,7 @@
  */
 package IDFC_Project;
 
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import java.awt.Color;
 import java.sql.Connection;
@@ -597,7 +598,7 @@ public class Registration_Form extends javax.swing.JFrame {
         
         try {
             //FlatGruvboxDarkMediumIJTheme.setup();
-            FlatAtomOneDarkContrastIJTheme.setup();
+            FlatGruvboxDarkHardIJTheme.setup();
             //FlatArcDarkContrastIJTheme.setup();
         } catch (Exception e) {
             e.printStackTrace();
