@@ -6,6 +6,7 @@
  */
 package IDFC_Project;
 
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -575,7 +576,7 @@ public class Registration_Form extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -591,10 +592,17 @@ public class Registration_Form extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Registration_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Registration_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
         //</editor-fold>
-
         
+        try {
+            //FlatGruvboxDarkMediumIJTheme.setup();
+            FlatAtomOneDarkContrastIJTheme.setup();
+            //FlatArcDarkContrastIJTheme.setup();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+                
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
