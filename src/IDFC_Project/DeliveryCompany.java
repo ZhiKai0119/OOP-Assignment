@@ -5,6 +5,7 @@
  */
 package IDFC_Project;
 
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkMediumIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatArcDarkContrastIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
@@ -58,44 +59,39 @@ public class DeliveryCompany extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtComID = new java.awt.TextField();
-        txtComName = new java.awt.TextField();
-        txtAddress = new java.awt.TextField();
-        txtManager = new java.awt.TextField();
         lblLogo = new javax.swing.JLabel();
-        btnAdd = new java.awt.Button();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtContactNo = new java.awt.TextField();
+        txtComID = new javax.swing.JTextField();
+        txtComName = new javax.swing.JTextField();
+        txtAddress = new javax.swing.JTextField();
+        txtManager = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        txtContactNo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1200, 700));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel1.setText("Company ID:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 88, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel2.setText("Company Name:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 138, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel3.setText("Address:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 198, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel4.setText("Manager:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 268, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel5.setText("Company Logo:");
-
-        txtComID.setBackground(new java.awt.Color(0, 0, 0));
-        txtComID.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-
-        txtComName.setBackground(new java.awt.Color(0, 0, 0));
-        txtComName.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-
-        txtAddress.setBackground(new java.awt.Color(0, 0, 0));
-        txtAddress.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-
-        txtManager.setBackground(new java.awt.Color(0, 0, 0));
-        txtManager.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 395, -1, -1));
 
         lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -104,102 +100,38 @@ public class DeliveryCompany extends javax.swing.JFrame {
                 lblLogoMouseClicked(evt);
             }
         });
-
-        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdd.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-        btnAdd.setLabel("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
+        getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 395, 400, 80));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Logo_Landscape.png"))); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 78));
 
         jLabel7.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel7.setText("Contact No.:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 338, -1, -1));
 
-        txtContactNo.setBackground(new java.awt.Color(0, 0, 0));
+        txtComID.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        getContentPane().add(txtComID, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, 400, 30));
+
+        txtComName.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        getContentPane().add(txtComName, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 400, 30));
+
+        txtAddress.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        getContentPane().add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 400, 30));
+
+        txtManager.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        getContentPane().add(txtManager, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 400, 30));
+
+        jButton1.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 140, 30));
+
         txtContactNo.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(68, 68, 68)
-                                    .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addGap(117, 117, 117)
-                                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(509, 509, 509)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel5))
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(420, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel4))
-                    .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(81, 81, 81)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        getContentPane().add(txtContactNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 400, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -212,7 +144,23 @@ public class DeliveryCompany extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
+        fileChooser.addChoosableFileFilter(filter);
+        int result = fileChooser.showSaveDialog(null);
+        if(result == JFileChooser.APPROVE_OPTION){
+            File selectedFile = fileChooser.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            lblLogo.setIcon(ResizeImage(path));
+            s = path;
+        }else if(result == JFileChooser.CANCEL_OPTION){
+            System.out.println("No File Selected");
+        }
+    }//GEN-LAST:event_lblLogoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
 //            Class.forName("com.mysql.jdbc.Driver");
 //            sqlConn = DriverManager.getConnection(url, username, password);
@@ -234,23 +182,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
         } catch(Exception ex){
             System.out.println("Error Message: " + ex);
         }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
-        fileChooser.addChoosableFileFilter(filter);
-        int result = fileChooser.showSaveDialog(null);
-        if(result == JFileChooser.APPROVE_OPTION){
-            File selectedFile = fileChooser.getSelectedFile();
-            String path = selectedFile.getAbsolutePath();
-            lblLogo.setIcon(ResizeImage(path));
-            s = path;
-        }else if(result == JFileChooser.CANCEL_OPTION){
-            System.out.println("No File Selected");
-        }
-    }//GEN-LAST:event_lblLogoMouseClicked
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,10 +220,12 @@ public class DeliveryCompany extends javax.swing.JFrame {
         
         try {
 //            FlatGruvboxDarkMediumIJTheme.setup();
-            FlatAtomOneDarkContrastIJTheme.setup();
+//            FlatAtomOneDarkContrastIJTheme.setup();
 //            FlatArcDarkContrastIJTheme.setup();
+            FlatGruvboxDarkHardIJTheme.setup();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
         }
         
         /* Create and display the form */
@@ -303,7 +237,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button btnAdd;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -312,11 +246,11 @@ public class DeliveryCompany extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lblLogo;
-    private java.awt.TextField txtAddress;
-    private java.awt.TextField txtComID;
-    private java.awt.TextField txtComName;
-    private java.awt.TextField txtContactNo;
-    private java.awt.TextField txtManager;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtComID;
+    private javax.swing.JTextField txtComName;
+    private javax.swing.JTextField txtContactNo;
+    private javax.swing.JTextField txtManager;
     // End of variables declaration//GEN-END:variables
 
 }
