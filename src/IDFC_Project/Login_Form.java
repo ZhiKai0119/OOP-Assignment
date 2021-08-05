@@ -5,6 +5,7 @@
  */
 package IDFC_Project;
 
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -247,7 +248,7 @@ public class Login_Form extends javax.swing.JFrame {
 
         try {
             //FlatGruvboxDarkMediumIJTheme.setup();
-            FlatAtomOneDarkContrastIJTheme.setup();
+            FlatGruvboxDarkHardIJTheme.setup();
             //FlatArcDarkContrastIJTheme.setup();
         } catch (Exception e) {
             e.printStackTrace();
