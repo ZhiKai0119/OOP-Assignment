@@ -2,6 +2,7 @@ package Swing;
 
 import Model.Model_Menu;
 import java.awt.Color;
+import java.awt.Font;
 
 public class MenuItem extends javax.swing.JPanel {
 
@@ -22,11 +23,13 @@ public class MenuItem extends javax.swing.JPanel {
     public void setSelected(boolean selected) {
         if (data.getType() == Model_Menu.MenuType.MENU) {
             if (selected) {
+                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,15));
                 lbIcon.setIcon(data.toIconSelected());
                 lbName.setForeground(new Color(60, 60, 60));
             } else {
+                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,15));
                 lbIcon.setIcon(data.toIcon());
-                lbName.setForeground(new Color(214, 217, 223));
+                lbName.setForeground(new Color(60, 60, 60));
             }
         }
     }
@@ -38,7 +41,7 @@ public class MenuItem extends javax.swing.JPanel {
         lbIcon = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
 
-        lbName.setForeground(new java.awt.Color(226, 226, 226));
+        lbName.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
         lbName.setText("Menu Name");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -48,18 +51,18 @@ public class MenuItem extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lbIcon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbIcon)
-                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbIcon))
+                .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
 
