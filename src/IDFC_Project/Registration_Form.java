@@ -39,12 +39,12 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField_FN = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
         jButtonRegister = new javax.swing.JButton();
-        jTextField_LN = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField_CN = new javax.swing.JTextField();
-        jTextField_Email = new javax.swing.JTextField();
+        txtContactNo = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jRadioButton_M = new javax.swing.JRadioButton();
@@ -58,11 +58,11 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jPasswordField_Pass = new javax.swing.JPasswordField();
-        jPasswordField_ConPass = new javax.swing.JPasswordField();
-        jComboBox_Roles = new javax.swing.JComboBox<>();
-        jComboBox_Ques = new javax.swing.JComboBox<>();
-        jTextField_Ans = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtConPass = new javax.swing.JPasswordField();
+        cboRoles = new javax.swing.JComboBox<>();
+        cboQuestion = new javax.swing.JComboBox<>();
+        txtAnswer = new javax.swing.JTextField();
         jXDatePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,10 +84,10 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(203, 178, 106));
         jLabel3.setText("Last Name:");
 
-        jTextField_FN.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jTextField_FN.addActionListener(new java.awt.event.ActionListener() {
+        txtFirstName.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtFirstName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FNActionPerformed(evt);
+                txtFirstNameActionPerformed(evt);
             }
         });
 
@@ -100,10 +100,10 @@ public class Registration_Form extends javax.swing.JFrame {
             }
         });
 
-        jTextField_LN.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jTextField_LN.addActionListener(new java.awt.event.ActionListener() {
+        txtLastName.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtLastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_LNActionPerformed(evt);
+                txtLastNameActionPerformed(evt);
             }
         });
 
@@ -111,17 +111,17 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(203, 178, 106));
         jLabel5.setText("Contact No:");
 
-        jTextField_CN.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jTextField_CN.addActionListener(new java.awt.event.ActionListener() {
+        txtContactNo.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtContactNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_CNActionPerformed(evt);
+                txtContactNoActionPerformed(evt);
             }
         });
 
-        jTextField_Email.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jTextField_Email.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_EmailActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
 
@@ -176,30 +176,30 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel25.setForeground(new java.awt.Color(203, 178, 106));
         jLabel25.setText("Role:");
 
-        jPasswordField_Pass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jPasswordField_Pass.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPassword.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jPasswordField_PassMouseExited(evt);
+                txtPasswordMouseExited(evt);
             }
         });
-        jPasswordField_Pass.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jPasswordField_PassKeyReleased(evt);
+                txtPasswordKeyReleased(evt);
             }
         });
 
-        jPasswordField_ConPass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtConPass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
-        jComboBox_Roles.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
-        jComboBox_Roles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Staff", "Delivery Staff" }));
+        cboRoles.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        cboRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Staff", "Delivery Staff" }));
 
-        jComboBox_Ques.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
-        jComboBox_Ques.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Favorite Food", "Favorite Drinks", "Favorite Color", "Favorite Novel", "Favorite Actor", "Favorite Author", "Favorite Subject", "Favorite Pet" }));
+        cboQuestion.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        cboQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Favorite Food", "Favorite Drinks", "Favorite Color", "Favorite Novel", "Favorite Actor", "Favorite Author", "Favorite Subject", "Favorite Pet" }));
 
-        jTextField_Ans.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        jTextField_Ans.addActionListener(new java.awt.event.ActionListener() {
+        txtAnswer.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtAnswer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_AnsActionPerformed(evt);
+                txtAnswerActionPerformed(evt);
             }
         });
 
@@ -227,10 +227,10 @@ public class Registration_Form extends javax.swing.JFrame {
                                         .addComponent(jRadioButton_M)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                         .addComponent(jRadioButton_F))
-                                    .addComponent(jTextField_CN, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField_Email)
-                                    .addComponent(jTextField_FN, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField_LN))
+                                    .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtLastName))
                                 .addGap(11, 11, 11)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel10)
@@ -241,11 +241,11 @@ public class Registration_Form extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField_Pass)
-                            .addComponent(jPasswordField_ConPass)
-                            .addComponent(jComboBox_Roles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox_Ques, 0, 166, Short.MAX_VALUE)
-                            .addComponent(jTextField_Ans, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(txtPassword)
+                            .addComponent(txtConPass)
+                            .addComponent(cboRoles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboQuestion, 0, 166, Short.MAX_VALUE)
+                            .addComponent(txtAnswer, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
@@ -268,29 +268,29 @@ public class Registration_Form extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField_FN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox_Ques, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(jTextField_LN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(jTextField_Ans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel23)
-                        .addComponent(jPasswordField_Pass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(jTextField_CN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField_ConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel24))
                 .addGap(10, 10, 10)
@@ -299,7 +299,7 @@ public class Registration_Form extends javax.swing.JFrame {
                     .addComponent(jRadioButton_F)
                     .addComponent(jLabel7)
                     .addComponent(jLabel25)
-                    .addComponent(jComboBox_Roles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -327,24 +327,24 @@ public class Registration_Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField_FNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FNActionPerformed
+    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FNActionPerformed
+    }//GEN-LAST:event_txtFirstNameActionPerformed
 
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         try
         {
             String userID = "21WMR12346";
-            String firstName = jTextField_FN.getText();
-            String lastName = jTextField_LN.getText();
-            String contactNo = jTextField_CN.getText();
-            String email = jTextField_Email.getText();
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String contactNo = txtContactNo.getText();
+            String email = txtEmail.getText();
             String address = jTextArea_Address.getText();
-            String securityQuestion = jComboBox_Ques.getSelectedItem().toString();
-            String securityAnswer = jTextField_Ans.getText();
-            String password = String.valueOf(jPasswordField_Pass.getPassword());
-            String conPass = String.valueOf(jPasswordField_ConPass.getPassword());
-            String role=jComboBox_Roles.getSelectedItem().toString();
+            String securityQuestion = cboQuestion.getSelectedItem().toString();
+            String securityAnswer = txtAnswer.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String conPass = String.valueOf(txtConPass.getPassword());
+            String role = cboRoles.getSelectedItem().toString();
             String gender = "";
             String dateOfBirth=null;
             
@@ -352,11 +352,11 @@ public class Registration_Form extends javax.swing.JFrame {
             //Email Validation
             String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
             Pattern p_email = Pattern.compile(e_expression);
-            Matcher m_email = p_email.matcher(jTextField_Email.getText());
+            Matcher m_email = p_email.matcher(txtEmail.getText());
              //ContactNo Validation
             String c_expression = "\\d{3}-\\d{8}";
             Pattern p_CN = Pattern.compile(c_expression);
-            Matcher m_CN = p_CN.matcher(jTextField_CN.getText());
+            Matcher m_CN = p_CN.matcher(txtContactNo.getText());
             //Password Validation
             boolean validPassword = isValidPassword(password);
             if (!textFieldsValid()) {
@@ -408,29 +408,29 @@ public class Registration_Form extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
 
-    private void jTextField_LNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_LNActionPerformed
+    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_LNActionPerformed
+    }//GEN-LAST:event_txtLastNameActionPerformed
 
-    private void jTextField_CNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_CNActionPerformed
+    private void txtContactNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_CNActionPerformed
+    }//GEN-LAST:event_txtContactNoActionPerformed
 
-    private void jTextField_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_EmailActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_EmailActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void jTextField_AnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AnsActionPerformed
+    private void txtAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnswerActionPerformed
         
-    }//GEN-LAST:event_jTextField_AnsActionPerformed
+    }//GEN-LAST:event_txtAnswerActionPerformed
 
-    private void jPasswordField_PassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField_PassMouseExited
+    private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
 
-    }//GEN-LAST:event_jPasswordField_PassMouseExited
+    }//GEN-LAST:event_txtPasswordMouseExited
 
-    private void jPasswordField_PassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField_PassKeyReleased
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
 
-    }//GEN-LAST:event_jPasswordField_PassKeyReleased
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
      private void groupButton( ) {       
         ButtonGroup bg1 = new ButtonGroup( );
@@ -456,24 +456,24 @@ public class Registration_Form extends javax.swing.JFrame {
     private boolean textFieldsValid() {
         boolean validTextFields = true;
         
-        if (jTextField_FN.getText().isEmpty()) {
+        if (txtFirstName.getText().isEmpty()) {
             validTextFields = false;
-            jTextField_FN.setBorder(new LineBorder(Color.RED));
+            txtFirstName.setBorder(new LineBorder(Color.RED));
         }
         
-        if (jTextField_LN.getText().isEmpty()) {
+        if (txtLastName.getText().isEmpty()) {
             validTextFields = false;
-            jTextField_LN.setBorder(new LineBorder(Color.RED));
+            txtLastName.setBorder(new LineBorder(Color.RED));
         }
         
-        if (jTextField_Email.getText().isEmpty()) {
+        if (txtEmail.getText().isEmpty()) {
             validTextFields = false;
-            jTextField_Email.setBorder(new LineBorder(Color.RED));
+            txtEmail.setBorder(new LineBorder(Color.RED));
         }
                 
-        if (jTextField_CN.getText().isEmpty()) {
+        if (txtContactNo.getText().isEmpty()) {
             validTextFields = false;
-            jTextField_CN.setBorder(new LineBorder(Color.RED));
+            txtContactNo.setBorder(new LineBorder(Color.RED));
         }
         
         if (jTextArea_Address.getText().isEmpty()) {
@@ -481,13 +481,13 @@ public class Registration_Form extends javax.swing.JFrame {
             jTextArea_Address.setBorder(new LineBorder(Color.RED));
         }
         
-        if (jTextField_Ans.getText().isEmpty()) {
+        if (txtAnswer.getText().isEmpty()) {
             validTextFields = false;
-            jTextField_Ans.setBorder(new LineBorder(Color.RED));
+            txtAnswer.setBorder(new LineBorder(Color.RED));
         }        
         else{
             validTextFields = true;
-            jTextField_Ans.setBorder(new LineBorder(Color.BLACK));
+            txtAnswer.setBorder(new LineBorder(Color.BLACK));
         }
         return validTextFields;
     }
@@ -593,9 +593,9 @@ public class Registration_Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboQuestion;
+    private javax.swing.JComboBox<String> cboRoles;
     private javax.swing.JButton jButtonRegister;
-    private javax.swing.JComboBox<String> jComboBox_Ques;
-    private javax.swing.JComboBox<String> jComboBox_Roles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -611,17 +611,17 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField_ConPass;
-    private javax.swing.JPasswordField jPasswordField_Pass;
     private javax.swing.JRadioButton jRadioButton_F;
     private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea_Address;
-    private javax.swing.JTextField jTextField_Ans;
-    private javax.swing.JTextField jTextField_CN;
-    private javax.swing.JTextField jTextField_Email;
-    private javax.swing.JTextField jTextField_FN;
-    private javax.swing.JTextField jTextField_LN;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker_DOB;
+    private javax.swing.JTextField txtAnswer;
+    private javax.swing.JPasswordField txtConPass;
+    private javax.swing.JTextField txtContactNo;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
