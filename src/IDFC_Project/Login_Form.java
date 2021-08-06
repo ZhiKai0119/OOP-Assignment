@@ -84,7 +84,6 @@ public class Login_Form extends javax.swing.JFrame {
         jCheckBox1.setForeground(new java.awt.Color(203, 178, 106));
         jCheckBox1.setText("Remember Me");
 
-        jButton1.setBackground(new java.awt.Color(107, 86, 68));
         jButton1.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(203, 178, 106));
         jButton1.setText("Sign In");
