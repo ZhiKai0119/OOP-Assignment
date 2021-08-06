@@ -26,8 +26,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="menu2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="741" max="32767" attributes="0"/>
+              <Component id="menu1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="testing1" min="-2" pref="1200" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,14 +37,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="menu2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="menu1" pref="700" max="32767" attributes="0"/>
+                  <Component id="testing1" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="Component.Menu" name="menu2">
+    <Component class="Component.Menu" name="menu1">
+    </Component>
+    <Component class="IDFC_Project.Testing" name="testing1">
     </Component>
   </SubComponents>
 </Form>

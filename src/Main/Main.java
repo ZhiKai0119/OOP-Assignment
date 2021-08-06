@@ -2,6 +2,7 @@ package Main;
 
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import Event.EventMenu;
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -14,11 +15,22 @@ public class Main extends javax.swing.JFrame {
 
     private void init() {
         //setBackground(new Color(0, 0, 0, 0));  //  Remove background
-        menu2.initMoving(this);
-        menu2.addEventMenu(new EventMenu() {
+        testing1.setVisible(false);
+        menu1.initMoving(this);
+        menu1.addEventMenu(new EventMenu() {
             @Override
             public void menuIndexChange(int index) {
-                JOptionPane.showMessageDialog(null, index + "");
+//                JOptionPane.showMessageDialog(null, index + "");
+                if(index == 0) {
+                    IDFC_Project.DeliveryCompany delCom = new IDFC_Project.DeliveryCompany();
+                    testing1.setVisible(true);
+
+//                    delCom.setVisible(true);
+                } else if(index == 1) {
+//                    IDFC_Project.Login_Form lg = new IDFC_Project.Login_Form();
+//                    lg.setVisible(true);
+                    testing1.setVisible(false);
+                }
             }
         });
     }
@@ -27,7 +39,8 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menu2 = new Component.Menu();
+        menu1 = new Component.Menu();
+        testing1 = new IDFC_Project.Testing();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -38,14 +51,18 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(741, Short.MAX_VALUE))
+                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(testing1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menu2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+                    .addComponent(testing1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -82,8 +99,9 @@ public class Main extends javax.swing.JFrame {
 
         try {
             //FlatGruvboxDarkMediumIJTheme.setup();
-            FlatAtomOneDarkContrastIJTheme.setup();
+//            FlatAtomOneDarkContrastIJTheme.setup();
             //FlatArcDarkContrastIJTheme.setup();
+            FlatGruvboxDarkHardIJTheme.setup();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +114,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Component.Menu menu2;
+    private Component.Menu menu1;
+    private IDFC_Project.Testing testing1;
     // End of variables declaration//GEN-END:variables
 }
