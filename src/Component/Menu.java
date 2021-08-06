@@ -122,7 +122,7 @@ public class Menu extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Logo_Landscape.png"))); // NOI18N
 
-        listMenu.setOpaque(false);
+        listMenu.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
@@ -130,18 +130,20 @@ public class Menu extends javax.swing.JPanel {
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMovingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(listMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMovingLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         panelMovingLayout.setVerticalGroup(
             panelMovingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMovingLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
