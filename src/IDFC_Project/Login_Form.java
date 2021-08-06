@@ -210,7 +210,7 @@ public class Login_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelForgotPMouseClicked
 
     private void jLabelRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRegisterMouseClicked
-        Forgot_Password rgf = new Forgot_Password();
+        Registration_Form rgf = new Registration_Form();
         rgf.setVisible(true);
         rgf.pack();
         rgf.setLocationRelativeTo(null);
