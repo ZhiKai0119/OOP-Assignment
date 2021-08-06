@@ -15,10 +15,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
-/**
- *
- * @author Wong Xiao Tong
- */
 public class Registration_Form extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
     static final String USER = "root";
