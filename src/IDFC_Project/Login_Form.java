@@ -225,12 +225,12 @@ public class Login_Form extends javax.swing.JFrame {
             
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Success");
-                 Forgot_Password mf = new Forgot_Password();
-                 mf.setVisible(true);
-                 mf.pack();
-                 mf.setLocationRelativeTo(null);
-                 mf.setExtendedState(JFrame.MAXIMIZED_BOTH);              
-                 this.dispose();
+                Registration_Form rgf = new Registration_Form();
+                rgf.setVisible(true);
+                rgf.pack();
+                rgf.setLocationRelativeTo(null);
+                rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                this.dispose();
             }
             else{
                 JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
