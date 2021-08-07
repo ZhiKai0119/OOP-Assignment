@@ -113,11 +113,6 @@ public class Delivery_Company extends javax.swing.JPanel {
 
         setMaximumSize(new java.awt.Dimension(1200, 700));
         setMinimumSize(new java.awt.Dimension(1200, 700));
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         jLabel1.setText("Company ID:");
@@ -165,7 +160,6 @@ public class Delivery_Company extends javax.swing.JPanel {
         tblDeliveryCompany.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
@@ -188,14 +182,6 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         });
         tblDeliveryCompany.setRowHeight(30);
-        tblDeliveryCompany.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tblDeliveryCompanyMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblDeliveryCompanyMouseReleased(evt);
-            }
-        });
         jScrollPane2.setViewportView(tblDeliveryCompany);
 
         jPanel1.setBackground(new java.awt.Color(45, 44, 45));
@@ -325,18 +311,6 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
-
-    private void tblDeliveryCompanyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryCompanyMousePressed
-        //Nothing
-    }//GEN-LAST:event_tblDeliveryCompanyMousePressed
-
-    private void tblDeliveryCompanyMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryCompanyMouseReleased
-        //Nothing
-    }//GEN-LAST:event_tblDeliveryCompanyMouseReleased
-
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        //Nothing
-    }//GEN-LAST:event_formMouseClicked
 
     private ImageIcon scaledImage(Icon image) {
         int h = image.getIconHeight();

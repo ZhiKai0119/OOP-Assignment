@@ -37,6 +37,7 @@ public class Main extends javax.swing.JFrame {
         pnlDeliveryCompany = new IDFC_Project.Delivery_Company();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("IDFC MART");
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
