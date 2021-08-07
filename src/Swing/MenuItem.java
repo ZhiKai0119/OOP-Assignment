@@ -25,7 +25,7 @@ public class MenuItem extends javax.swing.JPanel {
             if (selected) {
                 lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,18));
                 lbIcon.setIcon(data.toIconSelected());
-                lbName.setForeground(new Color(240, 240, 240));
+                lbName.setForeground(new Color(203, 178, 106)); //240, 240, 240
             } else {
                 lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,18));
                 lbIcon.setIcon(data.toIcon());

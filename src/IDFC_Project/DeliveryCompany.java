@@ -86,6 +86,7 @@ public class DeliveryCompany extends javax.swing.JFrame {
         jLabel4.setText("Manager:");
 
         jLabel5.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(203, 178, 106));
         jLabel5.setText("Company Logo:");
 
         lblLogo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));

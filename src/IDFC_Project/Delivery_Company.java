@@ -7,8 +7,10 @@ package IDFC_Project;
 
 import connection.DatabaseConnection;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.sql.*;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -53,8 +55,30 @@ public class Delivery_Company extends javax.swing.JPanel {
                 return this;
             }
         });
+        //  set editable to column 2 as jtextarea
+        tblDeliveryCompany.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            private final JTextArea txt = new JTextArea();
+
+            @Override
+            public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int i, int i1) {
+                txt.setText(o + "");
+                JScrollPane sp = new JScrollPane(txt);
+                sp.getVerticalScrollBar().setPreferredSize(new Dimension(5, 5));
+                txt.setBackground(jtable.getSelectionBackground());
+                txt.setWrapStyleWord(true);
+                txt.setLineWrap(true);
+                sp.setBorder(null);
+                return sp;
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return txt.getText();
+            }
+        });
         
-        tblDeliveryCompany.getColumnModel().getColumn(5).setCellRenderer(new DefaultTableCellRenderer() {
+        // set image view for column 4
+        tblDeliveryCompany.getColumnModel().getColumn(6).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object o, boolean selected, boolean bln1, int i, int i1) {
                 Component com = super.getTableCellRendererComponent(table, o, selected, bln1, i, i1); 
@@ -155,22 +179,27 @@ public class Delivery_Company extends javax.swing.JPanel {
         });
 
         txtContactNo.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContactNoKeyPressed(evt);
+            }
+        });
 
         tblDeliveryCompany.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
         tblDeliveryCompany.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Company ID", "Company Name", "Address", "Manager", "Contact No.", "Logo", "Status"
+                "No.", "Company ID", "Company Name", "Address", "Manager", "Contact No.", "Logo", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, true, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -181,8 +210,17 @@ public class Delivery_Company extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDeliveryCompany.setRowHeight(30);
+        tblDeliveryCompany.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tblDeliveryCompany.setRowHeight(60);
         jScrollPane2.setViewportView(tblDeliveryCompany);
+        if (tblDeliveryCompany.getColumnModel().getColumnCount() > 0) {
+            tblDeliveryCompany.getColumnModel().getColumn(0).setPreferredWidth(3);
+            tblDeliveryCompany.getColumnModel().getColumn(4).setResizable(false);
+            tblDeliveryCompany.getColumnModel().getColumn(5).setResizable(false);
+            tblDeliveryCompany.getColumnModel().getColumn(6).setResizable(false);
+            tblDeliveryCompany.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblDeliveryCompany.getColumnModel().getColumn(7).setPreferredWidth(18);
+        }
 
         jPanel1.setBackground(new java.awt.Color(45, 44, 45));
 
@@ -266,11 +304,11 @@ public class Delivery_Company extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addGap(34, 34, 34)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
@@ -303,14 +341,54 @@ public class Delivery_Company extends javax.swing.JPanel {
     }//GEN-LAST:event_lblLogoMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if(txtComID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Fill in the Company ID!", "Error", JOptionPane.ERROR_MESSAGE);
+        if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
+                || txtContactNo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if(txtComName.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please Fill in the Company Name!", "Error", JOptionPane.ERROR_MESSAGE);
+            if(verifyDigit() == false) {
+                JOptionPane.showMessageDialog(this, "Please Insert Number only at Contact Number Field!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if(lblLogo.getIcon() == null) {
+                    JOptionPane.showMessageDialog(this, "Please Insert the Delivery Company Logo!", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    int response = JOptionPane.showConfirmDialog(this, "Do you want to inser a new record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if(response == JOptionPane.YES_OPTION) {
+                        addRecord();
+                        updateTable();
+                        JOptionPane.showMessageDialog(this, "Successfully Added");
+                        clearTXT();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Fail");
+                    }
+                }
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void txtContactNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactNoKeyPressed
+        String contactNo = txtContactNo.getText();
+        int length = contactNo.length();
+        
+        char c = evt.getKeyChar();
+        
+        //check for number 0 to 9
+        if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
+            //check for length not more than 10 digit
+            if(length < 10) {
+                //editable true
+                txtContactNo.setEditable(true);
+            } else {
+                //not editable if length more than 10 digit
+                txtContactNo.setEditable(false);
+            }
+        } else {
+            if(evt.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+                txtContactNo.setEditable(true);
+            } else {
+                txtContactNo.setEditable(false);
+            }
+        }
+    }//GEN-LAST:event_txtContactNoKeyPressed
 
     private ImageIcon scaledImage(Icon image) {
         int h = image.getIconHeight();
@@ -328,7 +406,7 @@ public class Delivery_Company extends javax.swing.JPanel {
             PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement("Select * From delivery_company", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = ps.executeQuery();
             while (rs.next()) {
-                //String companyID = rs.getString(1);
+                String companyID = rs.getString(1);
                 String companyName = rs.getString(2);
                 String address = rs.getString(3);
                 String manager = rs.getString(4);
@@ -338,7 +416,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                     image = scaledImage(new ImageIcon(rs.getBytes(6)));
                 }
                 boolean status = rs.getInt(7) == 1;
-                model.addRow(new Object[]{tblDeliveryCompany.getRowCount() + 1, companyName, address, manager, contactNo, image, status});
+                model.addRow(new Object[]{tblDeliveryCompany.getRowCount() + 1,companyID, companyName, address, manager, contactNo, image, status});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -355,17 +433,34 @@ public class Delivery_Company extends javax.swing.JPanel {
             pst.setString(4, txtManager.getText());
             pst.setString(5, txtContactNo.getText());
             pst.setBlob(6, is);
-            pst.setInt(7, 0);
+            pst.setInt(7, 1);
             pst.executeUpdate();
-            DatabaseConnection.getInstance().getConnection().close();
+//            DatabaseConnection.getInstance().getConnection().close();
             JOptionPane.showMessageDialog(null, "Data Inserted");
         } catch(Exception ex){
             System.out.println("Error Message: " + ex);
         }
     }
     
+    private boolean verifyDigit() {
+        char digit = ' ';
+        for(int i = 0; i < txtContactNo.getText().length(); i++) {
+            digit = txtContactNo.getText().charAt(i);
+        }
+        if(Character.isDigit(digit)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     private void clearTXT() {
-        
+        txtComID.setText("");
+        txtComName.setText("");
+        txtAddress.setText("");
+        txtManager.setText("");
+        txtContactNo.setText("");
+        lblLogo.setIcon(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
