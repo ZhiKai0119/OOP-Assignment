@@ -179,6 +179,11 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel25.setText("Role:");
 
         txtPassword.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
         txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 txtPasswordMouseExited(evt);
@@ -359,8 +364,6 @@ public class Registration_Form extends javax.swing.JFrame {
             String c_expression = "\\d{3}-\\d{8}";
             Pattern p_CN = Pattern.compile(c_expression);
             Matcher m_CN = p_CN.matcher(txtContactNo.getText());
-            //Password Validation
-            boolean validPassword = isValidPassword(password);
             if (!textFieldsValid()) {
                 JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
             }
@@ -449,6 +452,11 @@ public class Registration_Form extends javax.swing.JFrame {
     private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
 
     }//GEN-LAST:event_txtPasswordKeyReleased
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        //Password Validation
+        boolean validPassword = isValidPassword(String.valueOf(txtPassword.getPassword()));
+    }//GEN-LAST:event_txtPasswordFocusLost
 
      private void groupButton( ) {       
         ButtonGroup bg1 = new ButtonGroup( );
