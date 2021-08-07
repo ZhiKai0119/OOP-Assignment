@@ -341,7 +341,7 @@ public class Registration_Form extends javax.swing.JFrame {
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         try
         {
-            String userID = "21WMR12346";
+            String userID = "21WMR12340";
             String firstName = txtFirstName.getText();
             String lastName = txtLastName.getText();
             String contactNo = txtContactNo.getText();
@@ -364,6 +364,9 @@ public class Registration_Form extends javax.swing.JFrame {
             String c_expression = "\\d{3}-\\d{8}";
             Pattern p_CN = Pattern.compile(c_expression);
             Matcher m_CN = p_CN.matcher(txtContactNo.getText());
+            
+            boolean validEmail = checkEmail(txtEmail.getText());
+            
             if (!textFieldsValid()) {
                 JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
             }
@@ -378,6 +381,10 @@ public class Registration_Form extends javax.swing.JFrame {
             }
             else if (!((password)).equals(conPass)){
                 JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+            }           
+            else if(validEmail == false){
+                JOptionPane.showMessageDialog(null, "This email already exist.");
+                txtEmail.setText("");
             }
             else{
                 if(jRadioButton_M.isSelected()){
@@ -413,10 +420,11 @@ public class Registration_Form extends javax.swing.JFrame {
                  ps.setString(10, securityAnswer);
                  ps.setString(11, password);
                  ps.setString(12, role);
-                 ps.executeUpdate();
+                 //ps.executeUpdate();
                  if(ps.executeUpdate() > 0)
                  {
                      JOptionPane.showMessageDialog(null, "New User Add");
+                     clearTextField();
                  }
                  else{
                      JOptionPane.showMessageDialog(null, "Fail");
@@ -461,7 +469,7 @@ public class Registration_Form extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPasswordFocusLost
 
-     private void groupButton( ) {       
+     private void groupButton() {       
         ButtonGroup bg1 = new ButtonGroup( );
         bg1.add(jRadioButton_M);
         bg1.add(jRadioButton_F);
@@ -553,11 +561,11 @@ public class Registration_Form extends javax.swing.JFrame {
      public boolean checkEmail(String email)
     {
         boolean checkUser = false;
+        
         String query = "SELECT * FROM userdetails WHERE 'email' =?";
         
         try {
-
-            sqlCon = DriverManager.getConnection("jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6425946?zeroDateTimeBehavior=convertToNull", "sql6425946", "PB2R62nXjy");
+            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
             ps = sqlCon.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
@@ -565,6 +573,9 @@ public class Registration_Form extends javax.swing.JFrame {
             if(rs.next())
             {
                 checkUser = true;
+            }
+            else{
+                checkUser = false;
             }
         } catch (SQLException ex) {
               Logger.getLogger(Registration_Form.class.getName()).log(Level.SEVERE, null, ex);
