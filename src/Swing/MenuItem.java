@@ -23,13 +23,13 @@ public class MenuItem extends javax.swing.JPanel {
     public void setSelected(boolean selected) {
         if (data.getType() == Model_Menu.MenuType.MENU) {
             if (selected) {
-                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,15));
+                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,18));
                 lbIcon.setIcon(data.toIconSelected());
-                lbName.setForeground(new Color(60, 60, 60));
+                lbName.setForeground(new Color(240, 240, 240));
             } else {
-                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,15));
+                lbName.setFont(new Font("Mongolian Baiti",Font.PLAIN,18));
                 lbIcon.setIcon(data.toIcon());
-                lbName.setForeground(new Color(60, 60, 60));
+                lbName.setForeground(new Color(240, 240, 240));
             }
         }
     }
