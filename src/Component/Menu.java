@@ -210,4 +210,12 @@ public class Menu extends javax.swing.JPanel {
     private Swing.ListMenu<String> listMenu;
     private javax.swing.JPanel panelMoving;
     // End of variables declaration//GEN-END:variables
+
+    public void tblDeliveryCompanyMousePressed(MouseEvent evt) {
+        //Nothing
+    }
+
+    public void tblDeliveryCompanyMouseReleased(MouseEvent evt) {
+        //Nothing
+    }
 }

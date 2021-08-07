@@ -1,6 +1,5 @@
 package Main;
 
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import Event.EventMenu;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import java.awt.Color;
@@ -15,21 +14,16 @@ public class Main extends javax.swing.JFrame {
 
     private void init() {
         //setBackground(new Color(0, 0, 0, 0));  //  Remove background
-        testing1.setVisible(false);
+        pnlDeliveryCompany.setVisible(false);
         menu1.initMoving(this);
         menu1.addEventMenu(new EventMenu() {
             @Override
             public void menuIndexChange(int index) {
 //                JOptionPane.showMessageDialog(null, index + "");
                 if(index == 0) {
-                    IDFC_Project.DeliveryCompany delCom = new IDFC_Project.DeliveryCompany();
-                    testing1.setVisible(true);
-
-//                    delCom.setVisible(true);
+                    pnlDeliveryCompany.setVisible(true);
                 } else if(index == 1) {
-//                    IDFC_Project.Login_Form lg = new IDFC_Project.Login_Form();
-//                    lg.setVisible(true);
-                    testing1.setVisible(false);
+                    pnlDeliveryCompany.setVisible(false);
                 }
             }
         });
@@ -40,10 +34,15 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         menu1 = new Component.Menu();
-        testing1 = new IDFC_Project.Testing();
+        pnlDeliveryCompany = new IDFC_Project.Delivery_Company();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,8 +51,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(testing1, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDeliveryCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -61,14 +60,18 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-                    .addComponent(testing1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlDeliveryCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        pnlDeliveryCompany.updateTable();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -115,6 +118,6 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Component.Menu menu1;
-    private IDFC_Project.Testing testing1;
+    private IDFC_Project.Delivery_Company pnlDeliveryCompany;
     // End of variables declaration//GEN-END:variables
 }
