@@ -566,7 +566,7 @@ public class Registration_Form extends javax.swing.JFrame {
         String numbers = "(.*[0-9].*)";
         if (!password.matches(numbers ))
         {
-            JOptionPane.showMessageDialog(null,"Password must have atl east one number.");
+            JOptionPane.showMessageDialog(null,"Password must have at least one number.");
             isValid = false;
         }
         String specialChars = "(.*[_,-,@,#,$,%].*$)";
