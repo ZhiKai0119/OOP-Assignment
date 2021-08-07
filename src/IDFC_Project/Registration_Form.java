@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
@@ -52,7 +54,7 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_Address = new javax.swing.JTextArea();
+        txtAddress = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -151,10 +153,10 @@ public class Registration_Form extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(203, 178, 106));
         jLabel9.setText("Address:");
 
-        jTextArea_Address.setColumns(20);
-        jTextArea_Address.setFont(new java.awt.Font("Mongolian Baiti", 0, 13)); // NOI18N
-        jTextArea_Address.setRows(5);
-        jScrollPane1.setViewportView(jTextArea_Address);
+        txtAddress.setColumns(20);
+        txtAddress.setFont(new java.awt.Font("Mongolian Baiti", 0, 13)); // NOI18N
+        txtAddress.setRows(5);
+        jScrollPane1.setViewportView(txtAddress);
 
         jLabel10.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(203, 178, 106));
@@ -339,7 +341,7 @@ public class Registration_Form extends javax.swing.JFrame {
             String lastName = txtLastName.getText();
             String contactNo = txtContactNo.getText();
             String email = txtEmail.getText();
-            String address = jTextArea_Address.getText();
+            String address = txtAddress.getText();
             String securityQuestion = cboQuestion.getSelectedItem().toString();
             String securityAnswer = txtAnswer.getText();
             String password = String.valueOf(txtPassword.getPassword());
@@ -362,14 +364,6 @@ public class Registration_Form extends javax.swing.JFrame {
             if (!textFieldsValid()) {
                 JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
             }
-            else if(radioButtonValid()){
-                if(jRadioButton_M.isSelected()){
-                    gender = "M";
-                }
-                else if(jRadioButton_F.isSelected()){
-                    gender = "F";
-                }
-            }
             else if(!radioButtonValid()){
                 JOptionPane.showMessageDialog(null, "Please select your gender.");
             }
@@ -380,9 +374,22 @@ public class Registration_Form extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
             }
             else if (!((password)).equals(conPass)){
-                JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.");
+                JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
             }
             else{
+                if(jRadioButton_M.isSelected()){
+                    gender = "M";
+                }
+                else if(jRadioButton_F.isSelected()){
+                    gender = "F";
+                }
+                
+                if(jXDatePicker_DOB.getDate() != null)
+                {
+                    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                    dateOfBirth = dateformat.format(jXDatePicker_DOB.getDate());
+                }
+                
                  Class.forName("com.mysql.jdbc.Driver");
                  sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
                  ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -392,14 +399,25 @@ public class Registration_Form extends javax.swing.JFrame {
                  ps.setString(4, email);
                  ps.setString(5, gender);
                  ps.setString(6, contactNo);
-                 ps.setString(7, dateOfBirth);
+                 if(dateOfBirth != null)
+                 {
+                     ps.setString(7, dateOfBirth);
+                 }else{
+                     ps.setNull(7, 0);
+                 }
                  ps.setString(8, address);
                  ps.setString(9, securityQuestion);
                  ps.setString(10, securityAnswer);
                  ps.setString(11, password);
                  ps.setString(12, role);
                  ps.executeUpdate();
-                 JOptionPane.showMessageDialog(null, "Insert Successfully.");
+                 if(ps.executeUpdate() > 0)
+                 {
+                     JOptionPane.showMessageDialog(null, "New User Add");
+                 }
+                 else{
+                     JOptionPane.showMessageDialog(null, "Fail");
+                 }
             }           
         }
         catch(Exception e)
@@ -437,6 +455,17 @@ public class Registration_Form extends javax.swing.JFrame {
         bg1.add(jRadioButton_M);
         bg1.add(jRadioButton_F);
     }
+     
+     private void clearTextField(){
+         txtFirstName.setText("");
+         txtLastName.setText("");
+         txtEmail.setText("");
+         txtContactNo.setText("");
+         txtAddress.setText("");
+         txtAnswer.setText("");
+         txtPassword.setText("");
+         txtConPass.setText("");
+     }
      
      private boolean radioButtonValid(){
          boolean validRadioButton = true;
@@ -476,9 +505,9 @@ public class Registration_Form extends javax.swing.JFrame {
             txtContactNo.setBorder(new LineBorder(Color.RED));
         }
         
-        if (jTextArea_Address.getText().isEmpty()) {
+        if (txtAddress.getText().isEmpty()) {
             validTextFields = false;
-            jTextArea_Address.setBorder(new LineBorder(Color.RED));
+            txtAddress.setBorder(new LineBorder(Color.RED));
         }
         
         if (txtAnswer.getText().isEmpty()) {
@@ -495,11 +524,12 @@ public class Registration_Form extends javax.swing.JFrame {
      public boolean checkEmail(String email)
     {
         boolean checkUser = false;
+        String query = "SELECT * FROM userdetails WHERE 'email' =?";
         
         try {
 
             sqlCon = DriverManager.getConnection("jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6425946?zeroDateTimeBehavior=convertToNull", "sql6425946", "PB2R62nXjy");
-            ps = sqlCon.prepareStatement("SELECT * FROM userdetails WHERE 'email' =?");
+            ps = sqlCon.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
             
@@ -507,8 +537,8 @@ public class Registration_Form extends javax.swing.JFrame {
             {
                 checkUser = true;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage() ,"Error", 1);
+        } catch (SQLException ex) {
+              Logger.getLogger(Registration_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
          return checkUser;
     }
@@ -614,8 +644,8 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton_F;
     private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea_Address;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker_DOB;
+    private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtAnswer;
     private javax.swing.JPasswordField txtConPass;
     private javax.swing.JTextField txtContactNo;
