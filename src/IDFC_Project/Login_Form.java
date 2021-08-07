@@ -5,9 +5,11 @@
  */
 package IDFC_Project;
 
+import static IDFC_Project.Registration_Form.DB_URL;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkContrastIJTheme;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,7 +54,7 @@ public class Login_Form extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox_ShowPass = new javax.swing.JCheckBox();
         btnLogin = new javax.swing.JButton();
         jLabelForgotP = new javax.swing.JLabel();
         jLabelRegister = new javax.swing.JLabel();
@@ -68,25 +70,32 @@ public class Login_Form extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(203, 178, 106));
         jLabel4.setText("LOGIN FORM");
 
-        jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(203, 178, 106));
-        jLabel1.setText("Username:");
+        jLabel1.setText("Email:");
 
-        jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(203, 178, 106));
         jLabel3.setText("Password:");
 
-        txtEmail.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(26, 26, 26));
-        jCheckBox1.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(203, 178, 106));
-        jCheckBox1.setText("Show Password");
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        jCheckBox_ShowPass.setBackground(new java.awt.Color(26, 26, 26));
+        jCheckBox_ShowPass.setFont(new java.awt.Font("Mongolian Baiti", 1, 12)); // NOI18N
+        jCheckBox_ShowPass.setForeground(new java.awt.Color(203, 178, 106));
+        jCheckBox_ShowPass.setText("Show Password");
+        jCheckBox_ShowPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox_ShowPassActionPerformed(evt);
+            }
+        });
 
         btnLogin.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(203, 178, 106));
@@ -132,7 +141,7 @@ public class Login_Form extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(142, 142, 142)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox_ShowPass)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
@@ -141,7 +150,7 @@ public class Login_Form extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 158, Short.MAX_VALUE))
+                        .addGap(0, 181, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabelForgotP)
@@ -169,7 +178,7 @@ public class Login_Form extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
+                .addComponent(jCheckBox_ShowPass)
                 .addGap(19, 19, 19)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -201,35 +210,35 @@ public class Login_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        PreparedStatement ps;
-        ResultSet rs;
         String email = txtEmail.getText();
         String password = String.valueOf(txtPassword.getPassword());
-        
-        String query = "SELECT * FROM userdetails WHERE `'email' =? AND 'password' =?";
-        
+             
         try {
-            ps = sqlCon.prepareStatement(query);
+             Class.forName("com.mysql.jdbc.Driver");
+             sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+             String query = "SELECT * FROM userdetails WHERE email=? AND password=?";
+             ps = sqlCon.prepareStatement(query);
+             ps.setString(1, email);
+             ps.setString(2, password);
+             
+             rs = ps.executeQuery();
             
-            ps.setString(1, email);
-            ps.setString(2, password);
-            
-            rs = ps.executeQuery();
-            
-            if(rs.next())
-            {
-                    Forgot_Password mf = new Forgot_Password();
-                    mf.setVisible(true);
-                    mf.pack();
-                    mf.setLocationRelativeTo(null);
-                    mf.setExtendedState(JFrame.MAXIMIZED_BOTH);              
-                    this.dispose();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Success");
+                 Forgot_Password mf = new Forgot_Password();
+                 mf.setVisible(true);
+                 mf.pack();
+                 mf.setLocationRelativeTo(null);
+                 mf.setExtendedState(JFrame.MAXIMIZED_BOTH);              
+                 this.dispose();
             }
             else{
-                    JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
-                }
+                JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
+            }
             
         } catch (SQLException ex) {
+            Logger.getLogger(Login_Form.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Login_Form.class.getName()).log(Level.SEVERE, null, ex);
         }                                     
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -251,6 +260,15 @@ public class Login_Form extends javax.swing.JFrame {
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jLabelRegisterMouseClicked
+
+    private void jCheckBox_ShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox_ShowPassActionPerformed
+        if (jCheckBox_ShowPass.isSelected()) {
+            txtPassword.setEchoChar((char)0); 
+        } 
+        else {
+            txtPassword.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCheckBox_ShowPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,7 +315,7 @@ public class Login_Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox_ShowPass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
