@@ -456,6 +456,9 @@ public class Registration_Form extends javax.swing.JFrame {
     private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
         //Password Validation
         boolean validPassword = isValidPassword(String.valueOf(txtPassword.getPassword()));
+        if (validPassword == false){
+            txtPassword.setText("");
+        }
     }//GEN-LAST:event_txtPasswordFocusLost
 
      private void groupButton( ) {       
