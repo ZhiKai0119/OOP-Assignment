@@ -495,36 +495,54 @@ public class Registration_Form extends javax.swing.JFrame {
         
         if (txtFirstName.getText().isEmpty()) {
             validTextFields = false;
-            txtFirstName.setBorder(new LineBorder(Color.RED));
+            txtFirstName.setBorder(new LineBorder(Color.decode("#FF8583")));
         }
         
         if (txtLastName.getText().isEmpty()) {
             validTextFields = false;
-            txtLastName.setBorder(new LineBorder(Color.RED));
+            txtLastName.setBorder(new LineBorder(Color.decode("#FF8583")));
         }
         
         if (txtEmail.getText().isEmpty()) {
             validTextFields = false;
-            txtEmail.setBorder(new LineBorder(Color.RED));
+            txtEmail.setBorder(new LineBorder(Color.decode("#FF8583")));
         }
                 
         if (txtContactNo.getText().isEmpty()) {
             validTextFields = false;
-            txtContactNo.setBorder(new LineBorder(Color.RED));
+            txtContactNo.setBorder(new LineBorder(Color.decode("#FF8583")));
         }
         
         if (txtAddress.getText().isEmpty()) {
             validTextFields = false;
-            txtAddress.setBorder(new LineBorder(Color.RED));
+            txtAddress.setBorder(new LineBorder(Color.decode("#FF8583")));
         }
         
         if (txtAnswer.getText().isEmpty()) {
             validTextFields = false;
-            txtAnswer.setBorder(new LineBorder(Color.RED));
-        }        
+            txtAnswer.setBorder(new LineBorder(Color.decode("#FF8583")));
+        } 
+        
+        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+            validTextFields = false;
+            txtPassword.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }  
+        
+        if (String.valueOf(txtConPass.getPassword()).isEmpty()) {
+            validTextFields = false;
+            txtConPass.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }  
+        
         else{
             validTextFields = true;
+            txtFirstName.setBorder(new LineBorder(Color.BLACK));
+            txtLastName.setBorder(new LineBorder(Color.BLACK));
+            txtEmail.setBorder(new LineBorder(Color.BLACK));
+            txtContactNo.setBorder(new LineBorder(Color.BLACK));
+            txtAddress.setBorder(new LineBorder(Color.BLACK));
             txtAnswer.setBorder(new LineBorder(Color.BLACK));
+            txtPassword.setBorder(new LineBorder(Color.BLACK));
+            txtConPass.setBorder(new LineBorder(Color.BLACK));
         }
         return validTextFields;
     }
