@@ -71,7 +71,6 @@ public class DeliveryCompany extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 700));
-        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
         jLabel1.setText("Company ID:");
