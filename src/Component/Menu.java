@@ -165,7 +165,7 @@ public class Menu extends javax.swing.JPanel {
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint g = new GradientPaint(0, 0, Color.decode("#a8c0ff"), 0, getHeight(), Color.decode("#3f2b96")); //background
+        GradientPaint g = new GradientPaint(0, 0, Color.decode("#2d2c2d"), 0, getHeight(), Color.decode("#2d2c2d")); //background ("#a8c0ff", "#3f2b96")
         g2.setPaint(g);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         if (selectedIndex >= 0) {

@@ -34,6 +34,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         customJTable();
     }
     
+    //get Database Connection
     private void init() {
         try {
             DatabaseConnection.getInstance().connectToDatabase();
@@ -212,6 +213,11 @@ public class Delivery_Company extends javax.swing.JPanel {
         });
         tblDeliveryCompany.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblDeliveryCompany.setRowHeight(60);
+        tblDeliveryCompany.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDeliveryCompanyMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblDeliveryCompany);
         if (tblDeliveryCompany.getColumnModel().getColumnCount() > 0) {
             tblDeliveryCompany.getColumnModel().getColumn(0).setPreferredWidth(3);
@@ -269,16 +275,16 @@ public class Delivery_Company extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtManager)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(txtComName)
-                    .addComponent(txtComID)
-                    .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtComName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txtManager, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtComID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -294,27 +300,27 @@ public class Delivery_Company extends javax.swing.JPanel {
                                 .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(34, 34, 34)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -345,27 +351,31 @@ public class Delivery_Company extends javax.swing.JPanel {
     }//GEN-LAST:event_lblLogoMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
+        try {
+            if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
                 || txtContactNo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if(verifyDigit() == false) {
-                JOptionPane.showMessageDialog(this, "Please Insert Number only at Contact Number Field!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                if(lblLogo.getIcon() == null) {
-                    JOptionPane.showMessageDialog(this, "Please Insert the Delivery Company Logo!", "Error", JOptionPane.ERROR_MESSAGE);
+                if(verifyDigit() == false) {
+                    JOptionPane.showMessageDialog(this, "Please Insert Number only at Contact Number Field!", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    int response = JOptionPane.showConfirmDialog(this, "Do you want to inser a new record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if(response == JOptionPane.YES_OPTION) {
-                        addRecord();
-                        updateTable();
-                        JOptionPane.showMessageDialog(this, "Successfully Added");
-                        clearTXT();
+                    if(lblLogo.getIcon() == null) {
+                        JOptionPane.showMessageDialog(this, "Please Insert the Delivery Company Logo!", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Fail");
+                        int response = JOptionPane.showConfirmDialog(this, "Do you want to inser a new record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if(response == JOptionPane.YES_OPTION) {
+                            addRecord();
+                            updateTable();
+                            JOptionPane.showMessageDialog(this, "Successfully Added");
+                            clearTXT();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Fail");
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -393,6 +403,20 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txtContactNoKeyPressed
+
+    private void tblDeliveryCompanyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryCompanyMouseClicked
+        int i = tblDeliveryCompany.getSelectedRow();
+        model = (DefaultTableModel) tblDeliveryCompany.getModel();
+        txtComID.setText(model.getValueAt(i, 1).toString());
+        txtComName.setText(model.getValueAt(i, 2).toString());
+        txtAddress.setText(model.getValueAt(i, 3).toString());
+        txtManager.setText(model.getValueAt(i, 4).toString());
+        txtContactNo.setText(model.getValueAt(i, 5).toString());
+        ImageIcon image = (ImageIcon)model.getValueAt(i, 6);
+        Image image2 = image.getImage().getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_FAST);
+        ImageIcon image3 = new ImageIcon(image2);
+        lblLogo.setIcon(image3);
+    }//GEN-LAST:event_tblDeliveryCompanyMouseClicked
 
     private ImageIcon scaledImage(Icon image) {
         int h = image.getIconHeight();

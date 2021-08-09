@@ -2,8 +2,11 @@ package Main;
 
 import Event.EventMenu;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkMediumIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Main extends javax.swing.JFrame {
 
@@ -15,6 +18,7 @@ public class Main extends javax.swing.JFrame {
     private void init() {
         //setBackground(new Color(0, 0, 0, 0));  //  Remove background
         pnlDeliveryCompany.setVisible(false);
+        //promotion_Staff1.setVisible(false);
         menu1.initMoving(this);
         menu1.addEventMenu(new EventMenu() {
             @Override
@@ -22,8 +26,10 @@ public class Main extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, index + "");
                 if(index == 0) {
                     pnlDeliveryCompany.setVisible(true);
+                    //promotion_Staff1.setVisible(false);
                 } else if(index == 1) {
                     pnlDeliveryCompany.setVisible(false);
+                    //promotion_Staff1.setVisible(true);
                 }
             }
         });
@@ -34,7 +40,9 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         menu1 = new Component.Menu();
+        LayeredPane = new javax.swing.JLayeredPane();
         pnlDeliveryCompany = new IDFC_Project.Delivery_Company();
+        La = new IDFC_Project.Promotion_Staff();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IDFC MART");
@@ -44,25 +52,24 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        LayeredPane.setLayout(new java.awt.CardLayout());
+        LayeredPane.add(pnlDeliveryCompany, "card2");
+        LayeredPane.add(La, "card3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlDeliveryCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(LayeredPane)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlDeliveryCompany, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+            .addComponent(LayeredPane)
         );
 
         pack();
@@ -101,10 +108,11 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         try {
-            //FlatGruvboxDarkMediumIJTheme.setup();
+            FlatGruvboxDarkMediumIJTheme.setup();
 //            FlatAtomOneDarkContrastIJTheme.setup();
             //FlatArcDarkContrastIJTheme.setup();
-            FlatGruvboxDarkHardIJTheme.setup();
+//            FlatLightFlatIJTheme.setup();
+//            FlatGruvboxDarkHardIJTheme.setup();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,8 +123,16 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void switchPanels(JPanel panel) {
+        LayeredPane.removeAll();
+        LayeredPane.add(panel);
+        LayeredPane.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private IDFC_Project.Promotion_Staff La;
+    private javax.swing.JLayeredPane LayeredPane;
     private Component.Menu menu1;
     private IDFC_Project.Delivery_Company pnlDeliveryCompany;
     // End of variables declaration//GEN-END:variables
