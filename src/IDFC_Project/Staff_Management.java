@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,7 @@ public class Staff_Management extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);//CenterForm 
         showUserDetails();
+        groupButton();
     }
 
     @SuppressWarnings("unchecked")
@@ -50,8 +52,8 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton_M = new javax.swing.JRadioButton();
+        jRadioButton_F = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -193,11 +195,11 @@ public class Staff_Management extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jRadioButton1.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
-        jRadioButton1.setText("Male");
+        jRadioButton_M.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
+        jRadioButton_M.setText("Male");
 
-        jRadioButton2.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
-        jRadioButton2.setText("Female");
+        jRadioButton_F.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
+        jRadioButton_F.setText("Female");
 
         jLabel8.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(203, 178, 106));
@@ -291,11 +293,11 @@ public class Staff_Management extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6)
                                 .addGap(10, 10, 10)
-                                .addComponent(jRadioButton1))
+                                .addComponent(jRadioButton_M))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jRadioButton2)
+                                    .addComponent(jRadioButton_F)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(10, 10, 10)
@@ -389,8 +391,8 @@ public class Staff_Management extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2)))
+                                    .addComponent(jRadioButton_M)
+                                    .addComponent(jRadioButton_F)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
@@ -504,6 +506,12 @@ public class Staff_Management extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
+    
+    private void groupButton() {       
+        ButtonGroup bg1 = new ButtonGroup( );
+        bg1.add(jRadioButton_M);
+        bg1.add(jRadioButton_F);
+    }
     /**
      * @param args the command line arguments
      */
@@ -570,8 +578,8 @@ public class Staff_Management extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton_F;
+    private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_User;
