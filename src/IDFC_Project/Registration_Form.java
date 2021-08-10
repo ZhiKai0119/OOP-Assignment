@@ -458,35 +458,46 @@ public class Registration_Form extends javax.swing.JFrame {
                     dateOfBirth = dateformat.format(jXDatePicker_DOB.getDate());
                 }
                 
-                 Class.forName("com.mysql.jdbc.Driver");
-                 sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-                 ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-                 ps.setString(1, lblUserID.getText());
-                 ps.setString(2, firstName);
-                 ps.setString(3, lastName);
-                 ps.setString(4, email);
-                 ps.setString(5, gender);
-                 ps.setString(6, contactNo);
-                 if(dateOfBirth != null)
-                 {
-                     ps.setString(7, dateOfBirth);
-                 }else{
-                     ps.setNull(7, 0);
-                 }
-                 ps.setString(8, address);
-                 ps.setString(9, securityQuestion);
-                 ps.setString(10, securityAnswer);
-                 ps.setString(11, password);
-                 ps.setString(12, role);
-                 //ps.executeUpdate();
-                 if(ps.executeUpdate() > 0)
-                 {
-                     JOptionPane.showMessageDialog(null, "New User Add");
-                     clearTextField();
-                 }
-                 else{
-                     JOptionPane.showMessageDialog(null, "Fail");
-                 }
+                if (cboRoles.getSelectedIndex()==1){
+                    String isStaff = JOptionPane.showInputDialog(null,"Please enter the verification code: ","Enter Verification Code",JOptionPane.INFORMATION_MESSAGE);
+                    if(isStaff.equals("")){
+                        JOptionPane.showMessageDialog(null,"You must enter the verification code to continue.");
+                    }
+                    else if(!"IDFC210810".equals(isStaff)){
+                        JOptionPane.showMessageDialog(null,"Wrong verification code.");
+                    }
+                    else{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                        ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                        ps.setString(1, lblUserID.getText());
+                        ps.setString(2, firstName);
+                        ps.setString(3, lastName);
+                        ps.setString(4, email);
+                        ps.setString(5, gender);
+                        ps.setString(6, contactNo);
+                        if(dateOfBirth != null){
+                            ps.setString(7, dateOfBirth);
+                        }else{
+                            ps.setNull(7, 0);
+                        }
+                        ps.setString(8, address);
+                        ps.setString(9, securityQuestion);
+                        ps.setString(10, securityAnswer);
+                        ps.setString(11, password);
+                        ps.setString(12, role);
+                        //ps.executeUpdate();
+                        if(ps.executeUpdate() > 0){
+                            JOptionPane.showMessageDialog(null, "New User Add");
+                            clearTextField();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Fail");
+                        }
+                    }
+                }
+                
+
             }           
         }
         catch(Exception e)
