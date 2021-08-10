@@ -32,6 +32,14 @@ public class Staff_Management extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);//CenterForm 
         showUserDetails();
         groupButton();
+        setControlReadOnly(false);
+        setComboBoxReadOnly(false);
+        btnSave.setEnabled(false);
+        jTable_User.changeSelection(0, 0, false, false);
+        displayInTextFields();
+        
+        txtUserID.setEditable(false);
+        txtFirstName.setFocusCycleRoot(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,8 +96,10 @@ public class Staff_Management extends javax.swing.JFrame {
                 "User ID", "First Name", "Last Name", "Contact No", "Email", "Gender", "Date of Birth", "Address", "Security Question", "Security Answer", "Password", "Roles"
             }
         ));
-        jTable_User.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable_User.setGridColor(new java.awt.Color(204, 255, 204));
         jTable_User.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        jTable_User.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jTable_User.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable_User.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_UserMouseClicked(evt);
@@ -179,6 +189,7 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel1.setText("First Name:");
 
         txtUserID.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtUserID.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(203, 178, 106));
@@ -350,22 +361,19 @@ public class Staff_Management extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
                                 .addGap(7, 7, 7)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
@@ -374,7 +382,7 @@ public class Staff_Management extends javax.swing.JFrame {
                                 .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
                                 .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(cboRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -419,7 +427,7 @@ public class Staff_Management extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(67, 67, 67)
+                .addGap(81, 81, 81)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -428,97 +436,130 @@ public class Staff_Management extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        try
-        {
-            String userID = txtUserID.getText();
-            String firstName = txtFirstName.getText();
-            String lastName = txtLastName.getText();
-            String contactNo = txtContactNo.getText();
-            String email = txtEmail.getText();
-            String address = txtAddress.getText();
-            String securityQuestion = cboQuestion.getSelectedItem().toString();
-            String securityAnswer = txtAnswer.getText();
-            String password = String.valueOf(txtPassword.getPassword());
-            String conPass = String.valueOf(txtConPass.getPassword());
-            String role = cboRoles.getSelectedItem().toString();
-            String gender = "";
-            String dateOfBirth=null;
-                        
-            //Email Validation
-            String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
-            Pattern p_email = Pattern.compile(e_expression);
-            Matcher m_email = p_email.matcher(txtEmail.getText());
-             //ContactNo Validation
-            String c_expression = "\\d{3}-\\d{8}";
-            Pattern p_CN = Pattern.compile(c_expression);
-            Matcher m_CN = p_CN.matcher(txtContactNo.getText());
+        String userID = txtUserID.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String contactNo = txtContactNo.getText();
+        String email = txtEmail.getText();
+        String address = txtAddress.getText();
+        String securityQuestion = cboQuestion.getSelectedItem().toString();
+        String securityAnswer = txtAnswer.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+        String conPass = String.valueOf(txtConPass.getPassword());
+        String role = cboRoles.getSelectedItem().toString();
+        String gender = "";
+        String dateOfBirth=null;
+                
+        if(btnSave.getText() == "Save"){
+            try{
+                //Email Validation
+                String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
+                Pattern p_email = Pattern.compile(e_expression);
+                Matcher m_email = p_email.matcher(txtEmail.getText());
+                //ContactNo Validation
+                String c_expression = "\\d{3}-\\d{8}";
+                Pattern p_CN = Pattern.compile(c_expression);
+                Matcher m_CN = p_CN.matcher(txtContactNo.getText());
             
-            if (!textFieldsValid()) {
-                JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
-            }
-            else if(!radioButtonValid()){
-                JOptionPane.showMessageDialog(null, "Please select your gender.");
-            }
-            else if(!m_email.matches()){
-                JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
-            }
-            else if (!m_CN.matches()) {
-                JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
-            }
-            else if (!((password)).equals(conPass)){
-                JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
-            }           
-            else{
-                if(jRadioButton_M.isSelected()){
-                    gender = "M";
+                if (!textFieldsValid()) {
+                    JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
                 }
-                else if(jRadioButton_F.isSelected()){
-                    gender = "F";
+                else if(!radioButtonValid()){
+                    JOptionPane.showMessageDialog(null, "Please select your gender.");
                 }
+                else if(!m_email.matches()){
+                    JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
+                }
+                else if (!m_CN.matches()) {
+                    JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
+                }
+                else if (!((password)).equals(conPass)){
+                    JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                }           
+                else{
+                    if(jRadioButton_M.isSelected()){
+                        gender = "M";
+                    }
+                    else if(jRadioButton_F.isSelected()){
+                        gender = "F";
+                    }
+                    if(DateTimePicker_DOB.getDate() != null){
+                        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                        dateOfBirth = dateformat.format(DateTimePicker_DOB.getDate());
+                    }
                 
-                if(DateTimePicker_DOB.getDate() != null)
-                {
-                    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                    dateOfBirth = dateformat.format(DateTimePicker_DOB.getDate());
-                }
-                
-                 Class.forName("com.mysql.jdbc.Driver");
-                 sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-                 PreparedStatement ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-                 ps.setString(1, userID);
-                 ps.setString(2, firstName);
-                 ps.setString(3, lastName);
-                 ps.setString(4, email);
-                 ps.setString(5, gender);
-                 ps.setString(6, contactNo);
-                 if(dateOfBirth != null)
-                 {
-                     ps.setString(7, dateOfBirth);
-                 }else{
-                     ps.setNull(7, 0);
-                 }
-                 ps.setString(8, address);
-                 ps.setString(9, securityQuestion);
-                 ps.setString(10, securityAnswer);
-                 ps.setString(11, password);
-                 ps.setString(12, role);
-                 //ps.executeUpdate();
-                 if(ps.executeUpdate() > 0)
-                 {
-                     JOptionPane.showMessageDialog(null, "Inserted Successfully!");
-                     clearTextField();
-                     DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
-                     model.setRowCount(0);
-                     showUserDetails();
-                 }
-                 else{
-                     JOptionPane.showMessageDialog(null, "Fail to insert the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
-                 }
-            }           
+                    Class.forName("com.mysql.jdbc.Driver");
+                    sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                    PreparedStatement ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    ps.setString(1, userID);
+                    ps.setString(2, firstName);
+                    ps.setString(3, lastName);
+                    ps.setString(4, email);
+                    ps.setString(5, gender);
+                    ps.setString(6, contactNo);
+                    if(dateOfBirth != null){
+                        ps.setString(7, dateOfBirth);
+                    }
+                    else{
+                        ps.setNull(7, 0);
+                    }
+                    ps.setString(8, address);
+                    ps.setString(9, securityQuestion);
+                    ps.setString(10, securityAnswer);
+                    ps.setString(11, password);
+                    ps.setString(12, role);
+                    if(ps.executeUpdate() > 0){
+                        JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+                        clearTextField();
+                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();           
+                        model.setRowCount(0);
+                        showUserDetails();
+                        resetButtonForEdit();
+                        setControlReadOnly(false);
+                        setComboBoxReadOnly(false);
+                        clearTextField();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fail to insert the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                    }
+                }           
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage() ,"Error", 1);
+            }
         }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage() ,"Error", 1);
+        else{
+               //Email Validation
+                String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
+                Pattern p_email = Pattern.compile(e_expression);
+                Matcher m_email = p_email.matcher(txtEmail.getText());
+                //ContactNo Validation
+                String c_expression = "\\d{3}-\\d{8}";
+                Pattern p_CN = Pattern.compile(c_expression);
+                Matcher m_CN = p_CN.matcher(txtContactNo.getText());
+            
+                if (!textFieldsValid()) {
+                    JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
+                }
+                else if(!radioButtonValid()){
+                    JOptionPane.showMessageDialog(null, "Please select your gender.");
+                }
+                else if(!m_email.matches()){
+                    JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
+                }
+                else if (!m_CN.matches()) {
+                    JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
+                }
+                else if (!((password)).equals(conPass)){
+                    JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                }           
+                else{
+                    updateUser();
+                    resetButtonForEdit();
+                    setControlReadOnly(false);
+                    setComboBoxReadOnly(false);
+                    clearTextField();
+                }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -529,19 +570,19 @@ public class Staff_Management extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         btnSave.setEnabled(true);
         btnSave.setText("Update");
-        setControlReadOnly(false);
+        setControlReadOnly(true);
         setComboBoxReadOnly(true);
         setButtonForEdit();
-        updateUser();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         btnSave.setEnabled(true);
-        btnSave.setText("Update");
+        btnSave.setText("Save");
         setControlReadOnly(true);
         setComboBoxReadOnly(true);
         setButtonForEdit();
         clearTextField();
+        generateID();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
@@ -567,6 +608,96 @@ public class Staff_Management extends javax.swing.JFrame {
     private void jTable_UserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_UserMouseClicked
         setControlReadOnly(false);
         setComboBoxReadOnly(false);  
+        displayInTextFields();
+    }//GEN-LAST:event_jTable_UserMouseClicked
+
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+
+    }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if(btnDelete.getText() == "Delete"){
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                int i = jTable_User.getSelectedRow();
+                String id = (jTable_User.getModel().getValueAt(i, 0).toString());
+                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Delete",JOptionPane.YES_NO_OPTION);
+                if (opt==JOptionPane.YES_OPTION){
+                    String str="DELETE FROM userdetails WHERE user_ID='" + id + "'";
+                    PreparedStatement ps = sqlCon.prepareStatement(str);   
+                    if(ps.executeUpdate() > 0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Deleted Successfully!");
+                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                        model.setRowCount(0);
+                        showUserDetails();
+                        clearTextField();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fail to delete the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                }catch (Exception e){
+                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
+                }
+        }       
+        else{
+            btnSave.setText("Save");
+            resetButtonForEdit();
+            setControlReadOnly(false);
+            setComboBoxReadOnly(false);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void updateUser(){
+        try {
+            String userID = txtUserID.getText();
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String contactNo = txtContactNo.getText();
+            String email = txtEmail.getText();
+            String address = txtAddress.getText();
+            String securityQuestion = cboQuestion.getSelectedItem().toString();
+            String securityAnswer = txtAnswer.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String conPass = String.valueOf(txtConPass.getPassword());
+            String roles = cboRoles.getSelectedItem().toString();
+            String gender = "";
+            String dateOfBirth=null;
+            
+            if(jRadioButton_M.isSelected()){
+                gender = "M";
+            }
+            else if(jRadioButton_F.isSelected()){
+                gender = "F";
+            }
+            if(DateTimePicker_DOB.getDate() != null){
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                dateOfBirth = dateformat.format(DateTimePicker_DOB.getDate());
+            }
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+            String str = "UPDATE userdetails SET firstName='"+firstName+"',lastName='"+lastName+"',email='"+email+"',contactNo='"+contactNo+"',gender='"+gender+"',address='"+address+"',dateOfBirth='"+dateOfBirth+"',securityQuestion='"+securityQuestion+"',securityAnswer='"+securityAnswer+"',password='"+password+"',roles='"+roles+"' WHERE user_ID='"+userID+"'";
+            PreparedStatement ps = sqlCon.prepareStatement(str);
+            if(ps.executeUpdate() > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Edited Successfully!");
+                clearTextField();
+                DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                model.setRowCount(0);
+                showUserDetails();
+            }
+                 else{
+                     JOptionPane.showMessageDialog(null, "Fail to edit the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                 }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void displayInTextFields(){
         try{
         int i = jTable_User.getSelectedRow();
         TableModel model = jTable_User.getModel();
@@ -628,80 +759,6 @@ public class Staff_Management extends javax.swing.JFrame {
         }
         catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage() ,"Error", 1);
-        }
-    }//GEN-LAST:event_jTable_UserMouseClicked
-
-    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-
-    }//GEN-LAST:event_btnDeleteMouseClicked
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if(btnDelete.getText() == "Delete"){
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-                int i = jTable_User.getSelectedRow();
-                String id = (jTable_User.getModel().getValueAt(i, 0).toString());
-                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Delete",JOptionPane.YES_NO_OPTION);
-                if (opt==JOptionPane.YES_OPTION){
-                    String str="DELETE FROM userdetails WHERE user_ID='" + id + "'";
-                    PreparedStatement ps = sqlCon.prepareStatement(str);   
-                    if(ps.executeUpdate() > 0)
-                    {
-                        JOptionPane.showMessageDialog(null, "Deleted Successfully!");
-                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
-                        model.setRowCount(0);
-                        showUserDetails();
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Fail to delete the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                }catch (Exception e){
-                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
-                }
-        }       
-        else{
-            btnSave.setText("Save");
-            resetButtonForEdit();
-            setControlReadOnly(true);
-            setComboBoxReadOnly(false);
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void updateUser(){
-        try {
-            String userID = txtUserID.getText();
-            String firstName = txtFirstName.getText();
-            String lastName = txtLastName.getText();
-            String contactNo = txtContactNo.getText();
-            String email = txtEmail.getText();
-            String address = txtAddress.getText();
-            String securityQuestion = cboQuestion.getSelectedItem().toString();
-            String securityAnswer = txtAnswer.getText();
-            String password = String.valueOf(txtPassword.getPassword());
-            String conPass = String.valueOf(txtConPass.getPassword());
-            String roles = cboRoles.getSelectedItem().toString();
-            String gender = "";
-            String dateOfBirth=null;
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-            String str = "UPDATE userdetails SET firstName='"+firstName+"',lastName='"+lastName+"',email='"+email+"',gender='"+gender+"',contactNo='"+contactNo+"',dateOfBirth='"+dateOfBirth+"',address='"+address+"',securityQuestion='"+securityQuestion+"',securityAnswer='"+securityAnswer+"',password='"+password+"',roles='"+roles+"' WHERE user_ID='"+userID+"'";
-            PreparedStatement ps = sqlCon.prepareStatement(str);
-            if(ps.executeUpdate() > 0)
-            {
-                JOptionPane.showMessageDialog(null, "Edited Successfully!");
-                clearTextField();
-                DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
-                model.setRowCount(0);
-                showUserDetails();
-            }
-                 else{
-                     JOptionPane.showMessageDialog(null, "Fail to edit the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
-                 }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }
     
@@ -828,6 +885,8 @@ public class Staff_Management extends javax.swing.JFrame {
          DateTimePicker_DOB.setDate(null);
          jRadioButton_M.setSelected(false);
          jRadioButton_F.setSelected(false);     
+         cboQuestion.setSelectedIndex(0);
+         cboRoles.setSelectedIndex(0);
      }
      
     private void setControlReadOnly(boolean blnRead){
@@ -906,6 +965,15 @@ public class Staff_Management extends javax.swing.JFrame {
         }
         return isValid; 
     }
+    
+    private void generateID(){
+        Object valueOfLastLine = jTable_User.getValueAt(jTable_User.getModel().getRowCount()-1, 0);      
+        String valueOfLastLineToString = valueOfLastLine.toString();
+        int auto_ID = Integer.parseInt(valueOfLastLineToString);
+        int new_ID = (auto_ID + 1);
+        txtUserID.setText("" + new_ID);
+    }
+   
     /**
      * @param args the command line arguments
      */
