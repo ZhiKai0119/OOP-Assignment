@@ -2,6 +2,7 @@ package IDFC_Project;
 
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +17,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -24,6 +27,7 @@ public class Staff_Management extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
     static final String USER = "root";
     static final String PASS = "Yizhimae_98";
+    private static final int COL = 11;
     Connection sqlCon = null;
 
 
@@ -973,7 +977,7 @@ public class Staff_Management extends javax.swing.JFrame {
         int new_ID = (auto_ID + 1);
         txtUserID.setText("" + new_ID);
     }
-   
+    
     /**
      * @param args the command line arguments
      */
