@@ -54,7 +54,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        LayeredPane.setPreferredSize(new java.awt.Dimension(1200, 700));
         LayeredPane.setLayout(new java.awt.CardLayout());
+
+        pnlDeliveryCompany.setPreferredSize(new java.awt.Dimension(1200, 700));
         LayeredPane.add(pnlDeliveryCompany, "card2");
         LayeredPane.add(pnlPromotion, "card3");
 
@@ -65,13 +68,13 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(LayeredPane)
+                .addComponent(LayeredPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-            .addComponent(LayeredPane)
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LayeredPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
