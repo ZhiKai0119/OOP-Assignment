@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Staff_Management extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
@@ -70,7 +71,6 @@ public class Staff_Management extends javax.swing.JFrame {
         DateTimePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jTable_User.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
         jTable_User.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,6 +83,11 @@ public class Staff_Management extends javax.swing.JFrame {
         ));
         jTable_User.setGridColor(new java.awt.Color(255, 255, 255));
         jTable_User.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        jTable_User.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_UserMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_User);
 
         btnSave.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
@@ -548,7 +553,7 @@ public class Staff_Management extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Fail to delete the record.");
                     }
                 } catch (Exception e){
-                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
                 }
             }       
     }
@@ -559,6 +564,64 @@ public class Staff_Management extends javax.swing.JFrame {
             setComboBoxReadOnly(false);
         }
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void jTable_UserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_UserMouseClicked
+        int i = jTable_User.getSelectedRow();
+        TableModel model = jTable_User.getModel();
+        txtUserID.setText(model.getValueAt(i,0).toString());
+        txtFirstName.setText(model.getValueAt(i,1).toString());
+        txtLastName.setText(model.getValueAt(i,2).toString());
+        txtContactNo.setText(model.getValueAt(i,3).toString());
+        txtEmail.setText(model.getValueAt(i,4).toString());
+        String gender = model.getValueAt(i,5).toString();
+        if (gender.equals("M")){
+            jRadioButton_M.setSelected(true);
+            jRadioButton_F.setSelected(false);
+        }
+        else{
+            jRadioButton_F.setSelected(true);
+            jRadioButton_M.setSelected(false);
+        }
+        txtAddress.setText(model.getValueAt(i,7).toString());
+        String question = model.getValueAt(i,8).toString();
+        if (question.equals("Favorite Food")){
+            cboQuestion.setSelectedIndex(0);
+        }
+        else if(question.equals("Favorite Drinks")){
+            cboQuestion.setSelectedIndex(1);
+        }
+        else if(question.equals("Favorite Color")){
+            cboQuestion.setSelectedIndex(2);
+        }
+        else if(question.equals("Favorite Novel")){
+            cboQuestion.setSelectedIndex(3);
+        }
+        else if(question.equals("Favorite Actor")){
+            cboQuestion.setSelectedIndex(4);
+        }
+        else if(question.equals("Favorite Author")){
+            cboQuestion.setSelectedIndex(5);
+        }
+        else if(question.equals("Favorite Subject")){
+            cboQuestion.setSelectedIndex(6);
+        }
+        else{
+            cboQuestion.setSelectedIndex(7);
+        }
+        txtAnswer.setText(model.getValueAt(i,9).toString());
+        txtPassword.setText(model.getValueAt(i,10).toString());
+        txtConPass.setText(model.getValueAt(i,10).toString());
+        String roles = model.getValueAt(i,11).toString();
+        if (roles.equals("Customer")){
+            cboRoles.setSelectedIndex(0);
+        }
+        else if(roles.equals("Staff")){
+            cboRoles.setSelectedIndex(1);
+        }
+        else{
+            cboRoles.setSelectedIndex(2);
+        }
+    }//GEN-LAST:event_jTable_UserMouseClicked
 
     private void showUserDetails()
     {

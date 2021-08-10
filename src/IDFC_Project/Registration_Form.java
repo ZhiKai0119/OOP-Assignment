@@ -9,10 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static javafx.scene.paint.Color.color;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -28,7 +30,7 @@ public class Registration_Form extends javax.swing.JFrame {
     public Registration_Form() {
         initComponents();
         this.setLocationRelativeTo(null);//Center Form 
-        groupButton();
+        groupButton();     
     }
 
     @SuppressWarnings("unchecked")
@@ -244,6 +246,14 @@ public class Registration_Form extends javax.swing.JFrame {
             }
         });
 
+        jXDatePicker_DOB.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        jXDatePicker_DOB.setBackground(Color.BLACK);
+        jXDatePicker_DOB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXDatePicker_DOBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -309,14 +319,15 @@ public class Registration_Form extends javax.swing.JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(jLabel9)
-                        .addGap(4, 4, 4)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(291, 291, 291)
                         .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jLabel9)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,8 +398,10 @@ public class Registration_Form extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
+
+        jXDatePicker_DOB.setBackground(Color.BLACK);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -605,6 +618,10 @@ public class Registration_Form extends javax.swing.JFrame {
             txtConPass.setBorder(new LineBorder(Color.decode("#FF8583")));
         }  
     }//GEN-LAST:event_txtConPassFocusLost
+
+    private void jXDatePicker_DOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker_DOBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jXDatePicker_DOBActionPerformed
 
      private void groupButton() {       
         ButtonGroup bg1 = new ButtonGroup( );
