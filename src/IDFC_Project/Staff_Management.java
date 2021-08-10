@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -296,6 +299,8 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(203, 178, 106));
         jLabel13.setText("Date of Birth:");
 
+        DateTimePicker_DOB.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -566,6 +571,9 @@ public class Staff_Management extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void jTable_UserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_UserMouseClicked
+        setControlReadOnly(false);
+        setComboBoxReadOnly(false);  
+        try{
         int i = jTable_User.getSelectedRow();
         TableModel model = jTable_User.getModel();
         txtUserID.setText(model.getValueAt(i,0).toString());
@@ -582,6 +590,8 @@ public class Staff_Management extends javax.swing.JFrame {
             jRadioButton_F.setSelected(true);
             jRadioButton_M.setSelected(false);
         }
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 6));
+        DateTimePicker_DOB.setDate(date);
         txtAddress.setText(model.getValueAt(i,7).toString());
         String question = model.getValueAt(i,8).toString();
         if (question.equals("Favorite Food")){
@@ -620,6 +630,10 @@ public class Staff_Management extends javax.swing.JFrame {
         }
         else{
             cboRoles.setSelectedIndex(2);
+        }
+        }
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage() ,"Error", 1);
         }
     }//GEN-LAST:event_jTable_UserMouseClicked
 
