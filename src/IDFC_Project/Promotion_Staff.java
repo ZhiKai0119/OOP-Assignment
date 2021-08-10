@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class Promotion_Staff extends javax.swing.JPanel {
 
     private DefaultTableModel model;
-    
+    private String startDate, endDate;
       //generate
     String characters = "ABCDEFGHIJKLMNOPQRSTUVWUXYZ0123456789";
     String randomString="";
@@ -73,7 +74,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(450, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(445, 445, 445))
         );
@@ -117,15 +118,16 @@ public class Promotion_Staff extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         jLabel7.setText("Promotion ID:");
 
+        tblPromotion.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         tblPromotion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Promotion ID", "Promotion Name", "PromoStartDate", "PromoEndDate", "Description", "Promo Code", "Promo Picture"
+                "Promotion ID", "Promotion Name", "Promo Code", "Promo Qty", "Promotion Percent", "Description", "PromoStartDate", "PromoEndDate"
             }
         ));
         jScrollPane2.setViewportView(tblPromotion);
@@ -133,6 +135,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         jLabel8.setText("Promotion Code:");
 
+        lblPromoCode.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         lblPromoCode.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         btnGenerate.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
@@ -153,10 +156,10 @@ public class Promotion_Staff extends javax.swing.JPanel {
 
         txtPromoQty.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
 
-        dtpPromoStartDate.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        dtpPromoStartDate.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         dtpPromoStartDate.setBackground(Color.BLACK);
 
-        dtpPromoEndDate.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
+        dtpPromoEndDate.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         dtpPromoStartDate.setBackground(Color.BLACK);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -167,50 +170,52 @@ public class Promotion_Staff extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel4)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel9)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(44, 44, 44)
-                                        .addComponent(btnGenerate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel7)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(10, 10, 10)
+                                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(63, 63, 63)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(272, 272, 272)
+                        .addComponent(jLabel1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(275, 275, 275)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(47, 47, 47)
+                                .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(296, 296, 296)
-                    .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(715, Short.MAX_VALUE)))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dtpPromoEndDate, dtpPromoStartDate, jScrollPane1, txtPercent, txtPromoID, txtPromoName, txtPromoQty});
@@ -219,51 +224,53 @@ public class Promotion_Staff extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(btnGenerate))
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel4)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel9)
-                        .addGap(1, 1, 1)
-                        .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                            .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel8))
+                            .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGenerate))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel9))
+                            .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addGap(7, 7, 7)
-                                .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 37, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5)
-                                .addGap(68, 68, 68)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(283, 283, 283)
-                    .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(388, Short.MAX_VALUE)))
+                                .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2)))
+                .addContainerGap())
         );
 
         dtpPromoStartDate.setBackground(Color.BLACK);
@@ -278,6 +285,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please Fill in the Promotion Name!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }*/
+        addRecord();
+        updateTable();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
@@ -336,29 +345,36 @@ public class Promotion_Staff extends javax.swing.JPanel {
 
      
      //add data to database
-   /*  private void addRecord() {
+    private void addRecord() {
         try{
-            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, Status) values(?,?,?,?,?,?,?)");
-            InputStream is = new FileInputStream(new File(s));
+            if(dtpPromoStartDate.getDate() != null ){
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                startDate = dateformat.format(dtpPromoStartDate.getDate());
+                endDate = dateformat.format(dtpPromoEndDate.getDate());
+            }
+        
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into promotion(promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate) values(?,?,?,?,?,?,?,?)");
+           
             pst.setString(1, txtPromoID.getText());
             pst.setString(2, txtPromoName.getText());
             pst.setString(3, lblPromoCode.getText());
             pst.setString(4, txtPromoQty.getText());
             pst.setString(5, txtPercent.getText());
             pst.setString(6, txtDescription.getText());
-          // pst.setDate(7, PromoStartDate.getCalendar());
-           // pst.setDate(8, PromoEndDate.getDate());
-            pst.setBlob(9, is);
-            pst.setInt(10, 1);
+            
+            pst.setString(7, startDate);
+            pst.setString(8, endDate);
+          
             pst.executeUpdate();
 //            DatabaseConnection.getInstance().getConnection().close();
             JOptionPane.showMessageDialog(null, "Data Inserted");
         } catch(Exception ex){
             System.out.println("Error Message: " + ex);
         }
-    */
+    }
+   
      
-      public void updateTable() {
+    public void updateTable() {
         try {
             model = (DefaultTableModel) tblPromotion.getModel();
             model.setRowCount(0);
@@ -373,13 +389,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
                 String promoDesc = rs.getString(6);
                 String promoStartDate = rs.getString(7);
                 String promoEndDate = rs.getString(8);
-                //int contactNo = rs.getInt(5);
-                //Icon image = null;
-               // if (rs.getObject(8) != null) {
-                 //   image = scaledImage(new ImageIcon(rs.getBytes(6)));
-                //}
-               // boolean status = rs.getInt(7) == 1;
-               // model.addRow(new Object[]{promotion.getRowCount() + 1,promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate});
+
+                model.addRow(new Object[]{promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate});
             }
         } catch (Exception e) {
             e.printStackTrace();
