@@ -78,7 +78,6 @@ public class Staff_Management extends javax.swing.JFrame {
         DateTimePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jTable_User.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
         jTable_User.setModel(new javax.swing.table.DefaultTableModel(
@@ -444,8 +443,7 @@ public class Staff_Management extends javax.swing.JFrame {
             String role = cboRoles.getSelectedItem().toString();
             String gender = "";
             String dateOfBirth=null;
-            
-            
+                        
             //Email Validation
             String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
             Pattern p_email = Pattern.compile(e_expression);
@@ -507,14 +505,14 @@ public class Staff_Management extends javax.swing.JFrame {
                  //ps.executeUpdate();
                  if(ps.executeUpdate() > 0)
                  {
-                     JOptionPane.showMessageDialog(null, "New User Add");
+                     JOptionPane.showMessageDialog(null, "Inserted Successfully!");
                      clearTextField();
                      DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
                      model.setRowCount(0);
                      showUserDetails();
                  }
                  else{
-                     JOptionPane.showMessageDialog(null, "Fail");
+                     JOptionPane.showMessageDialog(null, "Fail to insert the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
                  }
             }           
         }
@@ -525,45 +523,8 @@ public class Staff_Management extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnLastActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if(btnDelete.getText() == "Delete"){
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-                int i = jTable_User.getSelectedRow();
-                String id = (jTable_User.getModel().getValueAt(i, 0).toString());
-                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Delete",JOptionPane.YES_NO_OPTION);
-                if (opt==JOptionPane.YES_OPTION){
-                    String str="DELETE FROM userdetails WHERE user_ID='" + id + "'";
-                    PreparedStatement ps = sqlCon.prepareStatement(str);   
-                    if(ps.executeUpdate() > 0)
-                    {
-                        JOptionPane.showMessageDialog(null, "Sucessfully Deleted!");
-                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
-                        model.setRowCount(0);
-                        showUserDetails();
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(null, "Fail");
-                    }
-                }
-                 else{
-                     JOptionPane.showMessageDialog(null, "Fail");
-                }
-                }catch (Exception e){
-                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
-                }
-        }       
-        else{
-            btnSave.setText("Save");
-            resetButtonForEdit();
-            setControlReadOnly(true);
-            setComboBoxReadOnly(false);
-        }
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         btnSave.setEnabled(true);
@@ -571,6 +532,7 @@ public class Staff_Management extends javax.swing.JFrame {
         setControlReadOnly(false);
         setComboBoxReadOnly(true);
         setButtonForEdit();
+        updateUser();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -673,6 +635,76 @@ public class Staff_Management extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnDeleteMouseClicked
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if(btnDelete.getText() == "Delete"){
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                int i = jTable_User.getSelectedRow();
+                String id = (jTable_User.getModel().getValueAt(i, 0).toString());
+                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Delete",JOptionPane.YES_NO_OPTION);
+                if (opt==JOptionPane.YES_OPTION){
+                    String str="DELETE FROM userdetails WHERE user_ID='" + id + "'";
+                    PreparedStatement ps = sqlCon.prepareStatement(str);   
+                    if(ps.executeUpdate() > 0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Deleted Successfully!");
+                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                        model.setRowCount(0);
+                        showUserDetails();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fail to delete the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                }catch (Exception e){
+                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
+                }
+        }       
+        else{
+            btnSave.setText("Save");
+            resetButtonForEdit();
+            setControlReadOnly(true);
+            setComboBoxReadOnly(false);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void updateUser(){
+        try {
+            String userID = txtUserID.getText();
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String contactNo = txtContactNo.getText();
+            String email = txtEmail.getText();
+            String address = txtAddress.getText();
+            String securityQuestion = cboQuestion.getSelectedItem().toString();
+            String securityAnswer = txtAnswer.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String conPass = String.valueOf(txtConPass.getPassword());
+            String roles = cboRoles.getSelectedItem().toString();
+            String gender = "";
+            String dateOfBirth=null;
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+            String str = "UPDATE userdetails SET firstName='"+firstName+"',lastName='"+lastName+"',email='"+email+"',gender='"+gender+"',contactNo='"+contactNo+"',dateOfBirth='"+dateOfBirth+"',address='"+address+"',securityQuestion='"+securityQuestion+"',securityAnswer='"+securityAnswer+"',password='"+password+"',roles='"+roles+"' WHERE user_ID='"+userID+"'";
+            PreparedStatement ps = sqlCon.prepareStatement(str);
+            if(ps.executeUpdate() > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Edited Successfully!");
+                clearTextField();
+                DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                model.setRowCount(0);
+                showUserDetails();
+            }
+                 else{
+                     JOptionPane.showMessageDialog(null, "Fail to edit the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                 }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     private void showUserDetails()
     {
        try {
