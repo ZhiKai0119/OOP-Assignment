@@ -27,10 +27,10 @@ public class Registration_Form extends javax.swing.JFrame {
     Connection sqlCon = null;
     PreparedStatement ps = null;
 
-    public Registration_Form() {
+    public Registration_Form(){
         initComponents();
         this.setLocationRelativeTo(null);//Center Form 
-        groupButton();     
+        groupButton();    
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +67,7 @@ public class Registration_Form extends javax.swing.JFrame {
         cboQuestion = new javax.swing.JComboBox<>();
         txtAnswer = new javax.swing.JTextField();
         jXDatePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
+        lblUserID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,11 +94,6 @@ public class Registration_Form extends javax.swing.JFrame {
                 txtFirstNameFocusLost(evt);
             }
         });
-        txtFirstName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFirstNameActionPerformed(evt);
-            }
-        });
 
         jButtonRegister.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
         jButtonRegister.setForeground(new java.awt.Color(203, 178, 106));
@@ -114,11 +110,6 @@ public class Registration_Form extends javax.swing.JFrame {
                 txtLastNameFocusLost(evt);
             }
         });
-        txtLastName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLastNameActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(203, 178, 106));
@@ -130,21 +121,11 @@ public class Registration_Form extends javax.swing.JFrame {
                 txtContactNoFocusLost(evt);
             }
         });
-        txtContactNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContactNoActionPerformed(evt);
-            }
-        });
 
         txtEmail.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
-            }
-        });
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
             }
         });
 
@@ -210,16 +191,6 @@ public class Registration_Form extends javax.swing.JFrame {
                 txtPasswordFocusLost(evt);
             }
         });
-        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtPasswordMouseExited(evt);
-            }
-        });
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyReleased(evt);
-            }
-        });
 
         txtConPass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
         txtConPass.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -240,19 +211,12 @@ public class Registration_Form extends javax.swing.JFrame {
                 txtAnswerFocusLost(evt);
             }
         });
-        txtAnswer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAnswerActionPerformed(evt);
-            }
-        });
 
         jXDatePicker_DOB.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
         jXDatePicker_DOB.setBackground(Color.BLACK);
-        jXDatePicker_DOB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker_DOBActionPerformed(evt);
-            }
-        });
+
+        lblUserID.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
+        lblUserID.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -262,77 +226,85 @@ public class Registration_Form extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(219, 219, 219)
-                        .addComponent(jLabel2))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUserID))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel1)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel10)
-                        .addGap(4, 4, 4)
-                        .addComponent(cboQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel3)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel11)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel5)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel23)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel6)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel24)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel7)
-                        .addGap(4, 4, 4)
-                        .addComponent(jRadioButton_M)
-                        .addGap(20, 20, 20)
-                        .addComponent(jRadioButton_F)
-                        .addGap(111, 111, 111)
-                        .addComponent(jLabel25)
-                        .addGap(4, 4, 4)
-                        .addComponent(cboRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel8)
-                        .addGap(4, 4, 4)
-                        .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(291, 291, 291)
-                        .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabel9)
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(263, 263, 263)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel1)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel10)
+                                .addGap(4, 4, 4)
+                                .addComponent(cboQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(jLabel3)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(jLabel11)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(jLabel5)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addComponent(jLabel23)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(89, 89, 89)
+                                .addComponent(jLabel6)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel24)
+                                .addGap(4, 4, 4)
+                                .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(jLabel7)
+                                .addGap(4, 4, 4)
+                                .addComponent(jRadioButton_M)
+                                .addGap(20, 20, 20)
+                                .addComponent(jRadioButton_F)
+                                .addGap(111, 111, 111)
+                                .addComponent(jLabel25)
+                                .addGap(4, 4, 4)
+                                .addComponent(cboRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel8)
+                                .addGap(4, 4, 4)
+                                .addComponent(jXDatePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(291, 291, 291)
+                                .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addComponent(jLabel9)
+                                .addGap(4, 4, 4)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 62, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblUserID)))
                 .addGap(6, 6, 6)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -419,14 +391,21 @@ public class Registration_Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFirstNameActionPerformed
-
     private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
         try
         {
-            String userID = "21WMR12340";
+            Class.forName("com.mysql.jdbc.Driver");
+            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+            Statement stmt = sqlCon.createStatement();
+            String query = "SELECT user_ID FROM userdetails ORDER BY user_ID DESC LIMIT 1";
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next()){
+                String userID = rs.getString("user_ID");
+                int auto_ID = Integer.parseInt(userID);
+                int new_ID = (auto_ID + 1);
+                lblUserID.setText("" +new_ID);
+            }
+
             String firstName = txtFirstName.getText();
             String lastName = txtLastName.getText();
             String contactNo = txtContactNo.getText();
@@ -479,35 +458,46 @@ public class Registration_Form extends javax.swing.JFrame {
                     dateOfBirth = dateformat.format(jXDatePicker_DOB.getDate());
                 }
                 
-                 Class.forName("com.mysql.jdbc.Driver");
-                 sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
-                 ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-                 ps.setString(1, userID);
-                 ps.setString(2, firstName);
-                 ps.setString(3, lastName);
-                 ps.setString(4, email);
-                 ps.setString(5, gender);
-                 ps.setString(6, contactNo);
-                 if(dateOfBirth != null)
-                 {
-                     ps.setString(7, dateOfBirth);
-                 }else{
-                     ps.setNull(7, 0);
-                 }
-                 ps.setString(8, address);
-                 ps.setString(9, securityQuestion);
-                 ps.setString(10, securityAnswer);
-                 ps.setString(11, password);
-                 ps.setString(12, role);
-                 //ps.executeUpdate();
-                 if(ps.executeUpdate() > 0)
-                 {
-                     JOptionPane.showMessageDialog(null, "New User Add");
-                     clearTextField();
-                 }
-                 else{
-                     JOptionPane.showMessageDialog(null, "Fail");
-                 }
+                if (cboRoles.getSelectedIndex()==1){
+                    String isStaff = JOptionPane.showInputDialog(null,"Please enter the verification code: ","Enter Verification Code",JOptionPane.INFORMATION_MESSAGE);
+                    if(isStaff.equals("")){
+                        JOptionPane.showMessageDialog(null,"You must enter the verification code to continue.");
+                    }
+                    else if(!"IDFC210810".equals(isStaff)){
+                        JOptionPane.showMessageDialog(null,"Wrong verification code.");
+                    }
+                    else{
+                        Class.forName("com.mysql.jdbc.Driver");
+                        sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                        ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                        ps.setString(1, lblUserID.getText());
+                        ps.setString(2, firstName);
+                        ps.setString(3, lastName);
+                        ps.setString(4, email);
+                        ps.setString(5, gender);
+                        ps.setString(6, contactNo);
+                        if(dateOfBirth != null){
+                            ps.setString(7, dateOfBirth);
+                        }else{
+                            ps.setNull(7, 0);
+                        }
+                        ps.setString(8, address);
+                        ps.setString(9, securityQuestion);
+                        ps.setString(10, securityAnswer);
+                        ps.setString(11, password);
+                        ps.setString(12, role);
+                        //ps.executeUpdate();
+                        if(ps.executeUpdate() > 0){
+                            JOptionPane.showMessageDialog(null, "New User Add");
+                            clearTextField();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(null, "Fail");
+                        }
+                    }
+                }
+                
+
             }           
         }
         catch(Exception e)
@@ -515,30 +505,6 @@ public class Registration_Form extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage() ,"Error", 1);
         }
     }//GEN-LAST:event_jButtonRegisterActionPerformed
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLastNameActionPerformed
-
-    private void txtContactNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContactNoActionPerformed
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void txtAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnswerActionPerformed
-        
-    }//GEN-LAST:event_txtAnswerActionPerformed
-
-    private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
-
-    }//GEN-LAST:event_txtPasswordMouseExited
-
-    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
-
-    }//GEN-LAST:event_txtPasswordKeyReleased
 
     private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
         //Password Validation
@@ -618,10 +584,6 @@ public class Registration_Form extends javax.swing.JFrame {
             txtConPass.setBorder(new LineBorder(Color.decode("#FF8583")));
         }  
     }//GEN-LAST:event_txtConPassFocusLost
-
-    private void jXDatePicker_DOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker_DOBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker_DOBActionPerformed
 
      private void groupButton() {       
         ButtonGroup bg1 = new ButtonGroup( );
@@ -776,6 +738,7 @@ public class Registration_Form extends javax.swing.JFrame {
         }
         return isValid; 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -844,6 +807,7 @@ public class Registration_Form extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton_M;
     private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker_DOB;
+    private javax.swing.JLabel lblUserID;
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtAnswer;
     private javax.swing.JPasswordField txtConPass;
