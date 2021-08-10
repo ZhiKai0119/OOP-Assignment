@@ -25,7 +25,7 @@ public class Delivery_Company extends javax.swing.JPanel {
 
     private DefaultTableModel model;
     private ResultSet rs;
-    String s;
+    String storeImg;
     PreparedStatement pst = null;
     
     public Delivery_Company() {
@@ -139,6 +139,8 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtAddress = new javax.swing.JTextArea();
         btnClear = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        btnStatus = new javax.swing.JToggleButton();
 
         setMaximumSize(new java.awt.Dimension(1200, 700));
         setMinimumSize(new java.awt.Dimension(1200, 700));
@@ -242,7 +244,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(455, Short.MAX_VALUE)
+                .addContainerGap(448, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(445, 445, 445))
         );
@@ -275,6 +277,17 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        jLabel8.setText("Status:");
+
+        btnStatus.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        btnStatus.setText("Not Available");
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -282,13 +295,6 @@ public class Delivery_Company extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,16 +305,31 @@ public class Delivery_Company extends javax.swing.JPanel {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel3)))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel8)))
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtComName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtManager, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContactNo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnStatus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtComName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addComponent(txtManager, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtComID)
+                                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -319,9 +340,6 @@ public class Delivery_Company extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -346,16 +364,20 @@ public class Delivery_Company extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnStatus)
+                            .addComponent(jLabel8))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24))))
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -378,7 +400,7 @@ public class Delivery_Company extends javax.swing.JPanel {
             File selectedFile = fileChooser.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblLogo.setIcon(ResizeImage(path));
-            s = path;
+            storeImg = path;
         }else if(result == JFileChooser.CANCEL_OPTION){
             System.out.println("No File Selected");
         }
@@ -386,32 +408,42 @@ public class Delivery_Company extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try {
-            Statement stmt = DatabaseConnection.getInstance().getConnection().createStatement();
-            String sql = "SELECT * FROM delivery_company WHERE companyID = '" + txtComID.getText() + "'";
-            
-            rs = stmt.executeQuery(sql);
-            
-            if(rs.next()) {
-                JOptionPane.showMessageDialog(this, "This Company ID already Assist.");
+            if(btnAdd.getText().equals("Add")) {
+                btnAdd.setText("Save");
+                enableTXT(true);
+                btnEdit.setEnabled(false);
+                clearTXT();
             } else {
-                if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
-                    || txtContactNo.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
+                btnAdd.setText("Add");
+                Statement stmt = DatabaseConnection.getInstance().getConnection().createStatement();
+                String sql = "SELECT * FROM delivery_company WHERE companyID = '" + txtComID.getText() + "'";
+
+                rs = stmt.executeQuery(sql);
+
+                if(rs.next()) {
+                    JOptionPane.showMessageDialog(this, "This Company ID already Assist.");
                 } else {
-                    if(lblLogo.getIcon() == null) {
-                        JOptionPane.showMessageDialog(this, "Please Insert the Delivery Company Logo!", "Error", JOptionPane.ERROR_MESSAGE);
+                    if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
+                        || txtContactNo.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        int response = JOptionPane.showConfirmDialog(this, "Do you want to inser a new record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if(response == JOptionPane.YES_OPTION) {
-                            addRecord();
-                            updateTable();
-                            //JOptionPane.showMessageDialog(this, "Successfully Added");
-                            clearTXT();
+                        if(lblLogo.getIcon() == null) {
+                            JOptionPane.showMessageDialog(this, "Please Insert the Delivery Company Logo!", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
-                            JOptionPane.showMessageDialog(this, "Fail");
+                            int response = JOptionPane.showConfirmDialog(this, "Do you want to inser a new record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if(response == JOptionPane.YES_OPTION) {
+                                addRecord();
+                                updateTable();
+                                //JOptionPane.showMessageDialog(this, "Successfully Added");
+                                clearTXT();
+                                enableTXT(false);
+                                btnEdit.setEnabled(true);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Fail");
+                            }
                         }
-                    }
-                }                
+                    }                
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -452,8 +484,15 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtManager.setText(model.getValueAt(i, 4).toString());
         txtContactNo.setText(model.getValueAt(i, 5).toString());
         ImageIcon image = (ImageIcon)model.getValueAt(i, 6);
+        storeImg = image.toString();
         Image image2 = image.getImage().getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH); 
         lblLogo.setIcon(new ImageIcon(image2));
+        boolean status = (boolean) model.getValueAt(i, 7);
+        if(status == true) {
+            btnStatus.setText("Available");
+        } else {
+            btnStatus.setText("Not Available");
+        }
     }//GEN-LAST:event_tblDeliveryCompanyMouseClicked
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -462,12 +501,29 @@ public class Delivery_Company extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         try {
-            enableTXT(true);
-            
+            if(btnEdit.getText().equals("Edit")) {
+                btnEdit.setText("Save");
+                enableTXT(true);
+                txtComID.setEnabled(false);
+                btnAdd.setEnabled(false);
+            } else {
+                btnEdit.setText("Edit");
+                editRecord();
+                enableTXT(false);
+                btnAdd.setEnabled(true);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+        if(btnStatus.isSelected()) {
+            btnStatus.setText("Available");
+        } else {
+            btnStatus.setText("Not Available");
+        }
+    }//GEN-LAST:event_btnStatusActionPerformed
 
     private ImageIcon scaledImage(Icon image) {
         int h = image.getIconHeight();
@@ -508,16 +564,19 @@ public class Delivery_Company extends javax.swing.JPanel {
     private void addRecord() {
         try{
             pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, Status) values(?,?,?,?,?,?,?)");
-            InputStream is = new FileInputStream(new File(s));
+            InputStream is = new FileInputStream(new File(storeImg));
             pst.setString(1, txtComID.getText());
             pst.setString(2, txtComName.getText());
             pst.setString(3, txtAddress.getText());
             pst.setString(4, txtManager.getText());
             pst.setString(5, txtContactNo.getText());
             pst.setBlob(6, is);
-            pst.setInt(7, 1);
+            if(btnStatus.getText().equals("Available")){
+                pst.setInt(7, 1);
+            } else {
+                pst.setInt(7, 0);
+            } 
             pst.executeUpdate();
-//            DatabaseConnection.getInstance().getConnection().close();
             JOptionPane.showMessageDialog(null, "Data Insert Successfully");
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Error Message: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -527,6 +586,23 @@ public class Delivery_Company extends javax.swing.JPanel {
     private void editRecord() {
         try {
             pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
+            InputStream is = new FileInputStream(new File(storeImg));
+//            pst.setString(1, txtComID.getText());
+            pst.setString(1, txtComName.getText());
+            pst.setString(2, txtAddress.getText());
+            pst.setString(3, txtManager.getText());
+            pst.setString(4, txtContactNo.getText());
+            pst.setBlob(5, is);
+            if(btnStatus.getText().equals("Available")){
+                pst.setInt(6, 1);
+            } else {
+                pst.setInt(6, 0);
+            } 
+            pst.executeUpdate();
+            
+            updateTable();
+            clearTXT();
+            JOptionPane.showMessageDialog(this, "Edit Successfully");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -554,6 +630,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JToggleButton btnStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -561,6 +638,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
