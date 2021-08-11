@@ -1,19 +1,33 @@
 package IDFC_Project;
 
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Staff_Management extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost:3306/idfc";
     static final String USER = "root";
     static final String PASS = "Yizhimae_98";
+    private static final int COL = 11;
     Connection sqlCon = null;
 
 
@@ -22,6 +36,14 @@ public class Staff_Management extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);//CenterForm 
         showUserDetails();
         groupButton();
+        setControlReadOnly(false);
+        setComboBoxReadOnly(false);
+        btnSave.setEnabled(false);
+        jTable_User.changeSelection(0, 0, false, false);
+        displayInTextFields();
+        
+        txtUserID.setEditable(false);
+        txtFirstName.setFocusCycleRoot(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -30,43 +52,44 @@ public class Staff_Management extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_User = new javax.swing.JTable();
-        btnLogin = new javax.swing.JButton();
-        btnLogin1 = new javax.swing.JButton();
-        btnLogin2 = new javax.swing.JButton();
-        btnLogin3 = new javax.swing.JButton();
-        btnLogin4 = new javax.swing.JButton();
-        btnLogin5 = new javax.swing.JButton();
-        btnLogin6 = new javax.swing.JButton();
-        btnLogin7 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnFirst = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnPrevious = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUserID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtContactNo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAddress = new javax.swing.JTextArea();
         jRadioButton_M = new javax.swing.JRadioButton();
         jRadioButton_F = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtAnswer = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cboQuestion = new javax.swing.JComboBox<>();
         cboRoles = new javax.swing.JComboBox<>();
+        txtConPass = new javax.swing.JPasswordField();
         txtPassword = new javax.swing.JPasswordField();
-        txtPassword1 = new javax.swing.JPasswordField();
+        jLabel13 = new javax.swing.JLabel();
+        DateTimePicker_DOB = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         jTable_User.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
         jTable_User.setModel(new javax.swing.table.DefaultTableModel(
@@ -77,79 +100,91 @@ public class Staff_Management extends javax.swing.JFrame {
                 "User ID", "First Name", "Last Name", "Contact No", "Email", "Gender", "Date of Birth", "Address", "Security Question", "Security Answer", "Password", "Roles"
             }
         ));
-        jTable_User.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable_User.setGridColor(new java.awt.Color(204, 255, 204));
         jTable_User.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        jTable_User.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jTable_User.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_User.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_UserMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_User);
 
-        btnLogin.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin.setText("Update");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(203, 178, 106));
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        btnLogin1.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin1.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin1.setText("Last");
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+        btnLast.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnLast.setForeground(new java.awt.Color(203, 178, 106));
+        btnLast.setText("Last");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
+                btnLastActionPerformed(evt);
             }
         });
 
-        btnLogin2.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin2.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin2.setText("Delete");
-        btnLogin2.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(203, 178, 106));
+        btnDelete.setText("Delete");
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteMouseClicked(evt);
+            }
+        });
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
-        btnLogin3.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin3.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin3.setText("Edit");
-        btnLogin3.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(203, 178, 106));
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin3ActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
-        btnLogin4.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin4.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin4.setText("Add");
-        btnLogin4.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(203, 178, 106));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin4ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        btnLogin5.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin5.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin5.setText("First");
-        btnLogin5.addActionListener(new java.awt.event.ActionListener() {
+        btnFirst.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnFirst.setForeground(new java.awt.Color(203, 178, 106));
+        btnFirst.setText("First");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin5ActionPerformed(evt);
+                btnFirstActionPerformed(evt);
             }
         });
 
-        btnLogin6.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
-        btnLogin6.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin6.setText("Next");
-        btnLogin6.addActionListener(new java.awt.event.ActionListener() {
+        btnNext.setFont(new java.awt.Font("Mongolian Baiti", 1, 18)); // NOI18N
+        btnNext.setForeground(new java.awt.Color(203, 178, 106));
+        btnNext.setText("Next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin6ActionPerformed(evt);
+                btnNextActionPerformed(evt);
             }
         });
 
-        btnLogin7.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
-        btnLogin7.setForeground(new java.awt.Color(203, 178, 106));
-        btnLogin7.setText("Previous");
-        btnLogin7.addActionListener(new java.awt.event.ActionListener() {
+        btnPrevious.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
+        btnPrevious.setForeground(new java.awt.Color(203, 178, 106));
+        btnPrevious.setText("Previous");
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin7ActionPerformed(evt);
+                btnPreviousActionPerformed(evt);
             }
         });
 
@@ -157,31 +192,32 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(203, 178, 106));
         jLabel1.setText("First Name:");
 
-        jTextField1.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtUserID.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtUserID.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(203, 178, 106));
         jLabel2.setText("User ID:");
 
-        jTextField2.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(203, 178, 106));
         jLabel3.setText("Last Name:");
 
-        jTextField3.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(203, 178, 106));
         jLabel4.setText("Contact No:");
 
-        jTextField4.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtContactNo.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(203, 178, 106));
         jLabel5.setText("Email:");
 
-        jTextField5.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(203, 178, 106));
@@ -191,14 +227,14 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(203, 178, 106));
         jLabel7.setText("Address:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtAddress.setColumns(20);
+        txtAddress.setRows(5);
+        jScrollPane2.setViewportView(txtAddress);
 
-        jRadioButton_M.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
+        jRadioButton_M.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jRadioButton_M.setText("Male");
 
-        jRadioButton_F.setFont(new java.awt.Font("Mongolian Baiti", 0, 12)); // NOI18N
+        jRadioButton_F.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jRadioButton_F.setText("Female");
 
         jLabel8.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
@@ -209,7 +245,7 @@ public class Staff_Management extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(203, 178, 106));
         jLabel9.setText("Security Question:");
 
-        jTextField7.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+        txtAnswer.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(203, 178, 106));
@@ -229,39 +265,20 @@ public class Staff_Management extends javax.swing.JFrame {
         cboRoles.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
         cboRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Staff", "Delivery Staff" }));
 
+        txtConPass.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
+
         txtPassword.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
         txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPasswordFocusLost(evt);
             }
         });
-        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtPasswordMouseExited(evt);
-            }
-        });
-        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyReleased(evt);
-            }
-        });
 
-        txtPassword1.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
-        txtPassword1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPassword1FocusLost(evt);
-            }
-        });
-        txtPassword1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtPassword1MouseExited(evt);
-            }
-        });
-        txtPassword1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPassword1KeyReleased(evt);
-            }
-        });
+        jLabel13.setFont(new java.awt.Font("Mongolian Baiti", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(203, 178, 106));
+        jLabel13.setText("Date of Birth:");
+
+        DateTimePicker_DOB.setFont(new java.awt.Font("Mongolian Baiti", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -271,42 +288,43 @@ public class Staff_Management extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel3))
-                            .addComponent(jLabel4))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6)
-                                .addGap(10, 10, 10)
-                                .addComponent(jRadioButton_M))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jRadioButton_F)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
                                         .addComponent(jLabel5)
                                         .addGap(10, 10, 10)
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel7)
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(10, 10, 10)
+                                                .addComponent(jLabel6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jRadioButton_M)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButton_F)
+                                                .addGap(0, 0, Short.MAX_VALUE))))))
+                            .addComponent(DateTimePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
@@ -320,21 +338,21 @@ public class Staff_Management extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cboQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField7)
-                                    .addComponent(txtPassword1)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtAnswer)
+                                    .addComponent(txtPassword)
+                                    .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLogin4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(9, 9, 9)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnLogin5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin6, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnLogin7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 31, Short.MAX_VALUE))
@@ -345,136 +363,409 @@ public class Staff_Management extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel3)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)
+                                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))
+                                .addGap(7, 7, 7)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtConPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogin4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(btnLogin3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(7, 7, 7)
-                                .addComponent(btnLogin2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogin5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(btnLogin6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(btnLogin7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(cboRoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(jRadioButton_M)
+                                    .addComponent(jLabel1)
                                     .addComponent(jRadioButton_F)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel9)
                                     .addComponent(cboQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(15, 15, 15)
+                                    .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
                                 .addGap(15, 15, 15)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(46, 46, 46)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel3))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(DateTimePicker_DOB, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(81, 81, 81)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String userID = txtUserID.getText();
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String contactNo = txtContactNo.getText();
+        String email = txtEmail.getText();
+        String address = txtAddress.getText();
+        String securityQuestion = cboQuestion.getSelectedItem().toString();
+        String securityAnswer = txtAnswer.getText();
+        String password = String.valueOf(txtPassword.getPassword());
+        String conPass = String.valueOf(txtConPass.getPassword());
+        String role = cboRoles.getSelectedItem().toString();
+        String gender = "";
+        String dateOfBirth=null;
+                
+        if(btnSave.getText() == "Save"){
+            try{
+                //Email Validation
+                String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
+                Pattern p_email = Pattern.compile(e_expression);
+                Matcher m_email = p_email.matcher(txtEmail.getText());
+                //ContactNo Validation
+                String c_expression = "\\d{3}-\\d{8}";
+                Pattern p_CN = Pattern.compile(c_expression);
+                Matcher m_CN = p_CN.matcher(txtContactNo.getText());
+            
+                if (!textFieldsValid()) {
+                    JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
+                }
+                else if(!radioButtonValid()){
+                    JOptionPane.showMessageDialog(null, "Please select your gender.");
+                }
+                else if(!m_email.matches()){
+                    JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
+                }
+                else if (!m_CN.matches()) {
+                    JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
+                }
+                else if (!((password)).equals(conPass)){
+                    JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                }           
+                else{
+                    if(jRadioButton_M.isSelected()){
+                        gender = "M";
+                    }
+                    else if(jRadioButton_F.isSelected()){
+                        gender = "F";
+                    }
+                    if(DateTimePicker_DOB.getDate() != null){
+                        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                        dateOfBirth = dateformat.format(DateTimePicker_DOB.getDate());
+                    }
+                
+                    Class.forName("com.mysql.jdbc.Driver");
+                    sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                    PreparedStatement ps = sqlCon.prepareStatement("INSERT INTO userdetails(user_ID,firstName,lastName,email,gender,contactNo,dateOfBirth,address,securityQuestion,securityAnswer,password,roles) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    ps.setString(1, userID);
+                    ps.setString(2, firstName);
+                    ps.setString(3, lastName);
+                    ps.setString(4, email);
+                    ps.setString(5, gender);
+                    ps.setString(6, contactNo);
+                    if(dateOfBirth != null){
+                        ps.setString(7, dateOfBirth);
+                    }
+                    else{
+                        ps.setNull(7, 0);
+                    }
+                    ps.setString(8, address);
+                    ps.setString(9, securityQuestion);
+                    ps.setString(10, securityAnswer);
+                    ps.setString(11, password);
+                    ps.setString(12, role);
+                    if(ps.executeUpdate() > 0){
+                        JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+                        clearTextField();
+                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();           
+                        model.setRowCount(0);
+                        showUserDetails();
+                        resetButtonForEdit();
+                        setControlReadOnly(false);
+                        setComboBoxReadOnly(false);
+                        clearTextField();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fail to insert the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                    }
+                }           
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage() ,"Error", 1);
+            }
+        }
+        else{
+               //Email Validation
+                String e_expression = "[A-Za-z]+@+[A-Za-z]+\\.+[A-Za-z]{2,4}+$";
+                Pattern p_email = Pattern.compile(e_expression);
+                Matcher m_email = p_email.matcher(txtEmail.getText());
+                //ContactNo Validation
+                String c_expression = "\\d{3}-\\d{8}";
+                Pattern p_CN = Pattern.compile(c_expression);
+                Matcher m_CN = p_CN.matcher(txtContactNo.getText());
+            
+                if (!textFieldsValid()) {
+                    JOptionPane.showMessageDialog(null, "The text fields are not filled with data.");
+                }
+                else if(!radioButtonValid()){
+                    JOptionPane.showMessageDialog(null, "Please select your gender.");
+                }
+                else if(!m_email.matches()){
+                    JOptionPane.showMessageDialog(null, "Invalid email format. Please enter your email in the correct format. Eg, abc@gmail.com");
+                }
+                else if (!m_CN.matches()) {
+                    JOptionPane.showMessageDialog(null,"Invalid phone number format. Phone Number must be in the format XXX-XXXXXXX");
+                }
+                else if (!((password)).equals(conPass)){
+                    JOptionPane.showMessageDialog(null,"Password and Confirm Password not match. Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                }           
+                else{
+                    updateUser();
+                    resetButtonForEdit();
+                    setControlReadOnly(false);
+                    setComboBoxReadOnly(false);
+                    clearTextField();
+                }
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
         
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnLastActionPerformed
 
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin1ActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        btnSave.setEnabled(true);
+        btnSave.setText("Update");
+        setControlReadOnly(true);
+        setComboBoxReadOnly(true);
+        setButtonForEdit();
+    }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnLogin2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin2ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        btnSave.setEnabled(true);
+        btnSave.setText("Save");
+        setControlReadOnly(true);
+        setComboBoxReadOnly(true);
+        setButtonForEdit();
+        clearTextField();
+        generateID();
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnLogin3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin3ActionPerformed
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin3ActionPerformed
+    }//GEN-LAST:event_btnFirstActionPerformed
 
-    private void btnLogin4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin4ActionPerformed
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin4ActionPerformed
+    }//GEN-LAST:event_btnNextActionPerformed
 
-    private void btnLogin5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin5ActionPerformed
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin5ActionPerformed
-
-    private void btnLogin6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin6ActionPerformed
-
-    private void btnLogin7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogin7ActionPerformed
+    }//GEN-LAST:event_btnPreviousActionPerformed
 
     private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-
+        //Password Validation
+        boolean validPassword = isValidPassword(String.valueOf(txtPassword.getPassword()));
+        if (validPassword == false){
+            txtPassword.setText("");
+        }
     }//GEN-LAST:event_txtPasswordFocusLost
 
-    private void txtPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMouseExited
+    private void jTable_UserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_UserMouseClicked
+        setControlReadOnly(false);
+        setComboBoxReadOnly(false);  
+        displayInTextFields();
+    }//GEN-LAST:event_jTable_UserMouseClicked
 
-    }//GEN-LAST:event_txtPasswordMouseExited
+    private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
 
-    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+    }//GEN-LAST:event_btnDeleteMouseClicked
 
-    }//GEN-LAST:event_txtPasswordKeyReleased
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        if(btnDelete.getText() == "Delete"){
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+                int i = jTable_User.getSelectedRow();
+                String id = (jTable_User.getModel().getValueAt(i, 0).toString());
+                int opt = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Delete",JOptionPane.YES_NO_OPTION);
+                if (opt==JOptionPane.YES_OPTION){
+                    String str="DELETE FROM userdetails WHERE user_ID='" + id + "'";
+                    PreparedStatement ps = sqlCon.prepareStatement(str);   
+                    if(ps.executeUpdate() > 0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Deleted Successfully!");
+                        DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                        model.setRowCount(0);
+                        showUserDetails();
+                        clearTextField();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Fail to delete the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                }catch (Exception e){
+                    Logger.getLogger(Staff_Management.class.getName()).log(Level.SEVERE, null, e);
+                }
+        }       
+        else{
+            btnSave.setText("Save");
+            resetButtonForEdit();
+            setControlReadOnly(false);
+            setComboBoxReadOnly(false);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void txtPassword1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPassword1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassword1FocusLost
-
-    private void txtPassword1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPassword1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassword1MouseExited
-
-    private void txtPassword1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassword1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPassword1KeyReleased
-
+    private void updateUser(){
+        try {
+            String userID = txtUserID.getText();
+            String firstName = txtFirstName.getText();
+            String lastName = txtLastName.getText();
+            String contactNo = txtContactNo.getText();
+            String email = txtEmail.getText();
+            String address = txtAddress.getText();
+            String securityQuestion = cboQuestion.getSelectedItem().toString();
+            String securityAnswer = txtAnswer.getText();
+            String password = String.valueOf(txtPassword.getPassword());
+            String conPass = String.valueOf(txtConPass.getPassword());
+            String roles = cboRoles.getSelectedItem().toString();
+            String gender = "";
+            String dateOfBirth=null;
+            
+            if(jRadioButton_M.isSelected()){
+                gender = "M";
+            }
+            else if(jRadioButton_F.isSelected()){
+                gender = "F";
+            }
+            if(DateTimePicker_DOB.getDate() != null){
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                dateOfBirth = dateformat.format(DateTimePicker_DOB.getDate());
+            }
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            sqlCon = DriverManager.getConnection(DB_URL,USER,PASS);
+            String str = "UPDATE userdetails SET firstName='"+firstName+"',lastName='"+lastName+"',email='"+email+"',contactNo='"+contactNo+"',gender='"+gender+"',address='"+address+"',dateOfBirth='"+dateOfBirth+"',securityQuestion='"+securityQuestion+"',securityAnswer='"+securityAnswer+"',password='"+password+"',roles='"+roles+"' WHERE user_ID='"+userID+"'";
+            PreparedStatement ps = sqlCon.prepareStatement(str);
+            if(ps.executeUpdate() > 0)
+            {
+                JOptionPane.showMessageDialog(null, "Edited Successfully!");
+                clearTextField();
+                DefaultTableModel model = (DefaultTableModel)jTable_User.getModel();
+                model.setRowCount(0);
+                showUserDetails();
+            }
+                 else{
+                     JOptionPane.showMessageDialog(null, "Fail to edit the data.Please try again.","Try Again",JOptionPane.ERROR_MESSAGE);
+                 }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    private void displayInTextFields(){
+        try{
+        int i = jTable_User.getSelectedRow();
+        TableModel model = jTable_User.getModel();
+        txtUserID.setText(model.getValueAt(i,0).toString());
+        txtFirstName.setText(model.getValueAt(i,1).toString());
+        txtLastName.setText(model.getValueAt(i,2).toString());
+        txtContactNo.setText(model.getValueAt(i,3).toString());
+        txtEmail.setText(model.getValueAt(i,4).toString());
+        String gender = model.getValueAt(i,5).toString();
+        if (gender.equals("M")){
+            jRadioButton_M.setSelected(true);
+            jRadioButton_F.setSelected(false);
+        }
+        else{
+            jRadioButton_F.setSelected(true);
+            jRadioButton_M.setSelected(false);
+        }
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 6));
+        DateTimePicker_DOB.setDate(date);
+        txtAddress.setText(model.getValueAt(i,7).toString());
+        String question = model.getValueAt(i,8).toString();
+        if (question.equals("Favorite Food")){
+            cboQuestion.setSelectedIndex(0);
+        }
+        else if(question.equals("Favorite Drinks")){
+            cboQuestion.setSelectedIndex(1);
+        }
+        else if(question.equals("Favorite Color")){
+            cboQuestion.setSelectedIndex(2);
+        }
+        else if(question.equals("Favorite Novel")){
+            cboQuestion.setSelectedIndex(3);
+        }
+        else if(question.equals("Favorite Actor")){
+            cboQuestion.setSelectedIndex(4);
+        }
+        else if(question.equals("Favorite Author")){
+            cboQuestion.setSelectedIndex(5);
+        }
+        else if(question.equals("Favorite Subject")){
+            cboQuestion.setSelectedIndex(6);
+        }
+        else{
+            cboQuestion.setSelectedIndex(7);
+        }
+        txtAnswer.setText(model.getValueAt(i,9).toString());
+        txtPassword.setText(model.getValueAt(i,10).toString());
+        txtConPass.setText(model.getValueAt(i,10).toString());
+        String roles = model.getValueAt(i,11).toString();
+        if (roles.equals("Customer")){
+            cboRoles.setSelectedIndex(0);
+        }
+        else if(roles.equals("Staff")){
+            cboRoles.setSelectedIndex(1);
+        }
+        else{
+            cboRoles.setSelectedIndex(2);
+        }
+        }
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage() ,"Error", 1);
+        }
+    }
+    
     private void showUserDetails()
     {
        try {
@@ -512,6 +803,181 @@ public class Staff_Management extends javax.swing.JFrame {
         bg1.add(jRadioButton_M);
         bg1.add(jRadioButton_F);
     }
+    
+    private boolean radioButtonValid(){
+         boolean validRadioButton = true;
+         
+          if(jRadioButton_M.isSelected()){
+              validRadioButton = true;
+          }
+          else if(jRadioButton_F.isSelected()){
+              validRadioButton = true;
+          }
+          else{
+              validRadioButton = false;
+          }
+          return validRadioButton;
+     }
+     
+    private boolean textFieldsValid() {
+        boolean validTextFields = true;
+        
+        if (txtFirstName.getText().isEmpty()) {
+            validTextFields = false;
+            txtFirstName.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }
+        
+        if (txtLastName.getText().isEmpty()) {
+            validTextFields = false;
+            txtLastName.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }
+        
+        if (txtEmail.getText().isEmpty()) {
+            validTextFields = false;
+            txtEmail.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }
+                
+        if (txtContactNo.getText().isEmpty()) {
+            validTextFields = false;
+            txtContactNo.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }
+        
+        if (txtAddress.getText().isEmpty()) {
+            validTextFields = false;
+            txtAddress.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }
+        
+        if (txtAnswer.getText().isEmpty()) {
+            validTextFields = false;
+            txtAnswer.setBorder(new LineBorder(Color.decode("#FF8583")));
+        } 
+        
+        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+            validTextFields = false;
+            txtPassword.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }  
+        
+        if (String.valueOf(txtConPass.getPassword()).isEmpty()) {
+            validTextFields = false;
+            txtConPass.setBorder(new LineBorder(Color.decode("#FF8583")));
+        }  
+        
+        else{
+            validTextFields = true;
+            txtFirstName.setBorder(new LineBorder(Color.BLACK));
+            txtLastName.setBorder(new LineBorder(Color.BLACK));
+            txtEmail.setBorder(new LineBorder(Color.BLACK));
+            txtContactNo.setBorder(new LineBorder(Color.BLACK));
+            txtAddress.setBorder(new LineBorder(Color.BLACK));
+            txtAnswer.setBorder(new LineBorder(Color.BLACK));
+            txtPassword.setBorder(new LineBorder(Color.BLACK));
+            txtConPass.setBorder(new LineBorder(Color.BLACK));
+        }
+        return validTextFields;
+    }
+    
+     private void clearTextField(){
+         txtUserID.setText("");
+         txtFirstName.setText("");
+         txtLastName.setText("");
+         txtEmail.setText("");
+         txtContactNo.setText("");
+         txtAddress.setText("");
+         txtAnswer.setText("");
+         txtPassword.setText("");
+         txtConPass.setText("");
+         DateTimePicker_DOB.setDate(null);
+         jRadioButton_M.setSelected(false);
+         jRadioButton_F.setSelected(false);     
+         cboQuestion.setSelectedIndex(0);
+         cboRoles.setSelectedIndex(0);
+     }
+     
+    private void setControlReadOnly(boolean blnRead){
+        txtUserID.setEditable(blnRead);
+        txtFirstName.setEditable(blnRead);
+        txtLastName.setEditable(blnRead);
+        txtContactNo.setEditable(blnRead);
+        txtEmail.setEditable(blnRead);
+        txtAddress.setEditable(blnRead);
+        txtAnswer.setEditable(blnRead);
+        txtPassword.setEditable(blnRead);
+        txtConPass.setEditable(blnRead);
+    }
+    
+    private void setComboBoxReadOnly(boolean blnEnabled){
+        cboQuestion.setEnabled(blnEnabled);
+        cboRoles.setEnabled(blnEnabled);
+        DateTimePicker_DOB.setEnabled(blnEnabled);
+    }
+    
+    private void resetButtonForEdit(){
+         btnAdd.setText("Add");
+         btnAdd.setEnabled(true);
+         btnEdit.setEnabled(true);
+         btnDelete.setText("Delete");
+         btnSave.setEnabled(false);
+         btnFirst.setEnabled(true);
+         btnLast.setEnabled(true);
+         btnNext.setEnabled(true);
+         btnPrevious.setEnabled(true);
+    }
+    
+      private void setButtonForEdit(){
+         btnAdd.setText("Add");
+         btnAdd.setEnabled(false);
+         btnEdit.setEnabled(false);
+         btnDelete.setText("Cancel");
+         btnSave.setEnabled(true);
+         btnFirst.setEnabled(false);
+         btnLast.setEnabled(false);
+         btnNext.setEnabled(false);
+         btnPrevious.setEnabled(false);
+    }
+      
+    public static boolean isValidPassword(String password)
+    {
+        boolean isValid = true;
+        if (password.length() < 8 || password.length() > 15)
+        {
+            JOptionPane.showMessageDialog(null,"Password must be more than 8 and less than 15 characters in length.");
+            isValid = false;
+        }
+        String upperCaseChars = "(.*[A-Z].*)";
+        if (!password.matches(upperCaseChars ))
+        {
+            JOptionPane.showMessageDialog(null,"Password must have at least one uppercase character.");
+            isValid = false;
+        }
+        String lowerCaseChars = "(.*[a-z].*)";
+        if (!password.matches(lowerCaseChars ))
+        {
+            JOptionPane.showMessageDialog(null,"Password must have at least one lowercase character.");
+            isValid = false;
+        }
+        String numbers = "(.*[0-9].*)";
+        if (!password.matches(numbers ))
+        {
+            JOptionPane.showMessageDialog(null,"Password must have at least one number.");
+            isValid = false;
+        }
+        String specialChars = "(.*[_,-,@,#,$,%].*$)";
+        if (!password.matches(specialChars ))
+        {
+            JOptionPane.showMessageDialog(null,"Password must have at least one special character among _-@#$%.");
+            isValid = false;
+        }
+        return isValid; 
+    }
+    
+    private void generateID(){
+        Object valueOfLastLine = jTable_User.getValueAt(jTable_User.getModel().getRowCount()-1, 0);      
+        String valueOfLastLineToString = valueOfLastLine.toString();
+        int auto_ID = Integer.parseInt(valueOfLastLineToString);
+        int new_ID = (auto_ID + 1);
+        txtUserID.setText("" + new_ID);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -556,20 +1022,22 @@ public class Staff_Management extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnLogin1;
-    private javax.swing.JButton btnLogin2;
-    private javax.swing.JButton btnLogin3;
-    private javax.swing.JButton btnLogin4;
-    private javax.swing.JButton btnLogin5;
-    private javax.swing.JButton btnLogin6;
-    private javax.swing.JButton btnLogin7;
+    private org.jdesktop.swingx.JXDatePicker DateTimePicker_DOB;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cboQuestion;
     private javax.swing.JComboBox<String> cboRoles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -583,14 +1051,14 @@ public class Staff_Management extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable_User;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextArea txtAddress;
+    private javax.swing.JTextField txtAnswer;
+    private javax.swing.JPasswordField txtConPass;
+    private javax.swing.JTextField txtContactNo;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JPasswordField txtPassword1;
+    private javax.swing.JTextField txtUserID;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,7 @@ package Main;
 import Event.EventMenu;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkMediumIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkSoftIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
 import java.awt.Color;
 import javax.swing.JOptionPane;
@@ -17,19 +18,20 @@ public class Main extends javax.swing.JFrame {
 
     private void init() {
         //setBackground(new Color(0, 0, 0, 0));  //  Remove background
-        pnlDeliveryCompany.setVisible(false);
-        //promotion_Staff1.setVisible(false);
+        LayeredPane.setVisible(false);
         menu1.initMoving(this);
         menu1.addEventMenu(new EventMenu() {
             @Override
             public void menuIndexChange(int index) {
 //                JOptionPane.showMessageDialog(null, index + "");
                 if(index == 0) {
-                    pnlDeliveryCompany.setVisible(true);
-                    //promotion_Staff1.setVisible(false);
+                    LayeredPane.setVisible(true);
+                    switchPanels(pnlDeliveryCompany);
                 } else if(index == 1) {
-                    pnlDeliveryCompany.setVisible(false);
-                    //promotion_Staff1.setVisible(true);
+                    LayeredPane.setVisible(true);
+                    switchPanels(pnlPromotion);
+                } else {
+                    LayeredPane.setVisible(false);
                 }
             }
         });
@@ -42,7 +44,7 @@ public class Main extends javax.swing.JFrame {
         menu1 = new Component.Menu();
         LayeredPane = new javax.swing.JLayeredPane();
         pnlDeliveryCompany = new IDFC_Project.Delivery_Company();
-        La = new IDFC_Project.Promotion_Staff();
+        pnlPromotion = new IDFC_Project.Promotion_Staff();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IDFC MART");
@@ -52,9 +54,12 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        LayeredPane.setPreferredSize(new java.awt.Dimension(1200, 700));
         LayeredPane.setLayout(new java.awt.CardLayout());
+
+        pnlDeliveryCompany.setPreferredSize(new java.awt.Dimension(1200, 700));
         LayeredPane.add(pnlDeliveryCompany, "card2");
-        LayeredPane.add(La, "card3");
+        LayeredPane.add(pnlPromotion, "card3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,13 +68,13 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(LayeredPane)
+                .addComponent(LayeredPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-            .addComponent(LayeredPane)
+            .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(LayeredPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -128,12 +133,13 @@ public class Main extends javax.swing.JFrame {
         LayeredPane.removeAll();
         LayeredPane.add(panel);
         LayeredPane.repaint();
+        LayeredPane.revalidate();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private IDFC_Project.Promotion_Staff La;
     private javax.swing.JLayeredPane LayeredPane;
     private Component.Menu menu1;
     private IDFC_Project.Delivery_Company pnlDeliveryCompany;
+    private IDFC_Project.Promotion_Staff pnlPromotion;
     // End of variables declaration//GEN-END:variables
 }
