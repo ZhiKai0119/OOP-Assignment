@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -19,20 +20,37 @@ public class Promotion_Staff extends javax.swing.JPanel {
 
     private DefaultTableModel model;
     private String startDate, endDate;
-      //generate
+    //generate random
     String characters = "ABCDEFGHIJKLMNOPQRSTUVWUXYZ0123456789";
     String randomString="";
-    int length =6;
-    
-    Random rand= new Random();
-    
+    int length =6;    
+    Random rand= new Random();    
     char[] text= new char[length];
-    
+
     String s;
-     private ResultSet rs;
+    private ResultSet rs;
     PreparedStatement pst = null;
+    
     public Promotion_Staff() {
         initComponents();
+    }
+    
+    //这个是auto generate ID的，你看看ID那些对不对！！！ BY ZK
+    public void autoGenerateID() {
+        try {
+            Statement stmt = DatabaseConnection.getInstance().getConnection().createStatement();
+            rs = stmt.executeQuery("SELECT Max(promoID) FROM promotion");
+            rs.next();
+            if(rs.getString("Max(promoID)") == null) {
+                txtPromoID.setText("PRO-00001");
+            } else {
+                long id = Long.parseLong(rs.getString("Max(promoID)").substring(4, rs.getString("Max(promoID)").length()));
+                id++;
+                txtPromoID.setText("PRO-" + String.format("%05d", id));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
   
    @SuppressWarnings("unchecked")
@@ -98,6 +116,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         jLabel4.setText("Promotion Qty:");
 
+        txtPromoID.setEditable(false);
         txtPromoID.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
 
         txtDescription.setColumns(20);

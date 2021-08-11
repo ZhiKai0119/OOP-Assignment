@@ -47,28 +47,6 @@ public class Delivery_Order extends javax.swing.JPanel {
         }
     }
     
-    public void autoID() {
-        try {
-            ps = DatabaseConnection.getInstance().getConnection().prepareStatement("SELECT deliveryID FROM delivery");
-            rs = ps.executeQuery();
-            if(rs.next()) {
-                String id = rs.getString("deliveryID");
-                int length = id.length();
-                String txt = id.substring(0, 2);
-                String num = id.substring(2, length);
-                int n = Integer.parseInt(num);
-                n++;
-                String snum = Integer.toString(n);
-                String ftxt = txt + snum;
-                lblDeliveryID.setText(ftxt);
-            } else {
-                lblDeliveryID.setText("D-00001");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error Message: " + e, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
