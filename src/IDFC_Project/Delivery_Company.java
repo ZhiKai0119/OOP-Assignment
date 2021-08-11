@@ -25,8 +25,9 @@ public class Delivery_Company extends javax.swing.JPanel {
 
     private DefaultTableModel model;
     private ResultSet rs;
-    String storeImg;
+    String imagePath = null;
     PreparedStatement pst = null;
+    boolean clicklbl = false;
     
     public Delivery_Company() {
         initComponents();
@@ -141,6 +142,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnStatus = new javax.swing.JToggleButton();
+        btnDelete = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(1200, 700));
         setMinimumSize(new java.awt.Dimension(1200, 700));
@@ -206,7 +208,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, true
+                false, false, false, true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -244,7 +246,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(448, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(445, 445, 445))
         );
@@ -288,15 +290,23 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         });
 
+        btnDelete.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
@@ -324,12 +334,13 @@ public class Delivery_Company extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -339,7 +350,7 @@ public class Delivery_Company extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -363,19 +374,18 @@ public class Delivery_Company extends javax.swing.JPanel {
                             .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
                             .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnStatus)
                             .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
+                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -391,6 +401,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     }
     
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        clicklbl = true;
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.IMAGE", "jpg", "gif", "png");
@@ -400,7 +411,7 @@ public class Delivery_Company extends javax.swing.JPanel {
             File selectedFile = fileChooser.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblLogo.setIcon(ResizeImage(path));
-            storeImg = path;
+            imagePath = path;
         }else if(result == JFileChooser.CANCEL_OPTION){
             System.out.println("No File Selected");
         }
@@ -412,6 +423,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                 btnAdd.setText("Save");
                 enableTXT(true);
                 btnEdit.setEnabled(false);
+                btnDelete.setEnabled(false);
                 clearTXT();
             } else {
                 btnAdd.setText("Add");
@@ -438,8 +450,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                                 clearTXT();
                                 enableTXT(false);
                                 btnEdit.setEnabled(true);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Fail");
+                                btnDelete.setEnabled(true);
                             }
                         }
                     }                
@@ -459,7 +470,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         //check for number 0 to 9
         if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
             //check for length not more than 10 digit
-            if(length < 10) {
+            if(length < 12) {
                 //editable true
                 txtContactNo.setEditable(true);
             } else {
@@ -484,9 +495,9 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtManager.setText(model.getValueAt(i, 4).toString());
         txtContactNo.setText(model.getValueAt(i, 5).toString());
         ImageIcon image = (ImageIcon)model.getValueAt(i, 6);
-        storeImg = image.toString();
         Image image2 = image.getImage().getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH); 
         lblLogo.setIcon(new ImageIcon(image2));
+        
         boolean status = (boolean) model.getValueAt(i, 7);
         if(status == true) {
             btnStatus.setText("Available");
@@ -506,11 +517,13 @@ public class Delivery_Company extends javax.swing.JPanel {
                 enableTXT(true);
                 txtComID.setEnabled(false);
                 btnAdd.setEnabled(false);
+                btnDelete.setEnabled(false);
             } else {
                 btnEdit.setText("Edit");
                 editRecord();
                 enableTXT(false);
                 btnAdd.setEnabled(true);
+                btnDelete.setEnabled(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -524,6 +537,19 @@ public class Delivery_Company extends javax.swing.JPanel {
             btnStatus.setText("Not Available");
         }
     }//GEN-LAST:event_btnStatusActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+            int responde = JOptionPane.showConfirmDialog(this, "Do you really want to delete this record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(responde == JOptionPane.YES_OPTION) {
+                deleteRecord();
+            } else {
+                updateTable();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private ImageIcon scaledImage(Icon image) {
         int h = image.getIconHeight();
@@ -564,7 +590,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     private void addRecord() {
         try{
             pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, Status) values(?,?,?,?,?,?,?)");
-            InputStream is = new FileInputStream(new File(storeImg));
+            InputStream is = new FileInputStream(new File(imagePath));
             pst.setString(1, txtComID.getText());
             pst.setString(2, txtComName.getText());
             pst.setString(3, txtAddress.getText());
@@ -577,32 +603,67 @@ public class Delivery_Company extends javax.swing.JPanel {
                 pst.setInt(7, 0);
             } 
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Data Insert Successfully");
+            JOptionPane.showMessageDialog(null, "Data Insert Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Error Message: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
+    //edit database
     private void editRecord() {
         try {
-            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
-            InputStream is = new FileInputStream(new File(storeImg));
-//            pst.setString(1, txtComID.getText());
-            pst.setString(1, txtComName.getText());
-            pst.setString(2, txtAddress.getText());
-            pst.setString(3, txtManager.getText());
-            pst.setString(4, txtContactNo.getText());
-            pst.setBlob(5, is);
-            if(btnStatus.getText().equals("Available")){
-                pst.setInt(6, 1);
+            if(clicklbl == true) {
+                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
+                InputStream is = new FileInputStream(new File(imagePath));
+                pst.setString(1, txtComName.getText());
+                pst.setString(2, txtAddress.getText());
+                pst.setString(3, txtManager.getText());
+                pst.setString(4, txtContactNo.getText());
+                pst.setBlob(5, is);
+                if(btnStatus.getText().equals("Available")){
+                    pst.setInt(6, 1);
+                } else {
+                    pst.setInt(6, 0);
+                } 
+                pst.executeUpdate();
+
+                updateTable();
+                clearTXT();
+                JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                pst.setInt(6, 0);
-            } 
+                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
+                pst.setString(1, txtComName.getText());
+                pst.setString(2, txtAddress.getText());
+                pst.setString(3, txtManager.getText());
+                pst.setString(4, txtContactNo.getText());
+                if(btnStatus.getText().equals("Available")){
+                    pst.setInt(5, 1);
+                } else {
+                    pst.setInt(5, 0);
+                } 
+                pst.executeUpdate();
+
+                updateTable();
+                clearTXT();
+                JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
+            }
+                
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//            e.printStackTrace();
+        }
+    }
+    
+    private void deleteRecord() {
+        try {
+            int row = tblDeliveryCompany.getSelectedRow();
+            model = (DefaultTableModel) tblDeliveryCompany.getModel();
+            String value = model.getValueAt(row, 1).toString();
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("DELETE FROM delivery_company WHERE companyID = '" + value + "'");
             pst.executeUpdate();
-            
             updateTable();
             clearTXT();
-            JOptionPane.showMessageDialog(this, "Edit Successfully");
+            JOptionPane.showMessageDialog(this, "Delete Record Successfully!", "Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -624,11 +685,13 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtManager.setEnabled(blnEnable);
         txtContactNo.setEnabled(blnEnable);
         lblLogo.setEnabled(blnEnable);
+        btnStatus.setEnabled(blnEnable);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JToggleButton btnStatus;
     private javax.swing.JLabel jLabel1;
@@ -650,4 +713,5 @@ public class Delivery_Company extends javax.swing.JPanel {
     private javax.swing.JTextField txtContactNo;
     private javax.swing.JTextField txtManager;
     // End of variables declaration//GEN-END:variables
+
 }
