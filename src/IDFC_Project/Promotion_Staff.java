@@ -1,21 +1,11 @@
 package IDFC_Project;
 
-import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import connection.DatabaseConnection;
 import java.awt.Color;
-import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Promotion_Staff extends javax.swing.JPanel {
@@ -35,14 +25,24 @@ public class Promotion_Staff extends javax.swing.JPanel {
     
     public Promotion_Staff() {
         initComponents();
+        init();
+        updateTable();
         autoGenerateID();
+    }
+    
+    private void init() {
+        try {
+            DatabaseConnection.getInstance().connectToDatabase();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void autoGenerateID() {
         try {
             Statement stmt = DatabaseConnection.getInstance().getConnection().createStatement();
             rs = stmt.executeQuery("SELECT Max(promoID) FROM promotion");
-            rs.next();
+            rs.next();           
             if(rs.getString("Max(promoID)") == null) {
                 txtPromoID.setText("PRO-00001");
             } else {
@@ -285,13 +285,16 @@ public class Promotion_Staff extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,13 +340,16 @@ public class Promotion_Staff extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-   /*  if(txtPromoID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please Fill in the Promotion ID!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if(txtPromoID.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please Fill in the Promotion Name!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }*/
+//        try {
+//            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("INSERT INTO promotion(promoID) VALUES (?)");
+//            pst.setString(1, txtPromoID.getText());
+//            pst.executeUpdate();
+//            JOptionPane.showMessageDialog(this, "Testing Successfully", "Sucess", JOptionPane.INFORMATION_MESSAGE);
+//            autoGenerateID();
+//            updateTable();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(this, "Error Message: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
+//        }
         addRecord();
         updateTable();
     }//GEN-LAST:event_btnAddActionPerformed
@@ -383,16 +389,16 @@ public class Promotion_Staff extends javax.swing.JPanel {
 
         private void updateRecord() {
         try {
-                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, Status = ? WHERE companyID = '" + txtPromoID.getText() + "'");
+                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET promoName = ?, promoCode = ?, promoPercent = ?, PromoDesc = ?, promoStartDate = ?, promoEndDate = ? WHERE promoID = '" + txtPromoID.getText() + "'");
                 
-                pst.setString(1, txtPromoID.getText());
-                pst.setString(2, txtPromoName.getText());
-                pst.setString(3, lblPromoCode.getText());
-                pst.setString(4, txtPromoQty.getText());
-                pst.setString(5, txtPercent.getText());
-                pst.setString(6, txtDescription.getText());
-                pst.setString(7, startDate);
-                pst.setString(8, endDate);       
+               // pst.setString(1, txtPromoID.getText()); //error
+                pst.setString(1, txtPromoName.getText());
+                pst.setString(2, lblPromoCode.getText());
+                pst.setString(3, txtPromoQty.getText());
+                pst.setString(4, txtPercent.getText());
+                pst.setString(5, txtDescription.getText());
+                pst.setString(6, startDate);
+                pst.setString(7, endDate);       
                 pst.executeUpdate();
 
                 updateTable();
@@ -479,6 +485,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
             pst.executeUpdate();
 //            DatabaseConnection.getInstance().getConnection().close();
             JOptionPane.showMessageDialog(null, "Data Inserted");
+            autoGenerateID();
+            clearTXT();
         } catch(Exception ex){
             System.out.println("Error Message: " + ex);
         }
@@ -507,7 +515,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-      private void clearTXT(){
+    private void clearTXT(){
         txtPromoID.setText("");
         txtPromoName.setText("");
         lblPromoCode.setText("");
@@ -517,9 +525,9 @@ public class Promotion_Staff extends javax.swing.JPanel {
         dtpPromoStartDate.getEditor().setValue(null);
         dtpPromoEndDate.getEditor().setValue(null);
       
-      }
+    }
       
-          private void enableTXT(boolean blnEnable){
+    private void enableTXT(boolean blnEnable){
         txtPromoID.setEnabled(blnEnable);
         txtPromoName.setEnabled(blnEnable);
         lblPromoCode.setEnabled(blnEnable);
@@ -529,7 +537,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         dtpPromoStartDate.setEnabled(blnEnable);
         dtpPromoEndDate.setEnabled(blnEnable);
       
-      }
+    }
     
      
     // Variables declaration - do not modify//GEN-BEGIN:variables
