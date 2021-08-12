@@ -30,6 +30,9 @@ public class Main extends javax.swing.JFrame {
                 } else if(index == 1) {
                     LayeredPane.setVisible(true);
                     switchPanels(pnlPromotion);
+                } else if(index == 2){
+                    LayeredPane.setVisible(true);
+                    switchPanels(pnlDeliveryOrder);
                 } else {
                     LayeredPane.setVisible(false);
                 }
@@ -45,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         LayeredPane = new javax.swing.JLayeredPane();
         pnlDeliveryCompany = new IDFC_Project.Delivery_Company();
         pnlPromotion = new IDFC_Project.Promotion_Staff();
+        pnlDeliveryOrder = new IDFC_Project.Delivery_Order();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IDFC MART");
@@ -60,6 +64,7 @@ public class Main extends javax.swing.JFrame {
         pnlDeliveryCompany.setPreferredSize(new java.awt.Dimension(1200, 700));
         LayeredPane.add(pnlDeliveryCompany, "card2");
         LayeredPane.add(pnlPromotion, "card3");
+        LayeredPane.add(pnlDeliveryOrder, "card4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,6 +145,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLayeredPane LayeredPane;
     private Component.Menu menu1;
     private IDFC_Project.Delivery_Company pnlDeliveryCompany;
+    private IDFC_Project.Delivery_Order pnlDeliveryOrder;
     private IDFC_Project.Promotion_Staff pnlPromotion;
     // End of variables declaration//GEN-END:variables
 }
