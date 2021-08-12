@@ -1,21 +1,20 @@
 package IDFC_Project;
 
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
-import java.awt.Image;
 import java.util.Random;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Puzzle extends javax.swing.JFrame {
 
     public Puzzle() {
         initComponents();
         //btn1.setIcon(new ImageIcon(getClass().getResource("/Pictures/Logo1.png")));
-        btn1.setText("1");
-        btn2.setText("2");
+        btn1.setText("");
+        btn2.setText("1");
         btn3.setText("3");
         btn4.setText("5");
-        btn5.setText("");
+        btn5.setText("2");
         btn6.setText("6");
         btn7.setText("4");
         btn8.setText("7");
@@ -50,6 +49,11 @@ public class Puzzle extends javax.swing.JFrame {
 
         btnSubmit.setFont(new java.awt.Font("Mongolian Baiti", 0, 16)); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         btn9.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
         btn9.setPreferredSize(new java.awt.Dimension(500, 309));
@@ -226,23 +230,23 @@ public class Puzzle extends javax.swing.JFrame {
         jigsaw_robot(btn8,btn9);
     }//GEN-LAST:event_btn8ActionPerformed
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        if(btn1.getText().equals("1") && btn2.getText().equals("2") && btn3.getText().equals("3") && btn4.getText().equals("4") && btn5.getText().equals("5") && btn6.getText().equals("6") && btn7.getText().equals("7") && btn8.getText().equals("8")){
+            JOptionPane.showMessageDialog(null,"Correct Answer","I AM NOT A ROBOT",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(null,"Wrong Answer, please try again.","I AM NOT A ROBOT",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
     int counter;
     
-    void jigsaw_robot(JButton btn1,JButton btn2){        
+    private void jigsaw_robot(JButton btn1,JButton btn2){        
         if("".equals(btn2.getText())){
             btn2.setText(btn1.getText());
-            btn2.setIcon(btn1.getIcon());
+            //btn2.setIcon(btn1.getIcon());
             btn1.setText("");
             //btn1.setIcon = 
         }
-    }
-    
-    public ImageIcon ResizeImage(String ImagePath){
-        ImageIcon logo = new ImageIcon(ImagePath);
-        Image image = logo.getImage();
-        Image newImage = image.getScaledInstance(btn1.getWidth(), btn1.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon img = new ImageIcon(newImage);
-        return img;
     }
 
     public void shuffle(){
