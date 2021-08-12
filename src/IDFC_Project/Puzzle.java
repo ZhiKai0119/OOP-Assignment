@@ -10,8 +10,16 @@ public class Puzzle extends javax.swing.JFrame {
 
     public Puzzle() {
         initComponents();
-        //jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pictures/Pic_1.jpg"))); 
-
+        //btn1.setIcon(new ImageIcon(getClass().getResource("/Pictures/Logo1.png")));
+        btn1.setText("1");
+        btn2.setText("2");
+        btn3.setText("3");
+        btn4.setText("5");
+        btn5.setText("");
+        btn6.setText("6");
+        btn7.setText("4");
+        btn8.setText("7");
+        btn9.setText("8");
     }
 
     @SuppressWarnings("unchecked")
@@ -32,7 +40,6 @@ public class Puzzle extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btn1.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn1.setText("1");
         btn1.setIconTextGap(-1);
         btn1.setPreferredSize(new java.awt.Dimension(500, 309));
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -53,7 +60,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn2.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn2.setText("2");
         btn2.setPreferredSize(new java.awt.Dimension(500, 309));
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +68,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn3.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn3.setText("3");
         btn3.setPreferredSize(new java.awt.Dimension(500, 309));
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +76,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn4.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn4.setText("4");
         btn4.setPreferredSize(new java.awt.Dimension(500, 309));
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +84,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn5.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn5.setText("5");
         btn5.setPreferredSize(new java.awt.Dimension(500, 309));
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +92,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn6.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn6.setText("6");
         btn6.setPreferredSize(new java.awt.Dimension(500, 309));
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +100,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn7.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn7.setText("7");
         btn7.setPreferredSize(new java.awt.Dimension(500, 309));
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +108,6 @@ public class Puzzle extends javax.swing.JFrame {
         });
 
         btn8.setFont(new java.awt.Font("Mongolian Baiti", 1, 36)); // NOI18N
-        btn8.setText("8");
         btn8.setPreferredSize(new java.awt.Dimension(500, 309));
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,41 +181,55 @@ public class Puzzle extends javax.swing.JFrame {
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn9,btn6);
+        jigsaw_robot(btn9,btn8);
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn2,btn1);
+        jigsaw_robot(btn2,btn3);
+        jigsaw_robot(btn2,btn5);
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn3,btn2);
+        jigsaw_robot(btn3,btn6);
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn4,btn1);
+        jigsaw_robot(btn4,btn5);   
+        jigsaw_robot(btn4,btn7);
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn5,btn2);
+        jigsaw_robot(btn5,btn4);
+        jigsaw_robot(btn5,btn6);
+        jigsaw_robot(btn5,btn8);
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn6,btn3);
+        jigsaw_robot(btn6,btn5);
+        jigsaw_robot(btn6,btn9);
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn7,btn4);
+        jigsaw_robot(btn7,btn8);
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
+        jigsaw_robot(btn8,btn5);
+        jigsaw_robot(btn8,btn7);
+        jigsaw_robot(btn8,btn9);
     }//GEN-LAST:event_btn8ActionPerformed
 
     int counter;
     
     void jigsaw_robot(JButton btn1,JButton btn2){        
-        if(btn2.getText() == ""){
+        if("".equals(btn2.getText())){
             btn2.setText(btn1.getText());
             btn2.setIcon(btn1.getIcon());
             btn1.setText("");
