@@ -29,6 +29,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     PreparedStatement pst = null;
     boolean clicklbl = false;
     
+    
     public Delivery_Company() {
         initComponents();
         init();
