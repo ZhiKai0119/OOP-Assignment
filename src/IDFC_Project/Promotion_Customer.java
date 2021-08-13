@@ -6,10 +6,20 @@
 package IDFC_Project;
 
 import connection.DatabaseConnection;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +36,7 @@ public class Promotion_Customer extends javax.swing.JPanel {
     public Promotion_Customer() {
         initComponents();
          init();
+         customJTable();
          updateTable();
     }
     
@@ -103,6 +114,38 @@ public class Promotion_Customer extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void customJTable() {
+        tblPromotion.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
+                super.getTableCellRendererComponent(jtable, o, bln, bln1, row, column);
+                if (column != 4) {
+                    setHorizontalAlignment(JLabel.LEFT);
+                }else {
+                    setHorizontalAlignment(JLabel.LEFT);
+                }
+                return this;
+            }
+        });
+        
+        //  set button to column 8
+        tblPromotion.getColumnModel().getColumn(8).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+            private final JButton btn = new JButton();
+
+            @Override
+            public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int i, int i1) {
+                btn.setText(o + "Copy");
+                btn.setBackground(jtable.getSelectionBackground());
+                return btn;
+            }
+
+            @Override
+            public Object getCellEditorValue() {
+                return btn.getText();
+            }
+        });
+    }
+    
      public void updateTable() {
         try {
             model = (DefaultTableModel) tblPromotion.getModel();
