@@ -3,8 +3,12 @@ package IDFC_Project;
 import connection.DatabaseConnection;
 import java.awt.Color;
 import java.sql.*;
+import java.text.ParseException;
+import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.Random;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +30,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
     public Promotion_Staff() {
         initComponents();
         init();
+        enableTXT(false);
         updateTable();
         autoGenerateID();
     }
@@ -96,17 +101,17 @@ public class Promotion_Staff extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(450, Short.MAX_VALUE)
                 .addComponent(jLabel6)
-                .addGap(445, 445, 445))
+                .addContainerGap(445, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
@@ -154,6 +159,11 @@ public class Promotion_Staff extends javax.swing.JPanel {
                 "Promotion ID", "Promotion Name", "Promo Code", "Promo Qty", "Promotion Percent", "Description", "PromoStartDate", "PromoEndDate"
             }
         ));
+        tblPromotion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPromotionMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblPromotion);
 
         jLabel8.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
@@ -216,82 +226,69 @@ public class Promotion_Staff extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel7))
-                                        .addGap(63, 63, 63)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnUpdate)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(20, 20, 20)
-                                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(272, 272, 272)
-                            .addComponent(jLabel1))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(47, 47, 47)
-                                    .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
-                        .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel7))
+                                    .addGap(54, 54, 54))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(60, 60, 60)))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel9))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblPromoCode, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                        .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(112, 112, 112)
+                                            .addComponent(jLabel1))))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dtpPromoEndDate, dtpPromoStartDate, jScrollPane1, txtPercent, txtPromoID, txtPromoName, txtPromoQty});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
+                                .addGap(8, 8, 8)
                                 .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPromoID, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtPromoName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,10 +305,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
                             .addComponent(txtPromoQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel9))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
                             .addComponent(txtPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,19 +314,20 @@ public class Promotion_Staff extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addGap(7, 7, 7)
-                                .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                                    .addComponent(dtpPromoStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel1)
+                        .addGap(1, 1, 1)
+                        .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
 
@@ -340,31 +336,52 @@ public class Promotion_Staff extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-//        try {
-//            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("INSERT INTO promotion(promoID) VALUES (?)");
-//            pst.setString(1, txtPromoID.getText());
-//            pst.executeUpdate();
-//            JOptionPane.showMessageDialog(this, "Testing Successfully", "Sucess", JOptionPane.INFORMATION_MESSAGE);
-//            autoGenerateID();
-//            updateTable();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(this, "Error Message: " + ex, "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-        addRecord();
-        updateTable();
+
+        try {
+            if(btnAdd.getText().equals("Add")) {
+                btnAdd.setText("Save");
+                autoGenerateID();
+                enableTXT(true);
+                btnUpdate.setEnabled(false);
+                btnDelete.setEnabled(false);
+                clearTXT();
+            } else {
+                if(txtPromoName.getText().isEmpty() || lblPromoCode.getText().isEmpty() || txtPromoQty.getText().isEmpty() || txtPercent.getText().isEmpty()
+                    || txtDescription.getText().isEmpty()) { //|| startDate.isEmpty() || endDate.isEmpty()
+                    JOptionPane.showMessageDialog(this, "Please Fill in all the things!", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    btnAdd.setText("Add");
+                    System.out.println("Yeah");
+                    addRecord();
+                    updateTable();
+//                    JOptionPane.showMessageDialog(this, "Successfully Added");
+                    clearTXT();
+                    enableTXT(false);
+                    autoGenerateID();
+                    btnUpdate.setEnabled(true);
+                    btnDelete.setEnabled(true);
+                }  
+            }
+        } catch (Exception e){
+            
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Do you want to generate a promo code?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+ 
+        if(response == JOptionPane.YES_OPTION) {
             for (int i = 0; i < length; i++){
             text[i] = characters.charAt(rand.nextInt(characters.length()));
+            }
+            for(int i=0; i < text.length; i++){
+                randomString +=text[i];
+            }
+
+            lblPromoCode.setText(randomString);
+
+            btnGenerate.setEnabled(false);
         }
-        for(int i=0; i < text.length; i++){
-            randomString +=text[i];
-        }
-        
-        lblPromoCode.setText(randomString);
-        
-        btnGenerate.setEnabled(false);
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -378,6 +395,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
             } else {
                 btnUpdate.setText("Update");
                 updateRecord();
+                updateTable();
                 enableTXT(false);
                 btnAdd.setEnabled(true);
                 btnDelete.setEnabled(true);
@@ -389,78 +407,87 @@ public class Promotion_Staff extends javax.swing.JPanel {
 
         private void updateRecord() {
         try {
-                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET promoName = ?, promoCode = ?, promoPercent = ?, PromoDesc = ?, promoStartDate = ?, promoEndDate = ? WHERE promoID = '" + txtPromoID.getText() + "'");
-                
-               // pst.setString(1, txtPromoID.getText()); //error
-                pst.setString(1, txtPromoName.getText());
-                pst.setString(2, lblPromoCode.getText());
-                pst.setString(3, txtPromoQty.getText());
-                pst.setString(4, txtPercent.getText());
-                pst.setString(5, txtDescription.getText());
-                pst.setString(6, startDate);
-                pst.setString(7, endDate);       
-                pst.executeUpdate();
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            startDate = dateformat.format(dtpPromoStartDate.getDate());
+            endDate = dateformat.format(dtpPromoEndDate.getDate());
+            
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET promoName = ?, promoCode = ?, promoQty = ?, promoPercent = ?, promoDesc = ?, promoStartDate = ?, promoEndDate = ? WHERE promoID = '" + txtPromoID.getText() + "'");
 
-                updateTable();
-                clearTXT();
-                JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
-             
+            pst.setString(1, txtPromoName.getText());
+            pst.setString(2, lblPromoCode.getText());
+            pst.setString(3, txtPromoQty.getText());
+            pst.setString(4, txtPercent.getText());
+            pst.setString(5, txtDescription.getText());
+            pst.setString(6, startDate);
+            pst.setString(7, endDate);     
+            pst.executeUpdate();
+
+            updateTable();
+            clearTXT();
+            autoGenerateID();
+            JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//            e.printStackTrace();
+           // JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        try {
+            int responde = JOptionPane.showConfirmDialog(this, "Do you really want to delete this record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(responde == JOptionPane.YES_OPTION) {
+                deleteRecord();
+            } else {
+                updateTable();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+                
     }//GEN-LAST:event_btnDeleteActionPerformed
-
+  private void deleteRecord() {
+        try {
+            int row = tblPromotion.getSelectedRow();
+            model = (DefaultTableModel) tblPromotion.getModel();
+            String value = model.getValueAt(row, 0).toString();
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("DELETE FROM promotion WHERE promoID = '" + value + "'");
+            pst.executeUpdate();
+            updateTable();
+            clearTXT();
+            autoGenerateID();
+            JOptionPane.showMessageDialog(this, "Delete Record Successfully!", "Successful", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         clearTXT();
+        autoGenerateID();
     }//GEN-LAST:event_btnClearActionPerformed
 
+    private void tblPromotionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPromotionMouseClicked
+        try {
+            int i = tblPromotion.getSelectedRow();
+            model = (DefaultTableModel) tblPromotion.getModel();
+            txtPromoID.setText(model.getValueAt(i, 0).toString());
+            txtPromoName.setText(model.getValueAt(i, 1).toString());
+            lblPromoCode.setText(model.getValueAt(i, 2).toString());
+            txtPromoQty.setText(model.getValueAt(i, 3).toString());
+            txtPercent.setText(model.getValueAt(i, 4).toString());
+            txtDescription.setText(model.getValueAt(i, 5).toString());
 
-//     public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        /*try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(CustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(CustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(CustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(CustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>*/
-//        
-//        /*try {
-//            //FlatGruvboxDarkMediumIJTheme.setup();
-//            FlatGruvboxDarkHardIJTheme.setup();
-//            //FlatArcDarkContrastIJTheme.setup();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Promotion_Staff().setVisible(true);
-//            }
-//        });
-//    }
-
-     
+            Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 6));
+            dtpPromoStartDate.setDate(date1);
+            Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 7));
+            dtpPromoEndDate.setDate(date2);
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error Message: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_tblPromotionMouseClicked
+   
      //add data to database
     private void addRecord() {
         try{
@@ -486,7 +513,6 @@ public class Promotion_Staff extends javax.swing.JPanel {
 //            DatabaseConnection.getInstance().getConnection().close();
             JOptionPane.showMessageDialog(null, "Data Inserted");
             autoGenerateID();
-            clearTXT();
         } catch(Exception ex){
             System.out.println("Error Message: " + ex);
         }
@@ -516,7 +542,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         }
     }
     private void clearTXT(){
-        txtPromoID.setText("");
+      //  txtPromoID.setText("");
         txtPromoName.setText("");
         lblPromoCode.setText("");
         txtPromoQty.setText("");
@@ -536,6 +562,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         txtDescription.setEnabled(blnEnable);
         dtpPromoStartDate.setEnabled(blnEnable);
         dtpPromoEndDate.setEnabled(blnEnable);
+        btnGenerate.setEnabled(blnEnable);
       
     }
     
