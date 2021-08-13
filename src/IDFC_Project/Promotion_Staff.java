@@ -43,6 +43,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         }
     }
     
+    //generate ID
     public void autoGenerateID() {
         try {
             Statement stmt = DatabaseConnection.getInstance().getConnection().createStatement();
@@ -90,6 +91,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        btnPromoStatus = new javax.swing.JToggleButton();
 
         jPanel1.setBackground(new java.awt.Color(45, 44, 45));
 
@@ -150,15 +153,24 @@ public class Promotion_Staff extends javax.swing.JPanel {
         tblPromotion.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
         tblPromotion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Promotion ID", "Promotion Name", "Promo Code", "Promo Qty", "Promotion Percent", "Description", "PromoStartDate", "PromoEndDate"
+                "ID", "Name", "Code", "Quantity", "Percent", "Description", "Start Date", "End Date", "Status"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblPromotion.setRowHeight(26);
         tblPromotion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPromotionMouseClicked(evt);
@@ -220,6 +232,17 @@ public class Promotion_Staff extends javax.swing.JPanel {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        jLabel10.setText("Promotion Status:");
+
+        btnPromoStatus.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        btnPromoStatus.setText("Not Available");
+        btnPromoStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPromoStatusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -247,7 +270,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
                                     .addGap(54, 54, 54))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel10))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel8)
                                     .addGap(60, 60, 60)))
@@ -272,7 +296,8 @@ public class Promotion_Staff extends javax.swing.JPanel {
                                         .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(112, 112, 112)
-                                            .addComponent(jLabel1))))))))
+                                            .addComponent(jLabel1)))
+                                    .addComponent(btnPromoStatus))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2)
                 .addContainerGap())
@@ -283,6 +308,9 @@ public class Promotion_Staff extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -321,20 +349,24 @@ public class Promotion_Staff extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(1, 1, 1)
                         .addComponent(dtpPromoEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(btnPromoStatus))
+                        .addGap(66, 66, 66)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))))
         );
 
         dtpPromoStartDate.setBackground(Color.BLACK);
         dtpPromoStartDate.setBackground(Color.BLACK);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Add 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
         try {
@@ -405,33 +437,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-        private void updateRecord() {
-        try {
-            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-            startDate = dateformat.format(dtpPromoStartDate.getDate());
-            endDate = dateformat.format(dtpPromoEndDate.getDate());
-            
-            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET promoName = ?, promoCode = ?, promoQty = ?, promoPercent = ?, promoDesc = ?, promoStartDate = ?, promoEndDate = ? WHERE promoID = '" + txtPromoID.getText() + "'");
-
-            pst.setString(1, txtPromoName.getText());
-            pst.setString(2, lblPromoCode.getText());
-            pst.setString(3, txtPromoQty.getText());
-            pst.setString(4, txtPercent.getText());
-            pst.setString(5, txtDescription.getText());
-            pst.setString(6, startDate);
-            pst.setString(7, endDate);     
-            pst.executeUpdate();
-
-            updateTable();
-            clearTXT();
-            autoGenerateID();
-            JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (Exception e) {
-           // JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
+      
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
             int responde = JOptionPane.showConfirmDialog(this, "Do you really want to delete this record?", "Confirm?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -445,7 +451,75 @@ public class Promotion_Staff extends javax.swing.JPanel {
         }
                 
     }//GEN-LAST:event_btnDeleteActionPerformed
-  private void deleteRecord() {
+ 
+      //add data to database
+    private void addRecord() {
+        try{
+            if(dtpPromoStartDate.getDate() != null ){
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                startDate = dateformat.format(dtpPromoStartDate.getDate());
+                endDate = dateformat.format(dtpPromoEndDate.getDate());
+            }
+        
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into promotion(promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate,promoStatus) values(?,?,?,?,?,?,?,?,?)");
+           
+            pst.setString(1, txtPromoID.getText());
+            pst.setString(2, txtPromoName.getText());
+            pst.setString(3, lblPromoCode.getText());
+            pst.setString(4, txtPromoQty.getText());
+            pst.setString(5, txtPercent.getText());
+            pst.setString(6, txtDescription.getText());
+            
+            pst.setString(7, startDate);
+            pst.setString(8, endDate);
+          
+            if(btnPromoStatus.getText().equals("Available")){
+                pst.setInt(9, 1);
+            } else {
+                pst.setInt(9, 0);
+            } 
+            pst.executeUpdate();
+//            DatabaseConnection.getInstance().getConnection().close();
+            JOptionPane.showMessageDialog(null, "Data Inserted");
+            autoGenerateID();
+        } catch(Exception ex){
+            System.out.println("Error Message: " + ex);
+        }
+    }
+      private void updateRecord() {
+        try {
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+            startDate = dateformat.format(dtpPromoStartDate.getDate());
+            endDate = dateformat.format(dtpPromoEndDate.getDate());
+            
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE promotion SET promoName = ?, promoCode = ?, promoQty = ?, promoPercent = ?, promoDesc = ?, promoStartDate = ?, promoEndDate = ?, promoStatus = ? WHERE promoID = '" + txtPromoID.getText() + "'");
+
+            pst.setString(1, txtPromoName.getText());
+            pst.setString(2, lblPromoCode.getText());
+            pst.setString(3, txtPromoQty.getText());
+            pst.setString(4, txtPercent.getText());
+            pst.setString(5, txtDescription.getText());
+            pst.setString(6, startDate);
+            pst.setString(7, endDate);   
+            if(btnPromoStatus.getText().equals("Available")){
+                pst.setInt(8, 1);
+            } else {
+                pst.setInt(8, 0);
+            } 
+            pst.executeUpdate();
+
+            updateTable();
+            clearTXT();
+            autoGenerateID();
+            JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+           // JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+    
+    private void deleteRecord() {
         try {
             int row = tblPromotion.getSelectedRow();
             model = (DefaultTableModel) tblPromotion.getModel();
@@ -458,6 +532,30 @@ public class Promotion_Staff extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Delete Record Successfully!", "Successful", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error Message: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+     public void updateTable() {
+        try {
+            model = (DefaultTableModel) tblPromotion.getModel();
+            model.setRowCount(0);
+            PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement("Select * From promotion;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String promoID = rs.getString(1);
+                String promoName = rs.getString(2);
+                String promoCode = rs.getString(3);
+                String promoQty = rs.getString(4);
+                String promoPercent = rs.getString(5);
+                String promoDesc = rs.getString(6);
+                String promoStartDate = rs.getString(7);
+                String promoEndDate = rs.getString(8);
+                boolean promoStatus = rs.getInt(9) == 1;
+
+                model.addRow(new Object[]{promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate,promoStatus});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -481,66 +579,29 @@ public class Promotion_Staff extends javax.swing.JPanel {
             dtpPromoStartDate.setDate(date1);
             Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 7));
             dtpPromoEndDate.setDate(date2);
+            
+             boolean status = (boolean) model.getValueAt(i, 8);
+            if(status == true) {
+                btnPromoStatus.setText("Available");
+            } else {
+                btnPromoStatus.setText("Not Available");
+            }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Error Message: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         
     }//GEN-LAST:event_tblPromotionMouseClicked
-   
-     //add data to database
-    private void addRecord() {
-        try{
-            if(dtpPromoStartDate.getDate() != null ){
-                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                startDate = dateformat.format(dtpPromoStartDate.getDate());
-                endDate = dateformat.format(dtpPromoEndDate.getDate());
-            }
-        
-            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into promotion(promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate) values(?,?,?,?,?,?,?,?)");
-           
-            pst.setString(1, txtPromoID.getText());
-            pst.setString(2, txtPromoName.getText());
-            pst.setString(3, lblPromoCode.getText());
-            pst.setString(4, txtPromoQty.getText());
-            pst.setString(5, txtPercent.getText());
-            pst.setString(6, txtDescription.getText());
-            
-            pst.setString(7, startDate);
-            pst.setString(8, endDate);
-          
-            pst.executeUpdate();
-//            DatabaseConnection.getInstance().getConnection().close();
-            JOptionPane.showMessageDialog(null, "Data Inserted");
-            autoGenerateID();
-        } catch(Exception ex){
-            System.out.println("Error Message: " + ex);
-        }
-    }
-   
-     
-    public void updateTable() {
-        try {
-            model = (DefaultTableModel) tblPromotion.getModel();
-            model.setRowCount(0);
-            PreparedStatement ps = DatabaseConnection.getInstance().getConnection().prepareStatement("Select * From promotion;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                String promoID = rs.getString(1);
-                String promoName = rs.getString(2);
-                String promoCode = rs.getString(3);
-                String promoQty = rs.getString(4);
-                String promoPercent = rs.getString(5);
-                String promoDesc = rs.getString(6);
-                String promoStartDate = rs.getString(7);
-                String promoEndDate = rs.getString(8);
 
-                model.addRow(new Object[]{promoID, promoName, promoCode, promoQty, promoPercent, promoDesc, promoStartDate,promoEndDate});
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void btnPromoStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPromoStatusActionPerformed
+        if(btnPromoStatus.isSelected()) {
+            btnPromoStatus.setText("Available");
+        } else {
+            btnPromoStatus.setText("Not Available");
         }
-    }
+    }//GEN-LAST:event_btnPromoStatusActionPerformed
+   
+   
     private void clearTXT(){
       //  txtPromoID.setText("");
         txtPromoName.setText("");
@@ -550,6 +611,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         txtDescription.setText("");
         dtpPromoStartDate.getEditor().setValue(null);
         dtpPromoEndDate.getEditor().setValue(null);
+        btnPromoStatus.setText("");
       
     }
       
@@ -563,6 +625,7 @@ public class Promotion_Staff extends javax.swing.JPanel {
         dtpPromoStartDate.setEnabled(blnEnable);
         dtpPromoEndDate.setEnabled(blnEnable);
         btnGenerate.setEnabled(blnEnable);
+        btnPromoStatus.setEnabled(blnEnable);
       
     }
     
@@ -572,10 +635,12 @@ public class Promotion_Staff extends javax.swing.JPanel {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnGenerate;
+    private javax.swing.JToggleButton btnPromoStatus;
     private javax.swing.JButton btnUpdate;
     private org.jdesktop.swingx.JXDatePicker dtpPromoEndDate;
     private org.jdesktop.swingx.JXDatePicker dtpPromoStartDate;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
