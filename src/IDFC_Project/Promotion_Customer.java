@@ -7,18 +7,13 @@ package IDFC_Project;
 
 import connection.DatabaseConnection;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -134,7 +129,7 @@ public class Promotion_Customer extends javax.swing.JPanel {
 
             @Override
             public Component getTableCellEditorComponent(JTable jtable, Object o, boolean bln, int i, int i1) {
-                btn.setText(o + "Copy");
+                btn.setText(o + "Copy Code");
                 btn.setBackground(jtable.getSelectionBackground());
                 return btn;
             }
@@ -156,12 +151,10 @@ public class Promotion_Customer extends javax.swing.JPanel {
                 String promoID = rs.getString(1);
                 String promoName = rs.getString(2);
                 String promoCode = rs.getString(3);
-                String promoQty = rs.getString(4);
-                
+                String promoQty = rs.getString(4);                
                 String promoDesc = rs.getString(5);
                 String promoStartDate = rs.getString(6);
                 String promoEndDate = rs.getString(7);
-            
 
                 model.addRow(new Object[]{promoID, promoName, promoCode, promoQty,  promoDesc, promoStartDate,promoEndDate});
             }
