@@ -124,7 +124,7 @@ public class Promotion_Customer extends javax.swing.JPanel {
         });
         
         //  set button to column 8
-        tblPromotion.getColumnModel().getColumn(8).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
+        tblPromotion.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(new JCheckBox()) {
             private final JButton btn = new JButton();
 
             @Override
