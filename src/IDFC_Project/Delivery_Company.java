@@ -210,7 +210,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -231,9 +231,6 @@ public class Delivery_Company extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblDeliveryCompany);
         if (tblDeliveryCompany.getColumnModel().getColumnCount() > 0) {
             tblDeliveryCompany.getColumnModel().getColumn(0).setPreferredWidth(3);
-            tblDeliveryCompany.getColumnModel().getColumn(4).setResizable(false);
-            tblDeliveryCompany.getColumnModel().getColumn(5).setResizable(false);
-            tblDeliveryCompany.getColumnModel().getColumn(6).setResizable(false);
             tblDeliveryCompany.getColumnModel().getColumn(6).setPreferredWidth(120);
             tblDeliveryCompany.getColumnModel().getColumn(7).setPreferredWidth(18);
         }
