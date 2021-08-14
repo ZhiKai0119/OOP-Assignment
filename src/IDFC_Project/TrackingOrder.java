@@ -5,6 +5,7 @@
  */
 package IDFC_Project;
 
+import connection.DatabaseConnection;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -16,11 +17,38 @@ public class TrackingOrder extends javax.swing.JPanel {
 
     private double counter = 0;
     private double increase = 33.33;
+    private String status = "";
     
     public TrackingOrder() {
         initComponents();
+        inti();
+        status();
     }
 
+    public void inti() {
+        try {
+            DatabaseConnection.getInstance().getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void status() {
+        switch (status) {
+            case "processing":
+                fill(counter);
+                break;
+            case "TakeOrder":
+                fill(counter + 33.33);
+                break;
+            case "Shipped":
+                fill(counter + 66.66);
+            default:
+                fill(counter + 100);
+                break;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,14 +142,14 @@ public class TrackingOrder extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        fill(counter + increase);
+//        fill(counter + increase);
     }//GEN-LAST:event_btnAddActionPerformed
     
     public void fill(double total) {
         while(counter <= total) {
             bar.setValue((int)counter);
             try {
-                Thread.sleep(20);
+                Thread.sleep(50);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }

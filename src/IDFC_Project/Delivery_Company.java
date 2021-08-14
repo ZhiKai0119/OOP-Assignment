@@ -145,6 +145,8 @@ public class Delivery_Company extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         btnStatus = new javax.swing.JToggleButton();
         btnDelete = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtPricePerKg = new javax.swing.JTextField();
 
         setMaximumSize(new java.awt.Dimension(1200, 700));
         setMinimumSize(new java.awt.Dimension(1200, 700));
@@ -199,18 +201,18 @@ public class Delivery_Company extends javax.swing.JPanel {
         tblDeliveryCompany.setFont(new java.awt.Font("Mongolian Baiti", 1, 14)); // NOI18N
         tblDeliveryCompany.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "No.", "Company ID", "Company Name", "Address", "Manager", "Contact No.", "Logo", "Status"
+                "No.", "Company ID", "Company Name", "Address", "Manager", "Contact No.", "Logo", "Price/Kg", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Byte.class, java.lang.Double.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -232,7 +234,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         if (tblDeliveryCompany.getColumnModel().getColumnCount() > 0) {
             tblDeliveryCompany.getColumnModel().getColumn(0).setPreferredWidth(3);
             tblDeliveryCompany.getColumnModel().getColumn(6).setPreferredWidth(120);
-            tblDeliveryCompany.getColumnModel().getColumn(7).setPreferredWidth(18);
+            tblDeliveryCompany.getColumnModel().getColumn(8).setPreferredWidth(18);
         }
 
         jPanel1.setBackground(new java.awt.Color(45, 44, 45));
@@ -245,7 +247,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(450, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(445, 445, 445))
         );
@@ -297,6 +299,11 @@ public class Delivery_Company extends javax.swing.JPanel {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+        jLabel9.setText("Price Per Kg:");
+
+        txtPricePerKg.setFont(new java.awt.Font("Mongolian Baiti", 1, 20)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -304,47 +311,47 @@ public class Delivery_Company extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel8)))
-                            .addComponent(jLabel2))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(btnStatus))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(txtComName, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(txtManager, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtComID)
-                                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(5, 5, 5))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(btnStatus)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                    .addComponent(txtComName, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                    .addComponent(txtManager, javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtComID)
+                                                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(23, 23, 23))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtPricePerKg, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18))))))
+                    .addComponent(jLabel2))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -355,40 +362,47 @@ public class Delivery_Company extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addComponent(jLabel2)))
+                                .addGap(33, 33, 33)
+                                .addComponent(jLabel3)
+                                .addGap(109, 109, 109)
+                                .addComponent(jLabel4)
+                                .addGap(43, 43, 43)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel5)
+                                .addGap(122, 122, 122)
+                                .addComponent(jLabel8))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtComID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnStatus)))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtContactNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnStatus)
-                            .addComponent(jLabel8))
-                        .addGap(21, 21, 21)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPricePerKg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -438,7 +452,7 @@ public class Delivery_Company extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "This Company ID already Assist.");
                 } else {
                     if(txtComID.getText().isEmpty() || txtComName.getText().isEmpty() || txtAddress.getText().isEmpty() || txtManager.getText().isEmpty()
-                        || txtContactNo.getText().isEmpty()) {
+                        || txtContactNo.getText().isEmpty() || txtPricePerKg.getText().isEmpty()) {
                         JOptionPane.showMessageDialog(this, "Please Fill in the Text Field!", "Error", JOptionPane.ERROR_MESSAGE);
                     } else {
                         if(lblLogo.getIcon() == null) {
@@ -471,12 +485,12 @@ public class Delivery_Company extends javax.swing.JPanel {
         
         //check for number 0 to 9
         if(evt.getKeyChar() >= '0' && evt.getKeyChar() <= '9') {
-            //check for length not more than 10 digit
+            //check for length not more than 11 digit
             if(length < 12) {
                 //editable true
                 txtContactNo.setEditable(true);
             } else {
-                //not editable if length more than 10 digit
+                //not editable if length more than 11 digit
                 txtContactNo.setEditable(false);
             }
         } else {
@@ -500,7 +514,8 @@ public class Delivery_Company extends javax.swing.JPanel {
         Image image2 = image.getImage().getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH); 
         lblLogo.setIcon(new ImageIcon(image2));
         
-        boolean status = (boolean) model.getValueAt(i, 7);
+        txtPricePerKg.setText(model.getValueAt(i, 7).toString());
+        boolean status = (boolean) model.getValueAt(i, 8);
         if(status == true) {
             btnStatus.setText("Available");
         } else {
@@ -579,9 +594,10 @@ public class Delivery_Company extends javax.swing.JPanel {
                 if (rs.getObject(6) != null) {
                     image = scaledImage(new ImageIcon(rs.getBytes(6)));
                 }
-                boolean status = rs.getInt(7) == 1;
+                double priceKg = rs.getDouble(7);
+                boolean status = rs.getInt(8) == 1;
                 
-                model.addRow(new Object[]{tblDeliveryCompany.getRowCount() + 1,companyID, companyName, address, manager, contactNo, image, status});
+                model.addRow(new Object[]{tblDeliveryCompany.getRowCount() + 1,companyID, companyName, address, manager, contactNo, image, priceKg, status});
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -591,7 +607,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     //add into database
     private void addRecord() {
         try{
-            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, Status) values(?,?,?,?,?,?,?)");
+            pst = DatabaseConnection.getInstance().getConnection().prepareStatement("insert into delivery_company(companyID, companyName, Address, Manager, ContactNo, Logo, PricePerKg, Status) values(?,?,?,?,?,?,?,?)");
             InputStream is = new FileInputStream(new File(imagePath));
             pst.setString(1, txtComID.getText());
             pst.setString(2, txtComName.getText());
@@ -599,10 +615,11 @@ public class Delivery_Company extends javax.swing.JPanel {
             pst.setString(4, txtManager.getText());
             pst.setString(5, txtContactNo.getText());
             pst.setBlob(6, is);
+            pst.setString(7, txtPricePerKg.getText());
             if(btnStatus.getText().equals("Available")){
-                pst.setInt(7, 1);
+                pst.setInt(8, 1);
             } else {
-                pst.setInt(7, 0);
+                pst.setInt(8, 0);
             } 
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data Insert Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -615,17 +632,18 @@ public class Delivery_Company extends javax.swing.JPanel {
     private void editRecord() {
         try {
             if(clicklbl == true) {
-                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
+                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Logo = ?, PricePerKg = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
                 InputStream is = new FileInputStream(new File(imagePath));
                 pst.setString(1, txtComName.getText());
                 pst.setString(2, txtAddress.getText());
                 pst.setString(3, txtManager.getText());
                 pst.setString(4, txtContactNo.getText());
                 pst.setBlob(5, is);
+                pst.setString(6, txtPricePerKg.getText());
                 if(btnStatus.getText().equals("Available")){
-                    pst.setInt(6, 1);
+                    pst.setInt(7, 1);
                 } else {
-                    pst.setInt(6, 0);
+                    pst.setInt(7, 0);
                 } 
                 pst.executeUpdate();
 
@@ -633,15 +651,16 @@ public class Delivery_Company extends javax.swing.JPanel {
                 clearTXT();
                 JOptionPane.showMessageDialog(this, "Edit Successfully", "Successful", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
+                pst = DatabaseConnection.getInstance().getConnection().prepareStatement("UPDATE delivery_company SET companyName = ?, Address = ?, Manager = ?, ContactNo = ?, PricePerKg = ?, Status = ? WHERE companyID = '" + txtComID.getText() + "'");
                 pst.setString(1, txtComName.getText());
                 pst.setString(2, txtAddress.getText());
                 pst.setString(3, txtManager.getText());
                 pst.setString(4, txtContactNo.getText());
+                pst.setString(5, txtPricePerKg.getText());
                 if(btnStatus.getText().equals("Available")){
-                    pst.setInt(5, 1);
+                    pst.setInt(6, 1);
                 } else {
-                    pst.setInt(5, 0);
+                    pst.setInt(6, 0);
                 } 
                 pst.executeUpdate();
 
@@ -678,6 +697,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtManager.setText("");
         txtContactNo.setText("");
         lblLogo.setIcon(null);
+        txtPricePerKg.setText("");
     }
     
     private void enableTXT(boolean blnEnable) {
@@ -687,6 +707,7 @@ public class Delivery_Company extends javax.swing.JPanel {
         txtManager.setEnabled(blnEnable);
         txtContactNo.setEnabled(blnEnable);
         lblLogo.setEnabled(blnEnable);
+        txtPricePerKg.setEnabled(blnEnable);
         btnStatus.setEnabled(blnEnable);
         tblDeliveryCompany.setEnabled(blnEnable);
     }
@@ -705,6 +726,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -715,6 +737,7 @@ public class Delivery_Company extends javax.swing.JPanel {
     private javax.swing.JTextField txtComName;
     private javax.swing.JTextField txtContactNo;
     private javax.swing.JTextField txtManager;
+    private javax.swing.JTextField txtPricePerKg;
     // End of variables declaration//GEN-END:variables
 
 }
